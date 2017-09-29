@@ -1,8 +1,15 @@
-var = { // firebase CODE 
 
-};
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
+    authDomain: "project-1-7c513.firebaseapp.com",
+    databaseURL: "https://project-1-7c513.firebaseio.com",
+    projectId: "project-1-7c513",
+    storageBucket: "project-1-7c513.appspot.com",
+    messagingSenderId: "173560237058"
+  };
   
-  firebase.initialApp(config);
+  firebase.initializeApp(config);
 
   var database = firebase.database();
 
@@ -58,23 +65,12 @@ var = { // firebase CODE
       console.log(userLocation);
       console.log(entryDate);
     })    
-    // moment is a library 
-
-    // 
-    var empStartPretty = moment.unix(empStart).format("MM/DD/YY");
-
-    // how much time passed in seconds then convert into months
-    // 
-    var empMonths = moment().diff(moment.unix(empStart, "X"), "months");
-    console.log(empMonths);
-
-    var empBilled = empMonths + empRate;
-    console.log(empBilled)
-
+    // moment is a library
+    var empStartPretty = moment.unix(entryDate).format("MM/DD/YY");
 
     // showing this to HTML; 
-    $("#employe-table > tbody").append("<tr><td>" + empName + "</td><td>" + empRole + "</td><td>" 
-      + empStartPretty + "</td><td>" + empMonths + "</td><td>" + empRate + "</td><td>" + empBilled + "
+    $("#table > tbody").append("<tr><td>" + userName + "</td><td>" + userAge + "</td><td>" 
+      + empStartPretty + "</td><td>" + userLocation + "</td><td>" + entryDate + "</td><td>"
     });
 
 // initlaize FB, set var to DB, then get variables, store data in vars, 
