@@ -15,3 +15,14 @@
 9. Must be Deployed (Github Pages)   -- [Repo created and io page live]
 10. Must have User Input Validation   -- [Form validation]
 11. Mobile Responsive  -- [CSS: media queries]
+
+
+
+
+#On the form
+
+1.sleep
+2.heartrate 
+3.daily activities [dropdown activitiy menu]
+4. additional notes
+5.alcohol checkbox.
