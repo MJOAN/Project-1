@@ -3,14 +3,18 @@
 
 <head>
     <title>Date Entry</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- for google integration sign in -->
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- CSS Style Pages -->
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- Bootstrap CDN-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
     <!-- JS script -->
     <!-- Firebase Reference 
   <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script> -->
@@ -22,9 +26,51 @@
 3.daily activities [dropdown activitiy menu]
 4. additional notes
 5.alcohol checkbox. -->
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-
+    <br>
+    <br>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" role="button" class="btn" data-toggle="modal" data-target="#logIn"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
+    <div class="modal fade" id="logIn">
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Log In Authentication</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="login-app">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input class="form-control" id="name" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Age:</label>
+                                    <input class="form-control" id="age" type="number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input class="form-control" id="email" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password:</label>
+                                    <input class="form-control" id="password" type="text">
+                                </div>
+                                <button id="register" onclick="registerUser()" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn-primary">Register</button>
+                            </form>
+                            <button id="sign-out" onclick="signOut()" class="mdl-button mdl-js-button mdl-js-ripple-effect">Sign-Out</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
     </div>
     <!-- 
 
@@ -38,7 +84,6 @@
             88     `8'     88   `"Y8888Y"'   88888888Y"' d8'          `8b 88888888888  
 
      -->
-
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -53,8 +98,21 @@
                         <input class="form-control" id="location" type="number">
                     </div>
                     <div class="form-group">
-                        <label for="symptom">Health Symptom Input</label>
-                        <input class="form-control" id="symptom" type="text">
+                        <label for="symptom">Health Symptom Input</label><br>
+                            <label class="checkbox-inline symptom">
+                            <input type="checkbox" name="optradio" data-toggle="collapse" data-target="#respitory-collapse">Respitory</label>
+                            
+                        <label class="checkbox-inline symptom">
+                            <input type="checkbox" name="optradio" data-toggle="collapse" data-target="#digestive-collapse">Digestive</label>
+                        <label class="checkbox-inline symptom">
+                            <input type="checkbox" name="optradio" data-toggle="collapse" data-target="#neurological-collapse">Neurological</label>
+                        <label class="checkbox-inline symptom">
+                            <input type="checkbox" name="optradio" data-toggle="collapse" data-target="#malaise-collapse">Malaise</label>
+                            <div id="respitory-collapse" class="collapse">HAVE TONS OF INFO ON RESPITORY</div>
+                            <div id="digestive-collapse" class="collapse">WANNA KNOW ABOUT DIGESTIVE?! I GOT YOU</div>
+                            <div id="neurological-collapse" class="collapse">LOUD NOISES. BRAIN HURTS</div>
+                            <div id="malaise-collapse" class="collapse">WHY THE FUCK IS MY FEVER AT 105?!</div>
+
                     </div>
                     <div class="form-group">
                         <label for="comment">Comment (optional): </label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="color:#eaa54c" data-toggle="tooltip" title="Add additional information for your eyes only!"></span>
@@ -76,6 +134,8 @@
                         <label class="radio-inline activity">
                             <input type="radio" name="optradio">Heavy Exercise</label>
                     </div>
+                    <button type="button" class="btn btn-primary" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Sync with your FitBit</button>
                 </form>
                 <div class="modal-footer">
                     <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button>
@@ -101,8 +161,8 @@
                                                   
 
 
-    -->
-    <div class="data-display">
+    --> <!--
+    <div class="data-display full-calendar col-md-8 col-md-offset-2">
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default fadeIn">
@@ -149,6 +209,8 @@
             </div>
         </div>
     </div>
+
+-->
 <!-- 
 
 
@@ -169,102 +231,72 @@
 
 
  -->
-    <div class="calendar">
-    <div class="month">
-        <ul>
-            <li class="prev">&#10094;</li>
-            <li class="next">&#10095;</li>
-            <!--<div class="search-container"> This does not look good at all. Soo...
-            <li> <input id="search" type="text" name="search" placeholder="Search.."></li>
-        </div> -->
-            <li>Month
-                <br>
-                <span style="font-size:18px">2017</span>
-            </li>
-        </ul>
-    </div>
-    <ul class="weekdays">
-        <li>Mo</li>
-        <li>Tu</li>
-        <li>We</li>
-        <li>Th</li>
-        <li>Fr</li>
-        <li>Sa</li>
-        <li>Su</li>
-    </ul>
-    <ul class="days">
-    </ul>
-</div>
 
+
+    <div class="data-display col-md-8 col-md-offset-2">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default fadeIn">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Data Management</h3>
+                        <h3>09/24/2017</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form>
+                            <div class="form-group location-div">
+                                <label for="location">Location of Entry</label>
+                                <h1>THE ANGELS</h1>
+                            </div>
+                            <div class="form-group">
+                                <label for="symptom">Health Symptom Input</label>
+                                <h1>coughing, cold sweats
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">Comment:</label>
+                                <p>Give attitude jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human around for not waking up request food, purr loud scratch the walls, the floor, the windows, the humans and steal the warm chair right after you get up so find something else more interesting. All of a sudden cat goes crazy brown cats with pink ears so mesmerizing birds so eat a plant, kill a hand, and leave fur on owners clothes. Spill litter box, scratch at owner, destroy all furniture, especially couch going to catch the red dot today going to catch the red dot today but knock over christmas tree for eat all the power cords. Hide head under blanket so no one can see. Instead of drinking water from the cat bowl, make sure to steal water from the toilet. </p>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="alcohol">Alcohol Consumption Today?</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="activity">Daily Activity</label>
+                                <br>
+                                <label class="radio-inline activity">
+                                    <input type="radio" name="optradio">No Exercise</label>
+                                <label class="radio-inline activity">
+                                    <input type="radio" name="optradio">Light Exercise</label>
+                                <label class="radio-inline activity">
+                                    <input type="radio" name="optradio">Moderate Exercise</label>
+                                <label class="radio-inline activity">
+                                    <input type="radio" name="optradio">Heavy Exercise</label>
+                            </div>
+                            <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button> 
+                        </form> 
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <div id="calendar">
+
+    </div>
+  </div>
 <!-- Test Button -->
     <button id="button1">This is a button to do things with.</button>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-
-        var months = ["January", "February", "March", "April", "May", "June", "July",
-            "August", "September", "October", "November", "December"];
-    //prepend a filled form top the top of the page when a non-active day is clicked. 
-    $("#button1").click(function() {
-
-
-
-
-        $(".data-display").animate({
-            height: "toggle",
-            opacity: "toggle"
-        }, 'slow');
-
-        $(".calendar").animate({
-            opacity: "toggle"
-        });
-
-        $("#button1").text('Go Back To Calendar');
-
-        $(".location-div").animate({
-            left: '500px'
-
-
-        });
-
-    });
-
-    $(document).keyup(function(e) {
-     if (e.keyCode == 27) { // escape key maps to keycode `27`
-        $(".data-display").animate({
-            height: "toggle",
-            opacity: "toggle"
-        }, 'slow');
-
-        $(".calendar").animate({
-            opacity: "toggle"
-        });
-    }
-});
-
-    $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-
-    function calendarMonths() {
-
-        for (var i = 0; i < months.length; i++) {
-            console.log(months[i]);
-
-
-
-        } 
-    }
-
-    function calendarDays() {
-        for (var i = 1; i <= 31; i++) {
-
-            $(".days").append("<a data-toggle='modal' data-target='#myModal'><li class='activeDay'>" + i + "</li></a>");
-
-        }
-    }
-    calendarMonths();
-    calendarDays();
+    
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Link to Moment.js should go here -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="vendor/clndr.js"></script>
+    <script src="assets/javascript/logic.js"></script>
+  
     </script>
 </body>
 

@@ -1,40 +1,96 @@
+// VARIABLES: 
+//__________________________________________________________________________________________
+// FUNCTIONS: 
+//__________________________________________________________________________________________
 
-    // VARIABLES: 
-    //__________________________________________________________________________________________
-    // FUNCTIONS: 
-    //__________________________________________________________________________________________
-   
-    // MAIN PROCESS:
-    //__________________________________________________________________________________________
-
+// MAIN PROCESS:
+//__________________________________________________________________________________________
 
 
-    // API/AJAX: 
-    //__________________________________________________________________________________________
+//All the front page shit
+var days = {
+    day: 5,
+    events: [],
+    classes: "day",
+    date: moment("2015-12-31")
+};
 
-    var variable = "";
-    var queryURL = "https://www." + variable + "";
 
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }) .done(function(response) {
+template: $('#calendar-template').html()
 
 
 
-    // CODE: Second API button onclick()  
-    //__________________________________________________________________________________________
+// there are a lot of options. the rabbit hole is deep.
+$('#calendar').clndr({
+    template: $('#calendar-template').html(),
+    events: [
+        { date: '2013-09-09', title: 'CLNDR GitHub Page Finished', url: 'http://github.com/kylestetz/CLNDR' }
+    ],
+    clickEvents: {
+        click: function(target) {
+            console.log(target);
+        },
+        onMonthChange: function(month) {
+            console.log('you just went to ' + month.format('MMMM, YYYY'));
+            calendarDays();
 
-    $("button").on("click", function() {
-      var firstAPI = $(this).attr("");
-      var queryURL = "http://" + firstAPI + "&api_key=";
+        }
+    },
+    doneRendering: function() {
+        console.log('this would be a fine place to attach custom event handlers.');
+    }
+});
 
-      $.ajax({
-        url: queryURL,
-        method: "GET"
-      }).done(function(response) {
-        // Step 1: Run this file, click a button, and see what the response object looks like in the browser's console.
-        // Open up the data key, then open up the 0th, element. Study the keys and how the JSON is structured.
 
-        console.log(response);
 
+
+
+//prepend a filled form top the top of the page when a non-active day is clicked. 
+$("#button1").click(function() {
+
+
+
+
+    $(".data-display").animate({
+        height: "toggle",
+        opacity: "toggle"
+    }, 'slow');
+
+    $(".calendar").animate({
+        opacity: "toggle"
+    });
+
+    $("#button1").text('Go Back To Calendar');
+
+    $(".location-div").animate({
+        left: '500px'
+
+
+    });
+
+});
+
+$(document).keyup(function(e) {
+    if (e.keyCode == 27) { // escape key maps to keycode `27`
+        $(".data-display").animate({
+            height: "toggle",
+            opacity: "toggle"
+        }, 'slow');
+
+        $(".clndr").animate({
+            opacity: "toggle"
+        });
+    }
+});
+
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+
+function calendarDays() {
+    $(".day-contents").wrap("<a data-toggle='modal' data-target='#myModal'>");
+
+}
+
+calendarDays();
