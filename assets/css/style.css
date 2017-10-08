@@ -18,9 +18,16 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px;
-    width: 60%;
+    height: 100%;
     align-items: center;
-    justify-content: space-around; 
+    position: fixed;
+    width: calc(100% - 500px);
+
+
+}
+
+.calendar {
+
 
 }
 .panel-title {
@@ -28,7 +35,6 @@ body {
     padding: 70px 25px;
     width: 102%;
     background-color: #ea4c4c;
-
     font-size: 20px;
     text-transform: uppercase;
     letter-spacing: 3px;
@@ -160,7 +166,18 @@ input[type=text] {
 }
 
 .data-display {
-    display: none;
+    
+    position: fixed;
+    overflow: scroll;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-around; 
+    margin-left: 0px;
+    height: 85%;
+    width: 500px;
+    left: -500px;
 
 }
 

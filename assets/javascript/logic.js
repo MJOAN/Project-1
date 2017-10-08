@@ -48,22 +48,18 @@ $('#calendar').clndr({
 //prepend a filled form top the top of the page when a non-active day is clicked. 
 $("#button1").click(function() {
 
-
-
-
     $(".data-display").animate({
-        height: "toggle",
-        opacity: "toggle"
+        width: '+=500',
+        
     }, 'slow');
 
     $(".calendar").animate({
-        opacity: "toggle"
-    });
-
-    $("#button1").text('Go Back To Calendar');
+        
+        "margin-left": '+=500'
+    }, 'slow');
 
     $(".location-div").animate({
-        left: '500px'
+        width: 'toggle'
 
 
     });
@@ -73,15 +69,24 @@ $("#button1").click(function() {
 $(document).keyup(function(e) {
     if (e.keyCode == 27) { // escape key maps to keycode `27`
         $(".data-display").animate({
-            height: "toggle",
-            opacity: "toggle"
+
+        'margin-left': '+=500'          
         }, 'slow');
 
-        $(".clndr").animate({
-            opacity: "toggle"
-        });
+    $(".calendar").animate({
+        
+        "margin-left": '+=500'
+    }, 'slow');
+
+    $(".location-div").animate({
+        width: 'toggle'
+
+    });
+
     }
 });
+
+
 
 $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
@@ -94,3 +99,4 @@ function calendarDays() {
 }
 
 calendarDays();
+

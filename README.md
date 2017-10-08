@@ -26,3 +26,7 @@
 3.daily activities [dropdown activitiy menu]
 4. additional notes
 5.alcohol checkbox.
+
+
+##checnboxes for sepcific categories. 
+
