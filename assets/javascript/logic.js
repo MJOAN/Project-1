@@ -68,11 +68,105 @@ $(document).keyup(function(e) {
     }
 });
 
+//toggles D3
+$('#d3Button, #back').click(function() {
+
+    var d3Storage = $("<div class='container'>");
+    d3Storage.addClass("fadeIn d3View text-center");
+    d3Storage.attr("data-target", "#d3Button");
+    d3Storage.html("Hi my name is bartholomew");
+    d3Storage.css({
+    "text-align": 'center',
+     'font-size': "100px",
+     'display': 'none'
+    });
+    d3Storage.append("<br>");
+    var goBack = $("<button id='back'>");
+    goBack.addClass("btn btn-primary");
+    goBack.html("Go Back Jack");
+
+//this is for later purposes. When clicked, displays a load animation.
+    var loadAnime1 = $("<div>");
+    loadAnime1.addClass("firstAnimation")
+
+    var loadAnime2 = $("<div>")
+    $(".data-display").after(d3Storage);
+
+    if (this.id === 'd3Button') {
+
+        $(".data-display").animate({
+            width: 'toggle',
+            opacity:'toggle'
+        }, 400);
 
 
+          setTimeout( function() {
+
+            d3Storage.animate({
+            
+            opacity: 'toggle'
+        }, 400);
+
+        $(".d3View").append(goBack);
+            }, 3000);
+
+    }
+
+    (goBack).bind({
+        click: function() {
+            $('.data-display').animate({
+                width: 'toggle',
+                opacity: 'toggle'
+            }, 400);
+            d3Storage.animate({
+                opacity: 'toggle',
+                width: 'toggle'
+            }, 100 )
+
+        },
+
+    });
+
+     
+
+    
+}); 
 
 function calendarDays() {
-    $(".day-contents").wrap("<a data-toggle='modal' data-target='#myModal'>");
-}
+    $("td.day.today").click(function() {
+
+        $("td.day.today").attr('data-toggle', 'modal');
+        $("td.day.today").attr('data-target', '#myModal');
+
+   
+
+
+    });
+
+
+$("td.day.past").click(function(e) {
+        
+     // escape key maps to keycode `27`
+        $(".data-display").animate({
+            height: 'toggle',
+            opacity: 'toggle'
+        }, 'slow');
+
+        $(".calendar").animate({
+
+            "opacity": 'toggle'
+        }, 'slow');
+
+        $(".location-div").animate({
+            width: 'toggle'
+
+        });
+
+        $(".currentDay").append();
+
+    console.log(JSON.stringify);
+});
+};
 
 calendarDays();
+
