@@ -176,3 +176,39 @@ input[type=text] {
 
     padding: 0 49px;
 }
+
+
+/*d3 components*/
+.tooltip {
+    font-family: 'Open Sans' !important, sans-serif;
+    list-style-type: none;
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    font-size: 21px;
+    color: black; 
+    line-height: 1.5em;
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    background-color: #fff;
+
+}
+
+#graph {
+    font-family: 'Open Sans' !important, sans-serif;
+    list-style-type: none;
+    display: inline-block;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    font-size: 21px;
+    color: black; 
+    line-height: 1.5em;
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    background-color: #fff;
+}
