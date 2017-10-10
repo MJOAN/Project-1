@@ -14,86 +14,7 @@
   firebase.initializeApp(config);
   var testDatabase = firebase.database();
   var dateRef = testDatabase.ref().child("/dates");
-/** // fitbit API
-    // get the url 
-    var url = window.location.href;
-    console.log(url);
-    //access token from url
-    var access_token = url.split("#")[1].split("=")[1].split("&")[0];
-    // get userid
-    var userId = url.split("#")[1].split("=")[2].split("&")[0];
 
-    $.ajax({
-      type: 'GET',
-      beforeSend: function(request) {
-         request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-      },
-        url: "https://api.fitbit.com/1/user/"+userId+"/activities/steps/date/today/1w.json",
-        success:function(data, status, xhr){
-          // console.log(JSON.stringify(data));
-        }
-    });
-
-
-    $.ajax({
-      type: 'GET',
-      beforeSend: function(request) {
-         request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-      },
-        url: "https://api.fitbit.com/1/user/-/activities/heart/date/today/1w.json",
-        success:function(data, status, xhr){
-          // console.log(JSON.stringify(data));
-        }
-    });
-**/
-
-// weather API one - grabbing info by user input
-
-    $.ajax({
-      url : "http://api.wunderground.com/api/f8b3b3389929c977/history_20170929/q/CA/Los_Angeles.json" ,
-      method: "GET"
-    })  
-
-    .done(function(response) { 
-          console.log("Mean Temp " + JSON.stringify(response.history.dailysummary[0].meantempi));
-          console.log("Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));   
-          console.log("Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity)); 
-          console.log("Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));  
-          console.log("Rainfall " + JSON.stringify(response.history.observations[0].rain));    
-    });
-
-// weather API two - grabbing info by user's IP address
-// working link - http://api.wunderground.com/api/f8b3b3389929c977/history_20170929/geolookup/q/autoip.json
-
- /**   var date = "07/31/17";
-    var weatherQueryURL = "http://api.wunderground.com/api/f8b3b3389929c977/history_" + date + "/geolookup/q/autoip.json";
-    $.ajax({
-      url : weatherQueryURL,
-      method: "GET"
-    })  
-    .done(function(response) { 
-
-          dateRef.push([{Date: date},{"Mean Temp " : response.history.dailysummary[0].meantempi},
-            {"Max Hum " : response.history.dailysummary[0].maxhumidity},
-            {"Min Hum " : response.history.dailysummary[0].minhumidity}, 
-          {"Mean Wind Speed " : response.history.dailysummary[0].meanwindspdi},  
-          {"Rainfall " : response.history.observations[0].rain}]);
-    }); 
-
-// AQI
-    $.ajax({
-      url : "http://api.waqi.info/feed/here/?token=593a9ac142943ace1b66178b02174bd1671dd07f",
-      method: "GET"
-    })  
-// the url above grabs the user's ip's address to determine its location
-
-// basic url - "http://api.waqi.info/search/?token=593a9ac142943ace1b66178b02174bd1671dd07f&keyword=losangeles"
-    .done(function(response) {   
-          console.log("AQI " + JSON.stringify(response.data.aqi)); 
-// basic - console.log("AQI " + response.data[0].aqi);  
-    });
-
-**/
 var data = [];
 var d3Data = [];
 var parseTime = d3.timeParse("%m/%d/%Y");
@@ -140,7 +61,7 @@ for (i = 0; i < d3Data.length; i++) {
     var x = d3.scaleTime().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
     x.domain(d3.extent(data, function(d) { return d.date; }));
-    x.ticks(10);
+    x.ticks(7);
     x.tickFormat(d3.timeFormat("%Y-%m-%d"));
     y.domain([0, d3.max(data, function(d) { return d.value; })]);
 
