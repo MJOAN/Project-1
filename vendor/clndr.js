@@ -44,7 +44,7 @@
                     <div class="data-display panel panel-default fadeIn">
                         <div class="panel-heading">
                             <h3 class="panel-title">Data Management</h3>
-                            <h3>09/24/2017</h3>
+                            <h3 class='currentDay'></h3>
                     </div>
                         <div class="panel-body">
                         <form>
@@ -77,6 +77,7 @@
                                     <input type="radio" name="optradio">Heavy Exercise</label>
                             </div>
                             <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button> 
+                            <button class="btn btn-info" id="d3Button" type="button">Additional Info</button>
                         </form> 
                     </div>
                         
