@@ -73,7 +73,6 @@
     </div>
     </div>
     <!-- 
-
             88b           d88   ,ad8888ba,   88888888ba,        db        88           
             888b         d888  d8"'    `"8b  88      `"8b      d88b       88           
             88`8b       d8'88 d8'        `8b 88        `8b    d8'`8b      88           
@@ -82,7 +81,6 @@
             88   `8b d8'   88 Y8,        ,8P 88         8P d8""""""""8b   88           
             88    `888'    88  Y8a.    .a8P  88      .a8P d8'        `8b  88           
             88     `8'     88   `"Y8888Y"'   88888888Y"' d8'          `8b 88888888888  
-
      -->
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -146,117 +144,6 @@
     </div>
   
 
-  <!-- Script -->
-
-<script>
-
-
-  'use strict';
-
-// fitbit API
-    // get the url 
-    var url = window.location.href;
-    console.log(url);
-    //access token from url
-    var access_token = url.split("#")[1].split("=")[1].split("&")[0];
-    // get userid
-    var userId = url.split("#")[1].split("=")[2].split("&")[0];
-
-    $.ajax({
-      type: 'GET',
-      beforeSend: function(request) {
-         request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-      },
-        url: "https://api.fitbit.com/1/user/"+userId+"/activities/steps/date/today/1w.json",
-        success:function(data, status, xhr){
-          console.log(JSON.stringify(data));
-        }
-    });
-
-
-    $.ajax({
-      type: 'GET',
-      beforeSend: function(request) {
-         request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-      },
-        url: "https://api.fitbit.com/1/user/"+userId+"/activities/heart/date/today/1w.json",
-        success:function(data, status, xhr){
-          console.log(JSON.stringify(data));
-        }
-    });
-
-     $.ajax({
-      type: 'GET',
-      beforeSend: function(request) {
-         request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-      },
-        url: "https://api.fitbit.com/1/user/"+userId+"/sleep/date/2017-04-02.json",
-
-        success:function(data, status, xhr){
-          console.log(JSON.stringify(data.summary.totalMinutesAsleep));
-          console.log(JSON.stringify(data.summary.totalTimeInBed));
-        }
-    });
-
-
-// weather API one - grabbing info by user input
-
-    $.ajax({
-      url : "https://api.wunderground.com/api/f8b3b3389929c977/history_20170929/q/CA/Los_Angeles.json" ,
-      method: "GET"
-    })  
-
-    .done(function(response) { 
-          console.log("Mean Temp " + JSON.stringify(response.history.dailysummary[0].meantempi));
-          console.log("Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));   
-          console.log("Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity)); 
-          console.log("Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));  
-          console.log("Rainfall " + JSON.stringify(response.history.observations[0].rain));    
-    });
-
-// weather API two - grabbing info by user's IP address
-// working link - http://api.wunderground.com/api/f8b3b3389929c977/history_20170929/geolookup/q/autoip.json
-
-
-    var date = "20170929";
-    var weatherQueryURL = "https://api.wunderground.com/api/f8b3b3389929c977/history_" + date + "/geolookup/q/autoip.json";
-
-
-    $.ajax({
-      url : weatherQueryURL,
-      method: "GET"
-    })  
-
-    .done(function(response) { 
-          console.log("Geo Mean Temp " + JSON.stringify(response.history.dailysummary[0].meantempi));
-          console.log("Geo Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));   
-          console.log("Geo Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity)); 
-          console.log("Geo Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));  
-          console.log("Geo Rainfall " + JSON.stringify(response.history.observations[0].rain));    
-    });
-
-
-// AQI
-    $.ajax({
-      url : "http://api.waqi.info/feed/here/?token=593a9ac142943ace1b66178b02174bd1671dd07f",
-      method: "GET"
-    })  
-// the url above grabs the user's ip's address to determine its location
-
-// basic url - "http://api.waqi.info/search/?token=593a9ac142943ace1b66178b02174bd1671dd07f&keyword=losangeles"
-    .done(function(response) {   
-          console.log("AQI " + JSON.stringify(response.data.aqi)); 
-// basic - console.log("AQI " + response.data[0].aqi);  
-    });
-
-
-
-
-
-
-  </script>
-
-
     
 <!-- Calendar -->
 
@@ -276,6 +163,91 @@
     <script src="assets/javascript/logic.js"></script>
   
     </script>
+
+
+      <!-- Script -->
+
+    <script>
+      'use strict';
+    // fitbit API
+        // get the url 
+        var url = window.location.href;
+        console.log(url);
+        //access token from url
+        var access_token = url.split("#")[1].split("=")[1].split("&")[0];
+        // get userid
+        var userId = url.split("#")[1].split("=")[2].split("&")[0];
+        $.ajax({
+          type: 'GET',
+          beforeSend: function(request) {
+             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+          },
+            url: "https://api.fitbit.com/1/user/"+userId+"/activities/steps/date/today/1w.json",
+            success:function(data, status, xhr){
+              console.log(JSON.stringify(data));
+            }
+        });
+        $.ajax({
+          type: 'GET',
+          beforeSend: function(request) {
+             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+          },
+            url: "https://api.fitbit.com/1/user/"+userId+"/activities/heart/date/today/1w.json",
+            success:function(data, status, xhr){
+              console.log(JSON.stringify(data));
+            }
+        });
+         $.ajax({
+          type: 'GET',
+          beforeSend: function(request) {
+             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+          },
+            url: "https://api.fitbit.com/1/user/"+userId+"/sleep/date/2017-04-02.json",
+            success:function(data, status, xhr){
+              console.log(JSON.stringify(data.summary.totalMinutesAsleep));
+              console.log(JSON.stringify(data.summary.totalTimeInBed));
+            }
+        });
+    // weather API one - grabbing info by user input
+        $.ajax({
+          url : "https://api.wunderground.com/api/f8b3b3389929c977/history_20170929/q/CA/Los_Angeles.json" ,
+          method: "GET"
+        })  
+        .done(function(response) { 
+              console.log("Mean Temp " + JSON.stringify(response.history.dailysummary[0].meantempi));
+              console.log("Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));   
+              console.log("Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity)); 
+              console.log("Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));  
+              console.log("Rainfall " + JSON.stringify(response.history.observations[0].rain));    
+        });
+    // weather API two - grabbing info by user's IP address
+    // working link - http://api.wunderground.com/api/f8b3b3389929c977/history_20170929/geolookup/q/autoip.json
+        var date = "20170929";
+        var weatherQueryURL = "https://api.wunderground.com/api/f8b3b3389929c977/history_" + date + "/geolookup/q/autoip.json";
+        $.ajax({
+          url : weatherQueryURL,
+          method: "GET"
+        })  
+        .done(function(response) { 
+              console.log("Geo Mean Temp " + JSON.stringify(response.history.dailysummary[0].meantempi));
+              console.log("Geo Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));   
+              console.log("Geo Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity)); 
+              console.log("Geo Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));  
+              console.log("Geo Rainfall " + JSON.stringify(response.history.observations[0].rain));    
+        });
+    // AQI
+        $.ajax({
+          url : "http://api.waqi.info/feed/here/?token=593a9ac142943ace1b66178b02174bd1671dd07f",
+          method: "GET"
+        })  
+    // the url above grabs the user's ip's address to determine its location
+    // basic url - "http://api.waqi.info/search/?token=593a9ac142943ace1b66178b02174bd1671dd07f&keyword=losangeles"
+        .done(function(response) {   
+              console.log("AQI " + JSON.stringify(response.data.aqi)); 
+    // basic - console.log("AQI " + response.data[0].aqi);  
+        });
+      </script>
+      
 </body>
 
 </html>
