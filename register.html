@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Registration</title>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <body>
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Registration Form</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="register-app">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input class="form-control" id="name" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Age:</label>
+                                    <input class="form-control" id="age" type="number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input class="form-control" id="email" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password:</label>
+                                    <input class="form-control" id="password" type="text">
+                                </div>
+                                <!-- Submit Button -->
+                                <button id="click-button" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+        <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+        <script type="text/javascript">
+        var config = {
+            apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
+            authDomain: "project-1-7c513.firebaseapp.com",
+            databaseURL: "https://project-1-7c513.firebaseio.com",
+            projectId: "project-1-7c513",
+            storageBucket: "project-1-7c513.appspot.com",
+            messagingSenderId: "173560237058"
+        };
+
+        firebase.initializeApp(config);
+        </script>
+        <script type="text/javascript">
+        var database = firebase.database();
+        var name = "";
+        var age = "";
+        var email = "";
+        var password = "";
+
+        $("#click-button").on("click", function() {
+
+            event.preventDefault();
+
+            // dateAdded: firebase.database.ServerValue.TIMESTAMP
+            name = $("#name").val().trim();
+            age = $("#age").val().trim();
+            email = $("#email").val().trim();
+            password = $("#password").val().trim();
+            var uid = firebase.auth().currentUser;
+
+            database.ref(`users`/ + {uid}).set({  //change .set from .push and added + {$uid}
+                name: name,
+                uid: uid,
+                age: age,
+                email: email,
+                password: password
+            });
+
+            console.log("Registration Completed.");
+            window.location.replace("login.html");
+        });
+
+        database.ref().on("value", function(snapshot) {
+
+            console.log(snapshot.val());
+
+            console.log(snapshot.val().name);
+            console.log(snapshot.val().uid);
+            console.log(snapshot.val().age);
+            console.log(snapshot.val().email);
+            console.log(snapshot.val().password);
+
+        }, function(errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+
+
+        window.onload = function() {};
+        </script>
+    </body>
+
+</html>
