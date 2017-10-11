@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <body>
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Log In Authentication</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="login-app"></form>
+                            <div class="panel-body" ;>
+                                <button id="register" style="" onclick="registerUser()" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn-primary" value="Load new document">Register</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Firebase UI Widget-->
+        <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
+        <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+        <script type="text/javascript">
+            
+        var config = {
+            apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
+            authDomain: "project-1-7c513.firebaseapp.com",
+            databaseURL: "https://project-1-7c513.firebaseio.com",
+            projectId: "project-1-7c513",
+            storageBucket: "project-1-7c513.appspot.com",
+            messagingSenderId: "173560237058"
+        };
+
+        firebase.initializeApp(config);
+        </script>
+        <script type="text/javascript">
+        var uiConfig = {
+
+            signInSuccessUrl: "index.html",
+            signInOptions: [
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                firebase.auth.EmailAuthProvider.PROVIDER_ID
+            ],
+        };
+
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        ui.start("#login-app", uiConfig, authCheck);
+
+        var registerUser = function() {
+            window.location.replace("register.html");
+        };
+
+        var authCheck = function(user) {
+            window.user = user;
+            var currentUID = null;
+
+            firebase.auth().onAuthStateChanged(function(user) {
+
+                if (user && user.uid != currentUID) {
+                    currentUID = user.uid;
+                    console.log("Welcome UID:" + currentUID);
+                    window.location.assign("index.html")  
+                } else {
+                    currentUID = null;
+                    console.log("no user signed in");
+                }
+            });
+
+        };
+        authCheck();
+
+
+        window.onload = function() {};
+        </script>
+    </body>
+
+</html>
