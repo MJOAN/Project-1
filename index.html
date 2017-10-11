@@ -67,6 +67,7 @@
         </div>
 
        
+
         <!-- Firebase UI Widget-->
         <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
         <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
@@ -125,6 +126,7 @@
                         
 
     
+
     <!-- 
             88b           d88   ,ad8888ba,   88888888ba,        db        88           
             888b         d888  d8"'    `"8b  88      `"8b      d88b       88           
@@ -188,6 +190,7 @@
                         <label class="radio-inline activity">
                             <input type="radio" value="" name="mod-exercise">Moderate Exercise</label>
                         <label class="radio-inline activity">
+
                             <input type="radio" value="" name="heavy-exercise">Heavy Exercise</label>
                      </div>
 
@@ -279,7 +282,10 @@
           method: "GET"
         })  
         .done(function(response) { 
-              console.log("Mean Temp " + JSON.stringify(response.history.dailysummary[0].meantempi));
+
+                           console.log("Max Temp " + JSON.stringify(response.history.dailysummary[0].maxtempi));
+               console.log("Min Temp " + JSON.stringify(response.history.dailysummary[0].mintempi));
+
               console.log("Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));   
               console.log("Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity)); 
               console.log("Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));  
@@ -294,7 +300,10 @@
           method: "GET"
         })  
         .done(function(response) { 
-              console.log("Geo Mean Temp " + JSON.stringify(response.history.dailysummary[0].meantempi));
+
+              console.log("Geo Max Temp " + JSON.stringify(response.history.dailysummary[0].maxtempi));
+               console.log("Geo Min Temp " + JSON.stringify(response.history.dailysummary[0].mintempi));
+
               console.log("Geo Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));   
               console.log("Geo Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity)); 
               console.log("Geo Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));  
