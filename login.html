@@ -35,8 +35,8 @@
         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
         <!-- Firebase SDK -->
         <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-
         <script type="text/javascript">
+            
         var config = {
             apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
             authDomain: "project-1-7c513.firebaseapp.com",
@@ -48,10 +48,8 @@
 
         firebase.initializeApp(config);
         </script>
-
         <script type="text/javascript">
-
-        var uiConfig = { 
+        var uiConfig = {
 
             signInSuccessUrl: "index-JSON-test.html",
             signInOptions: [
@@ -61,37 +59,34 @@
         };
 
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
-        ui.start("#login-app", uiConfig, initApp);
+        ui.start("#login-app", uiConfig, authCheck);
 
         var registerUser = function() {
             window.location.replace("register.html");
         };
 
-        var initApp = function(user) {
+        var authCheck = function(user) {
             window.user = user;
             var currentUID = null;
 
             firebase.auth().onAuthStateChanged(function(user) {
 
-                if (user && user.uid != currentUID) {  
+                if (user && user.uid != currentUID) {
                     currentUID = user.uid;
-                console.log("Welcome UID:" + currentUID);
-                // window.location.assign("index.html")  //not working
-            } else {  
-                currentUID = null;  
-                console.log("no user signed in");        
-            }
+                    console.log("Welcome UID:" + currentUID);
+                    window.location.assign("index.html")  
+                } else {
+                    currentUID = null;
+                    console.log("no user signed in");
+                }
             });
-            
-        };
-        initApp();
 
-        window.onload = function() {
         };
+        authCheck();
 
+
+        window.onload = function() {};
         </script>
-        <!-- JS Firebase Script-->
-        <script src="firebase.js"></script>
     </body>
 
 </html>
