@@ -28,7 +28,18 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="register.html" role="button" class="btn" data-toggle="modal" data-target="#logIn"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
             <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
+            <li id="sign-out"><span id="sign-out" class="glyphicon glyphicon-log-out"></span> Sign-Out</a></li> 
+        <!--sign-out Firebase script-->
+        <script>    
+       document.querySelector('#sign-out').addEventListener('click', function(e) {
+       e.preventDefault();
+       e.stopPropagation();
+       firebase.auth().signOut();
+        });
+        </script>
+         </ul>
+        </div>
+      </ul>
     </div>
     
     
