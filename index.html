@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
     <!-- JS script -->
     <!-- Firebase Reference -->
-  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -29,47 +29,41 @@
     <br>
     <br>
     <div class="navbar navbar-inverse navbar-fixed-top">
+        <span class="signedUser"><div class="navbar-text">You are signed in as Ian Stahl</div></span>
         <ul class="nav navbar-nav navbar-right">
+            <li><button class="btn"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228M7G&redirect_uri=https%3A%2F%2Fmjoan.github.io%2FProject-1%2Findex.html&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800"> Sync with your FitBit</a></button></li>
             <li><a href="#" role="button" class="btn" data-toggle="modal" data-target="#logIn"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
             <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
     </div>
     <div class="modal fade" id="logIn">
-        <div class="container">
-            <br>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Log In Authentication</h3>
-                        </div>
-                        <div class="panel-body">
-                            <form id="login-app">
-                                <div class="form-group">
-                                    <label for="name">Name:</label>
-                                    <input class="form-control" id="name" type="text">
-                                </div>
-                                <div class="form-group">
-                                    <label for="age">Age:</label>
-                                    <input class="form-control" id="age" type="number">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email:</label>
-                                    <input class="form-control" id="email" type="text">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password:</label>
-                                    <input class="form-control" id="password" type="text">
-                                </div>
-                                <button id="register" onclick="registerUser()" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn-primary">Register</button>
-                            </form>
-                            <button id="sign-out" onclick="signOut()" class="mdl-button mdl-js-button mdl-js-ripple-effect">Sign-Out</button>
-                        </div>
-                    </div>
-                </div>
+        < <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Registration Form</h3>
             </div>
-        </div>
-       
+            <div class="panel-body">
+                <form id="register-app">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input class="form-control" id="name" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age:</label>
+                        <input class="form-control" id="age" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input class="form-control" id="email" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input class="form-control" id="password" type="text">
+                    </div>
+                    <!-- Submit Button -->
+                    <button id="click-button" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Register</button>
+                </form>
+            </div>
+    </div>
     </div>
     </div>
     <!-- 
@@ -96,21 +90,20 @@
                         <input class="form-control" id="location" type="number">
                     </div>
                     <div class="form-group">
-                        <label for="symptom">Health Symptom Input</label><br>
-                            <label class="checkbox-inline symptom">
+                        <label for="symptom">Health Symptom Input</label>
+                        <br>
+                        <label class="checkbox-inline symptom">
                             <input type="checkbox" name="optradio" data-toggle="collapse" data-target="#respitory-collapse">Respitory</label>
-                            
                         <label class="checkbox-inline symptom">
                             <input type="checkbox" name="optradio" data-toggle="collapse" data-target="#digestive-collapse">Digestive</label>
                         <label class="checkbox-inline symptom">
                             <input type="checkbox" name="optradio" data-toggle="collapse" data-target="#neurological-collapse">Neurological</label>
                         <label class="checkbox-inline symptom">
                             <input type="checkbox" name="optradio" data-toggle="collapse" data-target="#malaise-collapse">Malaise</label>
-                            <div id="respitory-collapse" class="collapse">HAVE TONS OF INFO ON RESPITORY</div>
-                            <div id="digestive-collapse" class="collapse">WANNA KNOW ABOUT DIGESTIVE?! I GOT YOU</div>
-                            <div id="neurological-collapse" class="collapse">LOUD NOISES. BRAIN HURTS</div>
-                            <div id="malaise-collapse" class="collapse">WHY THE FUCK IS MY FEVER AT 105?!</div>
-
+                        <div id="respitory-collapse" class="collapse">HAVE TONS OF INFO ON RESPITORY</div>
+                        <div id="digestive-collapse" class="collapse">WANNA KNOW ABOUT DIGESTIVE?! I GOT YOU</div>
+                        <div id="neurological-collapse" class="collapse">LOUD NOISES. BRAIN HURTS</div>
+                        <div id="malaise-collapse" class="collapse">WHY THE FUCK IS MY FEVER AT 105?!</div>
                     </div>
                     <div class="form-group">
                         <label for="comment">Comment (optional): </label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="color:#eaa54c" data-toggle="tooltip" title="Add additional information for your eyes only!"></span>
@@ -132,9 +125,8 @@
                         <label class="radio-inline activity">
                             <input type="radio" name="optradio">Heavy Exercise</label>
                     </div>
-
                     <button type="button" class="btn btn-primary" aria-label="Left Align">
-                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228M7G&redirect_uri=https%3A%2F%2Fmjoan.github.io%2FProject-1%2Findex.html&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800"> Sync with your FitBit</a></button>
+                        
                 </form>
                 <div class="modal-footer">
                     <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button>
@@ -143,8 +135,49 @@
             </div>
         </div>
     </div>
-  
-
+    <!-- Data Storage Management -->
+    <div class="data-display panel panel-default fadeIn">
+        <div class="panel-heading">
+            <h3 class="panel-title">Data Management <button class="btn btn-default" id="backCalendar">Go Back To Calendar</button></h3>
+            <h3 class='daySelected' value=""></h3>
+        </div>
+        <div class="panel-body">
+            <form>
+                <div class="form-group location-div">
+                    <label for="location">Location of Entry</label>
+                    <h1>THE ANGELS</h1>
+                </div>
+                <div class="form-group">
+                    <label for="symptom">Health Symptom Input</label>
+                    <h1>coughing, cold sweats
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">Comment:</label>
+                                <p>Give attitude jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human around for not waking up request food, purr loud scratch the walls, the floor, the windows, the humans and steal the warm chair right after you get up so find something else more interesting. All of a sudden cat goes crazy brown cats with pink ears so mesmerizing birds so eat a plant, kill a hand, and leave fur on owners clothes. Spill litter box, scratch at owner, destroy all furniture, especially couch going to catch the red dot today going to catch the red dot today but knock over christmas tree for eat all the power cords. Hide head under blanket so no one can see. Instead of drinking water from the cat bowl, make sure to steal water from the toilet. </p>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="alcohol">Alcohol Consumption Today?</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="activity">Daily Activity</label>
+                                <br>
+                                <label class="radio-inline activity">
+                                    <input type="radio" name="optradio">No Exercise</label>
+                                <label class="radio-inline activity">
+                                    <input type="radio" name="optradio">Light Exercise</label>
+                                <label class="radio-inline activity">
+                                    <input type="radio" name="optradio">Moderate Exercise</label>
+                                <label class="radio-inline activity">
+                                    <input type="radio" name="optradio">Heavy Exercise</label>
+                            </div>
+                            <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button> 
+                            <button class="btn btn-info" id="d3Button" type="button">Additional Info</button>
+                        </form> 
+                    </div>
+                        
+            
+             </div>
     
 <!-- Calendar -->
 
@@ -254,3 +287,50 @@
 </body>
 
 </html>
+
+<!--
+ var config = {
+            apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
+            authDomain: "project-1-7c513.firebaseapp.com",
+            databaseURL: "https://project-1-7c513.firebaseio.com",
+            projectId: "project-1-7c513",
+            storageBucket: "project-1-7c513.appspot.com",
+            messagingSenderId: "173560237058"
+        };
+        firebase.initializeApp(config);
+
+        var database = firebase.database();
+        var name = "";
+        var age = "";
+        var email = "";
+        var password = "";
+        $("#click-button").on("click", function() {
+            event.preventDefault();
+            // dateAdded: firebase.database.ServerValue.TIMESTAMP
+            name = $("#name").val().trim();
+            age = $("#age").val().trim();
+            email = $("#email").val().trim();
+            password = $("#password").val().trim();
+            var uid = firebase.auth().currentUser;
+            database.ref(`users`/ + {uid}).set({  //change .set from .push and added + {$uid}
+                name: name,
+                uid: uid,
+                age: age,
+                email: email,
+                password: password
+            });
+            console.log("Registration Completed.");
+            window.location.replace("login.html");
+        });
+        database.ref().on("value", function(snapshot) {
+            console.log(snapshot.val());
+            console.log(snapshot.val().name);
+            console.log(snapshot.val().uid);
+            console.log(snapshot.val().age);
+            console.log(snapshot.val().email);
+            console.log(snapshot.val().password);
+        }, function(errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+        window.onload = function() {};
+        -->
