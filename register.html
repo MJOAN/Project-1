@@ -63,26 +63,44 @@
         firebase.initializeApp(config);
         </script>
         <script type="text/javascript">
+
         var database = firebase.database();
         var name = "";
         var age = "";
         var email = "";
         var password = "";
 
+        var authCheck = function(user) {
+            window.user = user;
+            var currentUID = null;
+
+            firebase.auth().onAuthStateChanged(function(user) {
+
+                if (user && user.uid != currentUID) {
+                    currentUID = user.uid;
+                    console.log("Welcome UID:" + currentUID);
+                    window.location.assign("index.html")
+                } else {
+                    currentUID = null;
+                    console.log("no user signed in");
+                }
+            });
+
+        };
+        authCheck();
+        
         $("#click-button").on("click", function() {
 
             event.preventDefault();
 
-            // dateAdded: firebase.database.ServerValue.TIMESTAMP
             name = $("#name").val().trim();
             age = $("#age").val().trim();
             email = $("#email").val().trim();
             password = $("#password").val().trim();
-            var uid = firebase.auth().currentUser;
+            var user = firebase.auth().currentUser;
 
-            database.ref(`users`/ + {uid}).set({  //change .set from .push and added + {$uid}
+            database.ref(`users`).set({
                 name: name,
-                uid: uid,
                 age: age,
                 email: email,
                 password: password
@@ -93,19 +111,17 @@
         });
 
         database.ref().on("value", function(snapshot) {
-
             console.log(snapshot.val());
-
+            // Log the value of the various properties
             console.log(snapshot.val().name);
-            console.log(snapshot.val().uid);
             console.log(snapshot.val().age);
             console.log(snapshot.val().email);
             console.log(snapshot.val().password);
 
+
         }, function(errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
-
 
         window.onload = function() {};
         </script>
