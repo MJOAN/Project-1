@@ -29,14 +29,14 @@ $('#calendar').clndr({
     clickEvents: {
         click: function(target) {
             console.log(target);
-            console.log(target.date._i);
-            var targetDate=JSON.stringify(target.date._i);
-            $(".currentDay").html(moment(targetDate).format("MM-DD-YYYY"));
+            var targetDate = JSON.stringify(target.date._i);
+            $(".daySelected").html(moment(targetDate).format("MM/DD/YYYY"));
+
         },
         onMonthChange: function(month) {
             console.log('you just went to ' + month.format('MMMM, YYYY'));
             calendarDays();
-
+ 
         }
     },
     doneRendering: function() {
@@ -72,6 +72,19 @@ $(document).keyup(function(e) {
 });
 
 
+$('#backCalendar').click(function() {
+    if ( this.id === "backCalendar") {
+        $(".data-display").animate({
+            height: 'toggle',
+            opacity: 'toggle'
+        }, 'slow');
+
+        $(".calendar").animate({
+            opacity: 'toggle'
+        }, 'slow');
+    }
+});
+
 
 
      
@@ -82,10 +95,7 @@ function calendarDays() {
     $("td.day.today").click(function() {
 
         $("td.day.today").attr('data-toggle', 'modal');
-        $("td.day.today").attr('data-target', '#myModal');
-
-   
-
+        $("td.day.today").attr('data-target', '#myModal')
 
     });
 
@@ -108,21 +118,13 @@ $("td.day.past").click(function(e) {
 
         });
 
+        $(".currentDay").append();
+
+   
 });
+
+
 };
 
-$('#backCalendar').click(function(){
-    if (this.id === "backCalendar") {
-        $(".data-display").animate({
-            height: 'toggle',
-            opacity: 'toggle'
-        }, 'slow');
-        $(".calendar").animate({
 
-            opacity: 'toggle'
-        }, 'slow');
-
-    }
-})
 calendarDays();
-
