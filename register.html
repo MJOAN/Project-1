@@ -3,11 +3,12 @@
 
 <head>
     <meta charset="utf-8">
+    <title>Registration</title>
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Bootstrap CDN-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <body>
         <div class="container">
@@ -44,20 +45,85 @@
                 </div>
             </div>
         </div>
-        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
-        <!-- Firebase and UI -->
         <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.js"></script>
-        <script src="./assets/app.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
         <script type="text/javascript">
-        // using .serialize() takes entire form inputs and puts them into an array
-        // we store that into 'userObj' 
-        // call registerUser function from app.js and pass in, user + userObj 
-        // then redirect them to log in page - after they have completed registration
-                      
+        var config = {
+            apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
+            authDomain: "project-1-7c513.firebaseapp.com",
+            databaseURL: "https://project-1-7c513.firebaseio.com",
+            projectId: "project-1-7c513",
+            storageBucket: "project-1-7c513.appspot.com",
+            messagingSenderId: "173560237058"
+        };
+
+        firebase.initializeApp(config);
+        </script>
+        <script type="text/javascript">
+
+        var database = firebase.database();
+        var name = "";
+        var age = "";
+        var email = "";
+        var password = "";
+
+        var authCheck = function(user) {
+            window.user = user;
+            var currentUID = null;
+
+            firebase.auth().onAuthStateChanged(function(user) {
+
+                if (user && user.uid != currentUID) {
+                    currentUID = user.uid;
+                    console.log("Welcome UID:" + currentUID);
+                    window.location.assign("index.html")
+                } else {
+                    currentUID = null;
+                    console.log("no user signed in");
+                }
+            });
+
+        };
+        authCheck();
+        
+        $("#click-button").on("click", function() {
+
+            event.preventDefault();
+
+            name = $("#name").val().trim();
+            age = $("#age").val().trim();
+            email = $("#email").val().trim();
+            password = $("#password").val().trim();
+            var user = firebase.auth().currentUser;
+
+            database.ref(`users`).set({
+                name: name,
+                age: age,
+                email: email,
+                password: password
+            });
+
+            console.log("Registration Completed.");
+            window.location.replace("login.html");
+        });
+
+        database.ref().on("value", function(snapshot) {
+            console.log(snapshot.val());
+            // Log the value of the various properties
+            console.log(snapshot.val().name);
+            console.log(snapshot.val().age);
+            console.log(snapshot.val().email);
+            console.log(snapshot.val().password);
+
+
+        }, function(errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+
+        window.onload = function() {};
         </script>
     </body>
 
