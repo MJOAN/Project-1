@@ -29,6 +29,9 @@ $('#calendar').clndr({
     clickEvents: {
         click: function(target) {
             console.log(target);
+            console.log(target.date._i);
+            var targetDate=JSON.stringify(target.date._i);
+            $(".currentDay").html(moment(targetDate).format("MM-DD-YYYY"));
         },
         onMonthChange: function(month) {
             console.log('you just went to ' + month.format('MMMM, YYYY'));
@@ -104,8 +107,6 @@ $("td.day.past").click(function(e) {
             width: 'toggle'
 
         });
-
-        $(".currentDay").append();
 
     console.log(JSON.stringify);
 });
