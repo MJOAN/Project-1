@@ -41,48 +41,7 @@
         `
            
                 
-                    <div class="data-display panel panel-default fadeIn">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Data Management</h3>
-                            <h3 class='currentDay'></h3>
-                    </div>
-                        <div class="panel-body">
-                        <form>
-                            <div class="form-group location-div">
-                                <label for="location">Location of Entry</label>
-                                <h1>THE ANGELS</h1>
-                            </div>
-                            <div class="form-group">
-                                <label for="symptom">Health Symptom Input</label>
-                                <h1>coughing, cold sweats
-                            </div>
-                            <div class="form-group">
-                                <label for="comment">Comment:</label>
-                                <p>Give attitude jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human around for not waking up request food, purr loud scratch the walls, the floor, the windows, the humans and steal the warm chair right after you get up so find something else more interesting. All of a sudden cat goes crazy brown cats with pink ears so mesmerizing birds so eat a plant, kill a hand, and leave fur on owners clothes. Spill litter box, scratch at owner, destroy all furniture, especially couch going to catch the red dot today going to catch the red dot today but knock over christmas tree for eat all the power cords. Hide head under blanket so no one can see. Instead of drinking water from the cat bowl, make sure to steal water from the toilet. </p>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="" id="alcohol">Alcohol Consumption Today?</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="activity">Daily Activity</label>
-                                <br>
-                                <label class="radio-inline activity">
-                                    <input type="radio" name="optradio">No Exercise</label>
-                                <label class="radio-inline activity">
-                                    <input type="radio" name="optradio">Light Exercise</label>
-                                <label class="radio-inline activity">
-                                    <input type="radio" name="optradio">Moderate Exercise</label>
-                                <label class="radio-inline activity">
-                                    <input type="radio" name="optradio">Heavy Exercise</label>
-                            </div>
-                            <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button> 
-                            <button class="btn btn-info" id="d3Button" type="button">Additional Info</button>
-                        </form> 
-                    </div>
-                        
-            
-             </div>
+                   
             <div class="calendar">
                     <div class='clndr-controls'>
                         <div class='clndr-control-button'>
