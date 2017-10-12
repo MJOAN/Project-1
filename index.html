@@ -21,13 +21,10 @@
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
-    <!-- 1.sleep
-2.heartrate 
-3.daily activities [dropdown activitiy menu]
-4. additional notes
-5.alcohol checkbox. -->
+
     <br>
     <br>
+
     <!--Navbar for mobil display -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -49,6 +46,14 @@
                     </li>
                     <li><a href="#" role="button" class="btn" data-toggle="modal" data-target="#logIn"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                  <li id="sign-out"><span id="sign-out" class="glyphicon glyphicon-log-out"></span> Sign-Out</a></li> 
+             <script>    
+       document.querySelector('#sign-out').addEventListener('click', function(e) {
+       e.preventDefault();
+       e.stopPropagation();
+       firebase.auth().signOut();
+        });
+        </script>
                 </ul>
             </div>
     </nav>
@@ -63,6 +68,28 @@
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <input class="form-control" id="name" type="text">
+
+    
+    
+    
+    <div class="modal fade" id="logIn">
+        
+        
+       <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Log In Authentication</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="login-app"></form>
+                            <div class="panel-body" ;>
+                                <button id="register" style="" onclick="registerUser()" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn-primary" value="Load new document">Register</button>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="form-group">
                         <label for="age">Age:</label>
@@ -81,8 +108,7 @@
                 </form>
             </div>
         </div>
-    </div>
-    
+
     <!-- 
             88b           d88   ,ad8888ba,   88888888ba,        db        88           
             888b         d888  d8"'    `"8b  88      `"8b      d88b       88           
@@ -93,6 +119,7 @@
             88    `888'    88  Y8a.    .a8P  88      .a8P d8'        `8b  88           
             88     `8'     88   `"Y8888Y"'   88888888Y"' d8'          `8b 88888888888  
      -->
+    
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -101,11 +128,14 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Health Tracker</h4>
                 </div>
-                <form>
-                    <div class="form-group">
+
+                <form id="action" id="input-form">
+                    
+                    <div class="form-group" id="location">
                         <label for="location">Location</label>
-                        <input class="form-control" id="location" type="number">
+                        <input class="form-control" name="location" type="text">
                     </div>
+
                     <div class="form-group">
                         <label for="symptom">Health Symptom Input</label>
                         <br>
@@ -121,32 +151,46 @@
                         <div id="digestive-collapse" class="collapse">WANNA KNOW ABOUT DIGESTIVE?! I GOT YOU</div>
                         <div id="neurological-collapse" class="collapse">LOUD NOISES. BRAIN HURTS</div>
                         <div id="malaise-collapse" class="collapse">WHY THE FUCK IS MY FEVER AT 105?!</div>
+
+                    
+        
                     </div>
-                    <div class="form-group">
+                    
+                    <div class="form-group" id="comments">
                         <label for="comment">Comment (optional): </label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="color:#eaa54c" data-toggle="tooltip" title="Add additional information for your eyes only!"></span>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <textarea class="form-control" name="comments" rows="5" id="comments"></textarea>
                     </div>
-                    <div class="checkbox">
+                        
+                    <div class="checkbox" id="alcohol">
                         <label>
-                            <input type="checkbox" value="" id="alcohol">Alcohol Consumption Today?</label>
+                            <input type="checkbox" value="" name="alcohol">Alcohol Consumption Today?</label>
                     </div>
-                    <div class="form-group">
+                        
+                    <div class="form-group" id="activities">
                         <label for="activity">Daily Activity</label>
-                        <br>
+                            <br>
                         <label class="radio-inline activity">
-                            <input type="radio" name="optradio">No Exercise</label>
+                            <input type="radio" value="" name="no-exercise">No Exercise</label>
                         <label class="radio-inline activity">
-                            <input type="radio" name="optradio">Light Exercise</label>
+                            <input type="radio" value="" name="light-exercise">Light Exercise</label>
                         <label class="radio-inline activity">
-                            <input type="radio" name="optradio">Moderate Exercise</label>
+                            <input type="radio" value="" name="mod-exercise">Moderate Exercise</label>
                         <label class="radio-inline activity">
-                            <input type="radio" name="optradio">Heavy Exercise</label>
-                    </div>
+
+                            <input type="radio" value="" name="heavy-exercise">Heavy Exercise</label>
+                     </div>
+
                     <button type="button" class="btn btn-primary" aria-label="Left Align">
-                </form>
-                <div class="modal-footer">
+                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228M7G&redirect_uri=https%3A%2F%2Fmjoan.github.io%2FProject-1%2Findex.html&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800"> Sync with your FitBit</a></button>
+                    <div class="modal-footer">
+
                     <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        
+                    </form>
+                        
+                        
+                       
                 </div>
             </div>
         </div>
@@ -266,7 +310,10 @@
           method: "GET"
         })  
         .done(function(response) { 
-              console.log("Mean Temp " + JSON.stringify(response.history.dailysummary[0].meantempi));
+
+                           console.log("Max Temp " + JSON.stringify(response.history.dailysummary[0].maxtempi));
+               console.log("Min Temp " + JSON.stringify(response.history.dailysummary[0].mintempi));
+
               console.log("Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));   
               console.log("Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity)); 
               console.log("Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));  
@@ -281,7 +328,10 @@
           method: "GET"
         })  
         .done(function(response) { 
-              console.log("Geo Mean Temp " + JSON.stringify(response.history.dailysummary[0].meantempi));
+
+              console.log("Geo Max Temp " + JSON.stringify(response.history.dailysummary[0].maxtempi));
+               console.log("Geo Min Temp " + JSON.stringify(response.history.dailysummary[0].mintempi));
+
               console.log("Geo Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));   
               console.log("Geo Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity)); 
               console.log("Geo Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));  
@@ -304,49 +354,3 @@
 
 </html>
 
-<!--
- var config = {
-            apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
-            authDomain: "project-1-7c513.firebaseapp.com",
-            databaseURL: "https://project-1-7c513.firebaseio.com",
-            projectId: "project-1-7c513",
-            storageBucket: "project-1-7c513.appspot.com",
-            messagingSenderId: "173560237058"
-        };
-        firebase.initializeApp(config);
-
-        var database = firebase.database();
-        var name = "";
-        var age = "";
-        var email = "";
-        var password = "";
-        $("#click-button").on("click", function() {
-            event.preventDefault();
-            // dateAdded: firebase.database.ServerValue.TIMESTAMP
-            name = $("#name").val().trim();
-            age = $("#age").val().trim();
-            email = $("#email").val().trim();
-            password = $("#password").val().trim();
-            var uid = firebase.auth().currentUser;
-            database.ref(`users`/ + {uid}).set({  //change .set from .push and added + {$uid}
-                name: name,
-                uid: uid,
-                age: age,
-                email: email,
-                password: password
-            });
-            console.log("Registration Completed.");
-            window.location.replace("login.html");
-        });
-        database.ref().on("value", function(snapshot) {
-            console.log(snapshot.val());
-            console.log(snapshot.val().name);
-            console.log(snapshot.val().uid);
-            console.log(snapshot.val().age);
-            console.log(snapshot.val().email);
-            console.log(snapshot.val().password);
-        }, function(errorObject) {
-            console.log("The read failed: " + errorObject.code);
-        });
-        window.onload = function() {};
-        -->

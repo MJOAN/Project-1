@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Date Entry</title>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Bootstrap CDN-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+    <br>
+    <br>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <ul class="nav navbar-nav navbar-right">
+            <li><span id="sign-out" class="glyphicon glyphicon-log-out"></span> Sign-Out</a>
+            </li>
+        </ul>
+    </div>
+    <div id="container">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Health Tracker</h4>
+    </div>
+    <form action="" id="input-form">
+        <!---MAIN FORM GROUP SERIALIZE()-->
+        <div class="form-group" id="location">
+            <label for="location">Location</label>.
+            <!--1st CHILD: INPUT LOCATION-->
+            <input class="form-control" name="location" value="1" type="text">
+        </div>
+        <div class="form-group" id="symtom">
+            <label for="symptom">Health Symptom Input</label>
+            <!--2nd CHILD: CHECKBOX SYMPTOMS-->
+            <br>
+            <label class="checkbox-inline symptom">
+                <input type="checkbox" value="1" name="respitory" data-toggle="collapse" data-target="#respitory-collapse">Respitory</label>
+            <label class="checkbox-inline symptom">
+                <input type="checkbox" value="1" name="digestive" data-toggle="collapse" data-target="#digestive-collapse">Digestive</label>
+            <label class="checkbox-inline symptom">
+                <input type="checkbox" value="1" name="neurological" data-toggle="collapse" data-target="#neurological-collapse">Neurological</label>
+            <label class="checkbox-inline symptom">
+                <input type="checkbox" value="1" name="malaise" data-toggle="collapse" data-target="#malaise-collapse">Malaise</label>
+        </div>
+        <div class="form-group" id="comments">
+            <!--3rd CHILD: TEXTAREA COMMENTS-->
+            <label name="comment" for="comment">Comment (optional): </label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="color:#eaa54c" data-toggle="tooltip" title="Add additional information for your eyes only!"></span>
+            <textarea class="form-control" rows="5" value="comment"></textarea>
+        </div>
+        <div class="checkbox" id="alcohol">
+            <!--4th CHILD: CHECKBOX ALCOHOL-->
+            <label>
+                <input type="checkbox" value="1" name="alcohol">Alcohol Consumption Today?</label>
+        </div>
+        <div class="form-group" id="activity">
+            <!--5th CHILD: ACTIVITES RADIO-->
+            <label for="activity">Daily Activity</label>
+            <br>
+            <label class="radio-inline activity">
+                <input type="radio" value="1" name="no-exercise">No Exercise</label>
+            <label class="radio-inline activity">
+                <input type="radio" value="1" name="light-exercise">Light Exercise</label>
+            <label class="radio-inline activity">
+                <input type="radio" value="1" name="mod-exercise">Moderate Exercise</label>
+            <label class="radio-inline activity">
+                <input type="radio" value="1" name="heavy-exercise">Heavy Exercise</label>
+        </div>
+        <button type="button" class="btn btn-primary" aria-label="Left Align">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Sync with your FitBit</button>
+        <div class="modal-footer">
+            <button class="btn btn-primary" id="submit" type="submit">Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        <div id="results"></div>
+    </form>
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
+    <script type="text/javascript">
+    var config = {
+        apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
+        authDomain: "project-1-7c513.firebaseapp.com",
+        databaseURL: "https://project-1-7c513.firebaseio.com",
+        projectId: "project-1-7c513",
+        storageBucket: "project-1-7c513.appspot.com",
+        messagingSenderId: "173560237058"
+    };
+
+    firebase.initializeApp(config);
+    </script>
+    <script>
+    var authCheck = function(user) {
+        window.user = user;
+        var currentUID = null;
+
+        firebase.auth().onAuthStateChanged(function(user) {
+
+            if (user && user.uid != currentUID) {
+                currentUID = user.uid;
+                console.log("Welcome UID:" + currentUID);
+                // window.location.assign("index.html")  //not working
+            } else {
+                currentUID = null;
+                console.log("no user signed in");
+            }
+        });
+
+    };
+    authCheck();
+
+    var database = firebase.database();
+
+    var $form = $("form");
+
+    $form.submit(function(event) {
+        event.preventDefault();
+        var data = $form.serializeArray();
+        console.log('Entry Complete: \n' + JSON.stringify(data, null, 2));
+        /* database.ref(`users`).push(data, function(err) {
+         if (err) {
+         console.log('Error when submitting data: ' + err.message);
+             }
+         });
+         console.log('Entry Complete: \n' + JSON.stringify(data, null, 2));
+         $form[0].reset();*/
+    });
+    </script>
+</body>
+
+</html>
+</script>
+</body>
+
+</html>
