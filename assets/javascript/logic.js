@@ -33,7 +33,7 @@ $('#calendar').clndr({
         onMonthChange: function(month) {
             console.log('you just went to ' + month.format('MMMM, YYYY'));
             calendarDays();
-
+ 
         }
     },
     doneRendering: function() {
@@ -67,6 +67,20 @@ $(document).keyup(function(e) {
 
     }
 });
+
+$('#backCalendar').click(function() {
+    if ( this.id === "backCalendar") {
+        $(".data-display").animate({
+            height: 'toggle',
+            opacity: 'toggle'
+        }, 'slow');
+
+        $(".calendar").animate({
+
+            "opacity": 'toggle'
+        }, 'slow');
+    }
+})
 
 //toggles D3
 $('#d3Button, #back').click(function() {
@@ -108,7 +122,7 @@ $('#d3Button, #back').click(function() {
         }, 400);
 
         $(".d3View").append(goBack);
-            }, 3000);
+            }, 300);
 
     }
 
@@ -136,10 +150,7 @@ function calendarDays() {
     $("td.day.today").click(function() {
 
         $("td.day.today").attr('data-toggle', 'modal');
-        $("td.day.today").attr('data-target', '#myModal');
-
-   
-
+        $("td.day.today").attr('data-target', '#myModal')
 
     });
 
@@ -164,8 +175,13 @@ $("td.day.past").click(function(e) {
 
         $(".currentDay").append();
 
-    console.log(JSON.stringify);
+   
 });
+
+    $("td").click(function() {
+
+        $('.daySelected').html(JSON.stringify(moment().format("MM/DD/YYYY")));
+    });
 };
 
 calendarDays();
