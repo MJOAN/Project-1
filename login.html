@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+       <!-- jQuery -->
+    <script>window.jQuery || document.write('<script src="./assets/app.js"><\/script>')</script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <body>
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Log In Authentication</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="login-app"></form>
+                            <div class="panel-body">
+                                <!--these buttons have event onclick listeners on app.js -->
+                                <button id="register-btn" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn-primary" type="submit" >Register</button>
+                                <button id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn-primary" onclick="signOut();" type="submit">Sign-Out</button>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+
+         <!-- Firebase UI -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
+    <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
+
+    <script type="text/javascript">
+           
+            var config = {
+                apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
+                authDomain: "project-1-7c513.firebaseapp.com",
+                databaseURL: "https://project-1-7c513.firebaseio.com",
+                projectId: "project-1-7c513",
+                storageBucket: "project-1-7c513.appspot.com",
+                messagingSenderId: "173560237058"
+            };
+            // this is code for google/email provider auth sign-in
+            firebase.initializeApp(config);
+    </script>
+
+        <!-- JS Firebase Script-->
+        <script src="./assets/app.js"></script>
+    </body>
+
+</html>

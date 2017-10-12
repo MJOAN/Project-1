@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Bootstrap CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <body>
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Registration Form</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="register-form">
+                                <!--this is the 'register-form' onclick event-->
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input class="form-control" name="name" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Age:</label>
+                                    <input class="form-control" name="age" type="number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input class="form-control" name="email" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password:</label>
+                                    <input class="form-control" name="password" type="text">
+                                </div>
+                                <button id="register" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+        <!-- Firebase and UI -->
+        <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.js"></script>
+        <script src="./assets/app.js"></script>
+        <script type="text/javascript">
+        // using .serialize() takes entire form inputs and puts them into an array
+        // we store that into 'userObj' 
+        // call registerUser function from app.js and pass in, user + userObj 
+        // then redirect them to log in page - after they have completed registration
+                      
+        </script>
+    </body>
+
+</html>
