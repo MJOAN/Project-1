@@ -29,6 +29,9 @@ $('#calendar').clndr({
     clickEvents: {
         click: function(target) {
             console.log(target);
+            var targetDate = JSON.stringify(target.date._i);
+            $(".daySelected").html(moment(targetDate).format("MM/DD/YYYY"));
+
         },
         onMonthChange: function(month) {
             console.log('you just went to ' + month.format('MMMM, YYYY'));
@@ -77,11 +80,10 @@ $('#backCalendar').click(function() {
         }, 'slow');
 
         $(".calendar").animate({
-
-            "opacity": 'toggle'
+            opacity: 'toggle'
         }, 'slow');
     }
-})
+});
 
 
 
@@ -121,24 +123,9 @@ $("td.day.past").click(function(e) {
    
 });
 
-    $("td").click(function() {
 
-        $('.daySelected').html(JSON.stringify(moment().format("MM/DD/YYYY")));
-    });
 };
 
-$('#backCalendar').click(function(){
-    if (this.id === "backCalendar") {
-        $(".data-display").animate({
-            height: 'toggle',
-            opacity: 'toggle'
-        }, 'slow');
-        $(".calendar").animate({
 
-            opacity: 'toggle'
-        }, 'slow');
-
-    }
-})
 calendarDays();
 
