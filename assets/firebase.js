@@ -1,9 +1,4 @@
-// Firebase web API key: AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c
-// Firebase project ID: project-1-7c513
-// var database = new Firebase('https://project-1-7c513.firebaseio.com');
 
-      (function($) {
-            'use strict';
     var config = {
         apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
         authDomain: "project-1-7c513.firebaseapp.com",
@@ -12,29 +7,31 @@
         storageBucket: "project-1-7c513.appspot.com",
         messagingSenderId: "173560237058"
     };
-    // this is code for google/email provider auth sign-in
+
     firebase.initializeApp(config);
 
     var database = firebase.database().ref();
 
-   $("#userinput-form", "button").on("click", function(event) {
+   $("#input-form", "button").on("click", function(event) {
     event.preventDeafault();
 
-    var user = user.uid;
-    var userActivities = $("#activities").val().trim();
-    var userSymptoms = $("#symptoms").val().trim();
-    var userLocation = $("#location").val().trim();
-    var entryDate = moment($("#entry-date").val().trim(), "DD/MM/YY").format("X");
+    var currentUID = window.user;
+    var activities = $("#activities").val().trim();
+    var symptoms = $("#symptoms").val().trim();
+    var alcohol = $("#alcohol").val().trim();
+    var location = $("#location").val().trim();
+    var comments = $("#comments").val().trim();
 
     var user = {
-        activities: userActivities,
-        symptoms: userSymptoms,
-        location: userLocation,
-        entry: entryDate
+        activities: activities,
+        symptoms: symptoms,
+        location: location,
+        alcohol: alcohol, 
+        comments: comments
     };
 
     // .key()
-    userObject.push(user).then(function() {
+    database.ref(`users/` + currentUID + `/form`).push(user).then(function() {
     }).catch(function(error) {
     });
 
@@ -45,32 +42,32 @@
     console.log(user.entry);
 
     // clear form after initialize
-    $("#name").val("");
     $("#activities").val("");
     $("#symptoms").val("");
     $("#location").val("");
-    $("#entry-date").val("");
+    $("#alcohol").val("");
+    $("#comments").val("");
 });
 
     database.once("child_added", function(childSnapshot, prevChildKey) {
     // console.log("added", snap.key(), snap.val());
     console.log(childSnapshot.val());
 
-    var user = childSnapshot.val().name;
-    var userActivities = childSnapshot.val().activities;
-    var userSymptoms = childSnapshot.val().symptoms;
-    var userLocation = childSnapshot.val().location;
-    var entryDate = childSnapshot.val().entry;
+    var activities = childSnapshot.val().activities;
+    var symptoms = childSnapshot.val().symptoms;
+    var location = childSnapshot.val().location;
+    var alcohol = childSnapshot.val().alcohol;
+    var comments = childSnapshot.val().comments;
 
-    console.log(user);
-    console.log(userActivities);
+    console.log(activities);
+    console.log(activities);
     console.log(userSymptoms);
     console.log(userLocation);
     console.log(entryDate);
 
-    $("#table > tbody").append("<tr><td>" + user + "</td><td>" + userActivities + "</td><td>" +
+    $("div").append("<tr><td>" + user + "</td><td>" + userActivities + "</td><td>" +
         userSymptoms + "</td><td>" + userLocation + "</td><td>" + entryDate + "</td><td>"
     );
 
 });
-})(jQuery);
+}

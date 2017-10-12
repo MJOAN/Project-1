@@ -108,7 +108,7 @@ $('#d3Button, #back').click(function() {
         }, 400);
 
         $(".d3View").append(goBack);
-            }, 3000);
+            }, 300);
 
     }
 
@@ -154,7 +154,7 @@ $("td.day.past").click(function(e) {
 
         $(".calendar").animate({
 
-            "opacity": 'toggle'
+            opacity: 'toggle'
         }, 'slow');
 
         $(".location-div").animate({
@@ -168,5 +168,18 @@ $("td.day.past").click(function(e) {
 });
 };
 
+$('#backCalendar').click(function(){
+    if (this.id === "backCalendar") {
+        $(".data-display").animate({
+            height: 'toggle',
+            opacity: 'toggle'
+        }, 'slow');
+        $(".calendar").animate({
+
+            opacity: 'toggle'
+        }, 'slow');
+        
+    }
+})
 calendarDays();
 
