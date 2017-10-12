@@ -21,7 +21,6 @@
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
-
     <br>
     <br>
 
@@ -46,6 +45,7 @@
                     </li>
                     <li><a href="#" role="button" class="btn" data-toggle="modal" data-target="#logIn"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
                   <li id="sign-out"><span id="sign-out" class="glyphicon glyphicon-log-out"></span> Sign-Out</a></li> 
              <script>    
        document.querySelector('#sign-out').addEventListener('click', function(e) {
@@ -60,7 +60,7 @@
    
 
     
-   <!--login modal -->
+
     <div class="modal fade" id="logIn">
         <div class="container">
             <br>
@@ -79,6 +79,7 @@
                     <div class="form-group">
                         <label for="age">Age:</label>
                         <input class="form-control" id="age" type="number">
+
                     </div>
                     <div class="form-group">
                         <label for="email">Email:</label>
@@ -88,6 +89,7 @@
                         <label for="password">Password:</label>
                         <input class="form-control" id="password" type="text">
                     </div>
+
                     <!-- Submit Button -->
                     <button id="register" style="" onclick="registerUser()" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn-primary" value="Load new document">Register</button>
                     </form>
@@ -97,7 +99,8 @@
         </div>
       </div>
 
-    <!-- 
+            <!-- 
+
             88b           d88   ,ad8888ba,   88888888ba,        db        88           
             888b         d888  d8"'    `"8b  88      `"8b      d88b       88           
             88`8b       d8'88 d8'        `8b 88        `8b    d8'`8b      88           
@@ -197,7 +200,8 @@
                 </div>
                 <div class="form-group">
                     <label for="symptom">Health Symptom Input</label>
-                    <h1>coughing, cold sweats
+                  <h1>coughing, cold sweats</h1>
+
                             </div>
                             <div class="form-group">
                                 <label for="comment">Comment:</label>
@@ -298,10 +302,8 @@
           method: "GET"
         })  
         .done(function(response) { 
-
                            console.log("Max Temp " + JSON.stringify(response.history.dailysummary[0].maxtempi));
                console.log("Min Temp " + JSON.stringify(response.history.dailysummary[0].mintempi));
-
               console.log("Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));   
               console.log("Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity)); 
               console.log("Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));  
@@ -316,10 +318,8 @@
           method: "GET"
         })  
         .done(function(response) { 
-
               console.log("Geo Max Temp " + JSON.stringify(response.history.dailysummary[0].maxtempi));
                console.log("Geo Min Temp " + JSON.stringify(response.history.dailysummary[0].mintempi));
-
               console.log("Geo Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));   
               console.log("Geo Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity)); 
               console.log("Geo Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));  
@@ -339,6 +339,7 @@
       </script>
       
 </body>
+
 
 </html>
 
