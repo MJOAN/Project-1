@@ -1,6 +1,5 @@
 
     $('#d3Button, #back').click(function() {
-
     var d3Storage = $("<div class='container'>");
     d3Storage.addClass("fadeIn d3View text-center");
     d3Storage.attr("data-target", "#d3Button");
