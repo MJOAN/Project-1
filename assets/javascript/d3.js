@@ -1,6 +1,16 @@
-//'use strict';
 
-// Initialize Firebase
+    $('#d3Button, #back').click(function() {
+    var d3Storage = $("<div class='container'>");
+    d3Storage.addClass("fadeIn d3View text-center");
+    d3Storage.attr("data-target", "#d3Button");
+    d3Storage.css({
+     'display': 'none'
+    });
+    d3Storage.append("<br>");
+    var goBack = $("<button id='back'>");
+    goBack.addClass("btn btn-primary");
+    goBack.html("Go Back");
+    // Initialize Firebase
 var config = {
     apiKey: "AIzaSyBiyVBjB1W3u7HfGNwDsZL5LahLTZUu5zM",
     authDomain: "test-database-837bf.firebaseapp.com",
@@ -29,15 +39,18 @@ dateRef.once('value', function(snapshot) {
     for (i = 0; i < d3Data.length; i++) {
         var date = d3Data[i][0].Date;
         var meanTemp = d3Data[i][1]["Mean Temp "];
+        var maxHum = d3Data[i][2]["Max Hum "]
         var dateObj = {};
         dateObj['date'] = date;
         dateObj['value'] = meanTemp;
+        dateObj['hum'] = maxHum;
         data.push(dateObj);
     };
     // d3 graphing must happen inside child snapshot to load properly
     data.forEach(function(d) {
         d.date = parseTime(d.date);
         d.value =+ d.value;
+        d.hum =+ d.hum;
         return d;
     });
 
@@ -105,6 +118,51 @@ dateRef.once('value', function(snapshot) {
         .attr("fill", function(d) { return color(d.value) });
 
 
+
+
 });
 console.log(d3Data);
 console.log(data);
+//this is for later purposes. When clicked, displays a load animation.
+    var loadAnime1 = $("<div>");
+    loadAnime1.addClass("firstAnimation")
+
+    var loadAnime2 = $("<div>")
+    $(".data-display").after(d3Storage);
+
+    if (this.id === 'd3Button') {
+
+        $(".data-display").animate({
+            width: 'toggle',
+            opacity:'toggle'
+        }, 400);
+
+
+          setTimeout( function() {
+
+            d3Storage.animate({
+            
+            opacity: 'toggle'
+        }, 400);
+
+        $(".d3View").append(goBack);
+            }, 300);
+
+    }
+
+    (goBack).bind({
+        click: function() {
+            $('.data-display').animate({
+                width: 'toggle',
+                opacity: 'toggle'
+            }, 400);
+            d3Storage.animate({
+                opacity: 'toggle',
+                width: 'toggle'
+            }, 100 )
+
+        },
+
+    });
+
+});

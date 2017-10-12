@@ -1,18 +1,17 @@
+var config = {
+    apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
+    authDomain: "project-1-7c513.firebaseapp.com",
+    databaseURL: "https://project-1-7c513.firebaseio.com",
+    projectId: "project-1-7c513",
+    storageBucket: "project-1-7c513.appspot.com",
+    messagingSenderId: "173560237058"
+};
 
-    var config = {
-        apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
-        authDomain: "project-1-7c513.firebaseapp.com",
-        databaseURL: "https://project-1-7c513.firebaseio.com",
-        projectId: "project-1-7c513",
-        storageBucket: "project-1-7c513.appspot.com",
-        messagingSenderId: "173560237058"
-    };
+firebase.initializeApp(config);
 
-    firebase.initializeApp(config);
+var database = firebase.database().ref();
 
-    var database = firebase.database().ref();
-
-   $("#input-form", "button").on("click", function(event) {
+$("#input-form", "button").on("click", function(event) {
     event.preventDeafault();
 
     var currentUID = window.user;
@@ -26,14 +25,12 @@
         activities: activities,
         symptoms: symptoms,
         location: location,
-        alcohol: alcohol, 
+        alcohol: alcohol,
         comments: comments
     };
 
     // .key()
-    database.ref(`users/` + currentUID + `/form`).push(user).then(function() {
-    }).catch(function(error) {
-    });
+    database.ref(`users/` + currentUID + `/form`).push(user).then(function() {}).catch(function(error) {});
 
     console.log(user.name);
     console.log(user.activities);
@@ -49,7 +46,7 @@
     $("#comments").val("");
 });
 
-    database.once("child_added", function(childSnapshot, prevChildKey) {
+database.once("child_added", function(childSnapshot, prevChildKey) {
     // console.log("added", snap.key(), snap.val());
     console.log(childSnapshot.val());
 
@@ -69,5 +66,11 @@
         userSymptoms + "</td><td>" + userLocation + "</td><td>" + entryDate + "</td><td>"
     );
 
+});
+
+
+$("#sign-out").on('click', function(event) {
+    event.preventDefault();
+    firebase.auth().signOut();
 });
 }
