@@ -33,7 +33,7 @@ $('#calendar').clndr({
         onMonthChange: function(month) {
             console.log('you just went to ' + month.format('MMMM, YYYY'));
             calendarDays();
-
+ 
         }
     },
     doneRendering: function() {
@@ -178,9 +178,9 @@ $("td.day.past").click(function(e) {
    
 });
 
-    $("td.day").click(function() {
+    $("td").click(function() {
 
-        $('.daySelected').append(JSON.stringify(obj));
+        $('.daySelected').html(JSON.stringify(moment().format("MM/DD/YYYY")));
     });
 };
 
