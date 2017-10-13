@@ -10,6 +10,7 @@
     var goBack = $("<button id='back'>");
     goBack.addClass("btn btn-primary");
     goBack.html("Go Back");
+
     // Initialize Firebase
 var config = {
     apiKey: "AIzaSyBiyVBjB1W3u7HfGNwDsZL5LahLTZUu5zM",
@@ -58,7 +59,7 @@ dateRef.once('value', function(snapshot) {
     var margin = { top: 20, right: 20, bottom: 50, left: 70 },
         width = 1000 - margin.left - margin.right,
         height = 700 - margin.top - margin.bottom;
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select(".d3View").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .style("border", "1px solid")
@@ -120,6 +121,7 @@ dateRef.once('value', function(snapshot) {
 
 
 
+
 });
 console.log(d3Data);
 console.log(data);
@@ -130,7 +132,8 @@ console.log(data);
     var loadAnime2 = $("<div>")
     $(".data-display").after(d3Storage);
 
-    if (this.id === 'd3Button') {
+
+        if (this.id === 'd3Button') {
 
         $(".data-display").animate({
             width: 'toggle',
@@ -159,7 +162,7 @@ console.log(data);
             d3Storage.animate({
                 opacity: 'toggle',
                 width: 'toggle'
-            }, 100 )
+            }, 100 );
 
         },
 
