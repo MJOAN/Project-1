@@ -32,6 +32,8 @@ $('#calendar').clndr({
             var targetDate = JSON.stringify(target.date._i);
             $(".daySelected").html(moment(targetDate).format("MM/DD/YYYY"));
 
+                
+
         },
         onMonthChange: function(month) {
             console.log('you just went to ' + month.format('MMMM, YYYY'));
@@ -41,11 +43,41 @@ $('#calendar').clndr({
     },
     doneRendering: function() {
         console.log('this would be a fine place to attach custom event handlers.');
+               
+
     }
 });
 
 
+function calendarDays() {
+    $("td.day.today").click(function() {
 
+        $("td.day.today").attr('data-toggle', 'modal');
+        $("td.day.today").attr('data-target', '#myModal')
+
+    });
+
+    $("td.day.past").click(function(e) {
+        
+     // escape key maps to keycode `27`
+        $(".data-display").animate({
+            height: 'toggle',
+            opacity: 'toggle'
+        }, 'slow');
+
+        $(".calendar").animate({
+
+            opacity: 'toggle'
+        }, 'slow');
+
+        $(".location-div").animate({
+            width: 'toggle'
+
+        });
+   
+    });
+
+};
 
 
 //prepend a filled form top the top of the page when a non-active day is clicked. 
@@ -86,46 +118,12 @@ $('#backCalendar').click(function() {
 });
 
 
+$("#submitButton").click(function() {
 
-     
-
-     
-
-function calendarDays() {
-    $("td.day.today").click(function() {
-
-        $("td.day.today").attr('data-toggle', 'modal');
-        $("td.day.today").attr('data-target', '#myModal')
-
-    });
-
-
-$("td.day.past").click(function(e) {
-        
-     // escape key maps to keycode `27`
-        $(".data-display").animate({
-            height: 'toggle',
-            opacity: 'toggle'
-        }, 'slow');
-
-        $(".calendar").animate({
-
-            opacity: 'toggle'
-        }, 'slow');
-
-        $(".location-div").animate({
-            width: 'toggle'
-
-        });
-
-        $(".currentDay").append();
-
-   
+    $(".signedUser").append("You are signed in as " + $('input[name="FirstName"]').val());
 });
 
-
-};
+  
 
 
 calendarDays();
-

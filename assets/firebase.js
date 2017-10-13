@@ -1,7 +1,7 @@
 
 var database = firebase.database().ref();
 
-$("#input-form", "button").on("click", function(event) {
+$("#input-form").submit(function(event) {
     event.preventDeafault();
     console.log("hit");
 
@@ -14,6 +14,7 @@ $("#input-form", "button").on("click", function(event) {
     var comments = $("#comments").val().trim();
 
     console.log(location, "hit");
+
 
     database.ref(`users/` + user.uid + `/form`).set({
         activities: activities,
@@ -40,9 +41,8 @@ $("#input-form", "button").on("click", function(event) {
     $("#comments").val("");
 });
 
-/*
+
 database.once("child_added", function(childSnapshot, prevChildKey) {
-    // console.log("added", snap.key(), snap.val());
     console.log(childSnapshot.val());
 
     var activities = childSnapshot.val().activities;
@@ -57,6 +57,7 @@ database.once("child_added", function(childSnapshot, prevChildKey) {
     console.log(alcohol);
     console.log(comments);
     
-        $("").append("<tr><td>" + comments + "</td><td>" + activities + "</td><td>" +
+        $("results").append("<tr><td>" + comments + "</td><td>" + activities + "</td><td>" +
             location + "</td><td>" + symptoms + "</td><td>" + alcohol + "</td><td>"
-        );*/ // append to certain div
+        );
+    });
