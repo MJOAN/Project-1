@@ -7,7 +7,7 @@
               "malaise": false,
               "digestive": false,
               "alcohol": false,
-              "comment": "Whatever",
+              "comment": "Just allergies",
               "dailyAct": "heavy",
               "restingHR": "60"
           },
@@ -18,7 +18,7 @@
               "malaise": false,
               "digestive": true,
               "alcohol": true,
-              "comment": "No",
+              "comment": "Upset stomach and allergies",
               "dailyAct": "heavy",
               "restingHR": "59",
               "highTemp": "97",
@@ -27,7 +27,7 @@
           {
               "date": "10/08/2017",
               "alcohol": false,
-              "comment": "Yay",
+              "comment": "Hot flashes",
               "dailyAct": "heavy",
               "respiratory": false,
               "neurological": false,
@@ -40,7 +40,7 @@
           {
               "date": "10/09/2017",
               "alcohol": true,
-              "comment": "bleh",
+              "comment": "Not feeling so great today, bad headache",
               "dailyAct": "moderate",
               "respiratory": false,
               "neurological": true,
@@ -53,7 +53,7 @@
           {
               "date": "10/10/2017",
               "alcohol": false,
-              "comment": "Zen",
+              "comment": "Feeling calm and well rested",
               "dailyAct": "light",
               "respiratory": true,
               "neurological": false,
@@ -121,44 +121,6 @@
 
   });
 
-      /** Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyA-IZ3RaOqL0cyNzDi4-qMm7bVjBPZKKXQ",
-    authDomain: "testprojecttohelpm.firebaseapp.com",
-    databaseURL: "https://testprojecttohelpm.firebaseio.com",
-    projectId: "testprojecttohelpm",
-    storageBucket: "testprojecttohelpm.appspot.com",
-    messagingSenderId: "128970731317"
-  };
-  firebase.initializeApp(config);
-var testDatabase = firebase.database();
-var usersRef = testDatabase.ref().child("/users");
-
-var d3Data = [];
-// pull data from firebase
-usersRef.once('value', function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-        var childKey = childSnapshot.key;
-        var childData = childSnapshot.val();
-        d3Data.push(childData);
-
-    });
-
-    console.log(d3Data);
-    
-    //push that data into an object that is usable by d3
- /**   for (i = 0; i < d3Data.length; i++) {
-        var date = d3Data[i].key(i);       
-        var highTemp = d3Data[i]['syncedEntries']['weather']["highTemp"];
-        var lowTemp = d3Data[i]['syncedEntries']['weather']["lowTemp"];
-        var heartRate = d3Data[i]['syncedEntries']['fitBit']["restingHR"];
-        var dateObj = {};
-        dateObj['date'] = date;
-        dateObj['high'] = highTemp;
-        dateObj['low'] = maxHum;
-        data.push(dateObj); 
-    };  **/
-
 
       
       var parseTime = d3.timeParse("%m/%d/%Y");
@@ -170,7 +132,8 @@ usersRef.once('value', function(snapshot) {
           d.restingHR =+ d.restingHR;
 
       });
-
+    
+    var formatTime = d3.timeFormat("%b %d %y");
       // build basic graph
       var margin = { top: 20, right: 20, bottom: 50, left: 70 },
           width = 1000 - margin.left - margin.right,
@@ -282,7 +245,7 @@ usersRef.once('value', function(snapshot) {
        div.transition()
          .duration(150)
          .style("opacity", .95);
-       div.html(d.date + ":<br>" + "Notes: " + d.comment)
+       div.html(formatTime(d.date) + ":<br>" + "Notes: " + d.comment)
          .style("left", (d3.event.pageX) + "px")
          .style("top", (d3.event.pageY) + "px");
          };
@@ -327,7 +290,7 @@ usersRef.once('value', function(snapshot) {
        div.transition()
          .duration(150)
          .style("opacity", .95);
-       div.html(d.date + ":<br>" + "Notes: " + d.comment)
+       div.html(formatTime(d.date) + ":<br>" + "Notes: " + d.comment)
          .style("left", (d3.event.pageX) + "px")
          .style("top", (d3.event.pageY) + "px");
          };
@@ -371,7 +334,7 @@ usersRef.once('value', function(snapshot) {
        div.transition()
          .duration(150)
          .style("opacity", .95);
-       div.html(d.date + ":<br>" + "Notes: " + d.comment)
+       div.html(formatTime(d.date) + ":<br>" + "Notes: " + d.comment)
          .style("left", (d3.event.pageX) + "px")
          .style("top", (d3.event.pageY) + "px");
          };
@@ -415,7 +378,7 @@ usersRef.once('value', function(snapshot) {
        div.transition()
          .duration(150)
          .style("opacity", .95);
-       div.html(d.date + ":<br>" + "Notes: " + d.comment)
+       div.html(formatTime(d.date) + ":<br>" + "Notes: " + d.comment)
          .style("left", (d3.event.pageX) + "px")
          .style("top", (d3.event.pageY) + "px");
          };
@@ -440,13 +403,13 @@ usersRef.once('value', function(snapshot) {
       .data([data])
       .attr("class", "line")
       .style("stroke", "#fff")
-      .style("stroke-width", "2px")
+      .style("stroke-width", "4px")
       .style("fill", "none")
       .attr("d", valueline)
             .on("mouseover", function(d) {      
       d3.select(this)
       .style("stroke", "#53a7ea")
-      .style("stroke-width", "3px")
+      .style("stroke-width", "6px")
       div.attr() 
        div.transition()
          .duration(150)
@@ -459,7 +422,7 @@ usersRef.once('value', function(snapshot) {
      .on("mouseout", function(d) {
             d3.select(this)
             .style("stroke", "#fff")
-      .style("stroke-width", "2px");
+      .style("stroke-width", "4px");
 
        div.transition()
          .duration(200)
