@@ -128,4 +128,3 @@ $("td.day.past").click(function(e) {
 
 
 calendarDays();
-
