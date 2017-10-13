@@ -73,7 +73,7 @@
       d3Storage.css({
           'display': 'none'
       });
-      d3Storage.append("<br>");
+   //   d3Storage.append("<br>");
       var goBack = $("<button id='back'>");
       goBack.addClass("btn btn-primary");
       goBack.html("Go Back");
@@ -184,9 +184,11 @@
       // create the y axis
       var yAxis = d3.axisLeft(y).ticks(5);
       var yAxisGroup = svg.append("g")
+      .attr("class","yaxis")
           .call(yAxis);
 
           svg.append("text")
+          .attr("class","y-label")
       .attr("transform", "rotate(-90)")
       .attr("y", margin.right - margin.left)
       .attr("x",0 - (height / 2))
@@ -209,6 +211,8 @@
           .data(data)
           .enter().append("rect")
           .attr("class", "bar")
+          .transition()
+          .duration(3000)
           .attr("x", function(d) { return x(d.date); })
           .attr("width", x.bandwidth())
           .attr("y", function(d) { return y(d.highTemp); })
@@ -220,6 +224,7 @@
         svg.selectAll("dot")
       .data(data)
         .enter().append("text")
+        .attr("class", "symptom")
       .attr("width", x.bandwidth())
       .attr("height", 30)
       .attr("x", function(d) { return x(d.date) + 4; })
@@ -265,6 +270,7 @@
             svg.selectAll("dot")
       .data(data)
         .enter().append("text")
+        .attr("class", "symptom")
       .attr("width", x.bandwidth())
       .attr("height", 30)
       .attr("x", function(d) { return x(d.date) + 4; })
@@ -309,6 +315,7 @@
                  svg.selectAll("dot")
       .data(data)
         .enter().append("text")
+        .attr("class", "symptom")
       .attr("width", x.bandwidth())
       .attr("height", 30)
       .attr("x", function(d) { return x(d.date) + 4; })
@@ -353,6 +360,7 @@
                       svg.selectAll("dot")
       .data(data)
         .enter().append("text")
+        .attr("class", "symptom")
       .attr("width", x.bandwidth())
       .attr("height", 30)
       .attr("x", function(d) { return x(d.date) + 4; })
@@ -428,10 +436,238 @@
          .duration(200)
          .style("opacity", 0);
        });
-    
+
     d3.select('.d3View')
     .append("div")
-    .html("<br>");
+    .html('<button class="btn btn-primary" id="tempChange">View Low Temp</button>');
+
+
+    function changeTemp(){
+        d3.select(".y-label")
+        .remove();
+
+        svg.append("text")
+          .attr("class","y-label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", margin.right - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .style("font-family", "Open Sans")
+      .text("Low Temp"); 
+                var y = d3.scaleLinear()
+          .domain([0, d3.max(data, function(d) { return d.lowTemp; })])
+          .range([height, 0]);
+      d3.select('.yaxis')
+          .call(yAxis);
+          var color = d3.scaleLinear()
+          .domain([0, d3.max(data, function(d) { return d.lowTemp; })])
+          .range(["#53a7ea", "#ea4c4c"]);
+
+        svg.selectAll(".bar")
+          .remove();
+
+         svg.selectAll(".bar") 
+          .data(data)
+          .enter().append("rect")
+          .attr("class", "bar")
+                    .transition()
+          .duration(3000)
+          .attr("x", function(d) { return x(d.date); })
+          .attr("width", x.bandwidth())
+          .attr("y", function(d) { return y(d.lowTemp); })
+          .attr("height", function(d) { return height - y(d.lowTemp); })
+            .attr("fill", function(d) { return color(d.lowTemp) });
+          
+          svg.selectAll(".symptom")
+          .remove();
+
+                    svg.selectAll("dot")
+      .data(data)
+        .enter().append("text")
+        .attr("class", "symptom")
+      .attr("width", x.bandwidth())
+      .attr("height", 30)
+      .attr("x", function(d) { return x(d.date) + 4; })
+      .attr("y", function(d) { return y(d.lowTemp) + 25; })
+      .text("breathing")
+      .style("fill", "#fff")
+      .style("font-family", 'Open Sans')
+      .style("font-size", "24px")
+      .style("cursor", "pointer")
+            .style("visibility", function(d) {
+        if (d.respiratory === true) {
+            return "visible"
+        }
+        else {
+            return "hidden"
+        }
+      })
+            .on("mouseover", function(d) {
+      if (d.respiratory === true) {
+      d3.select(this)
+      .style("text-shadow", "-1px 0 #53a7ea, 0 1px #53a7ea, 1px 0 #53a7ea, 0 -1px #53a7ea");
+      div.attr() 
+       div.transition()
+         .duration(150)
+         .style("opacity", .95);
+       div.html(formatTime(d.date) + ":<br>" + "Notes: " + d.comment)
+         .style("left", (d3.event.pageX) + "px")
+         .style("top", (d3.event.pageY) + "px");
+         };
+       })
+     .on("mouseout", function(d) {
+        if (d.respiratory === true) {
+            d3.select(this)
+            .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+
+            div.transition()
+         .duration(200)
+         .style("opacity", 0);
+     }
+       });
+  
+
+            svg.selectAll("dot")
+      .data(data)
+        .enter().append("text")
+        .attr("class", "symptom")
+      .attr("width", x.bandwidth())
+      .attr("height", 30)
+      .attr("x", function(d) { return x(d.date) + 4; })
+      .attr("y", function(d) { return y(d.lowTemp) + 55; })
+      .text("digestion")
+      .style("fill", "#fff")
+      .style("font-family", 'Open Sans')
+      .style("font-size", "24px")
+      .style("cursor", "pointer")
+            .style("visibility", function(d) {
+        if (d.digestive === true) {
+            return "visible"
+        }
+        else {
+            return "hidden"
+        }
+      })
+            .on("mouseover", function(d) {
+      if (d.digestive === true) {
+      d3.select(this)
+      .style("text-shadow", "-1px 0 #53a7ea, 0 1px #53a7ea, 1px 0 #53a7ea, 0 -1px #53a7ea");
+      div.attr() 
+       div.transition()
+         .duration(150)
+         .style("opacity", .95);
+       div.html(formatTime(d.date) + ":<br>" + "Notes: " + d.comment)
+         .style("left", (d3.event.pageX) + "px")
+         .style("top", (d3.event.pageY) + "px");
+         };
+       })
+     .on("mouseout", function(d) {
+        if (d.digestive === true) {
+            d3.select(this)
+            .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+
+       div.transition()
+         .duration(200)
+         .style("opacity", 0);
+     }
+       })
+
+    svg.selectAll("dot")
+      .data(data)
+        .enter().append("text")
+        .attr("class", "symptom")
+      .attr("width", x.bandwidth())
+      .attr("height", 30)
+      .attr("x", function(d) { return x(d.date) + 4; })
+      .attr("y", function(d) { return y(d.lowTemp) + 85; })
+      .text("unwell")
+      .style("fill", "#fff")
+      .style("font-family", 'Open Sans')
+      .style("font-size", "24px")
+      .style("cursor", "pointer")
+            .style("visibility", function(d) {
+        if (d.malaise === true) {
+            return "visible"
+        }
+        else {
+            return "hidden"
+        }
+      })
+            .on("mouseover", function(d) {
+      if (d.malaise === true) {
+      d3.select(this)
+      .style("text-shadow", "-1px 0 #53a7ea, 0 1px #53a7ea, 1px 0 #53a7ea, 0 -1px #53a7ea");
+      div.attr() 
+       div.transition()
+         .duration(150)
+         .style("opacity", .95);
+       div.html(formatTime(d.date) + ":<br>" + "Notes: " + d.comment)
+         .style("left", (d3.event.pageX) + "px")
+         .style("top", (d3.event.pageY) + "px");
+         };
+       })
+     .on("mouseout", function(d) {
+        if (d.malaise === true) {
+            d3.select(this)
+            .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+
+       div.transition()
+         .duration(200)
+         .style("opacity", 0);
+     }
+       })
+
+                      svg.selectAll("dot")
+      .data(data)
+        .enter().append("text")
+        .attr("class", "symptom")
+      .attr("width", x.bandwidth())
+      .attr("height", 30)
+      .attr("x", function(d) { return x(d.date) + 4; })
+      .attr("y", function(d) { return y(d.lowTemp) + 85; })
+      .text("neurology")
+      .style("fill", "#fff")
+      .style("font-family", 'Open Sans')
+      .style("font-size", "24px")
+      .style("cursor", "pointer")
+            .style("visibility", function(d) {
+        if (d.neurological === true) {
+            return "visible"
+        }
+        else {
+            return "hidden"
+        }
+      })
+            .on("mouseover", function(d) {
+      if (d.neurological === true) {
+      d3.select(this)
+      .style("text-shadow", "-1px 0 #53a7ea, 0 1px #53a7ea, 1px 0 #53a7ea, 0 -1px #53a7ea");
+      div.attr() 
+       div.transition()
+         .duration(150)
+         .style("opacity", .95);
+       div.html(formatTime(d.date) + ":<br>" + "Notes: " + d.comment)
+         .style("left", (d3.event.pageX) + "px")
+         .style("top", (d3.event.pageY) + "px");
+         };
+       })
+     .on("mouseout", function(d) {
+        if (d.neurological === true) {
+            d3.select(this)
+            .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+
+       div.transition()
+         .duration(200)
+         .style("opacity", 0);
+     }
+       })
+};
+
+    d3.select('#tempChange').on("click", function(){
+        changeTemp();
+
+    })
  
 
 });
