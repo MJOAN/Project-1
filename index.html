@@ -35,7 +35,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">S T A T E</a>
-                <span class="signedUser"><div class="navbar-text">You are signed in as Ian Stahl</div></span>
+                <div class="navbar-text"><span class="signedUser"></span></div>
             </div>
             <!-- link collection -->
             <div class="collapse navbar-collapse" id="navbar-collapse-login">
@@ -62,19 +62,25 @@
     
 
     <div class="modal fade" id="logIn">
+        <div class="modal-dialog">
         <div class="container">
             <br>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Log In Authentication</h3>
+                        <div class="modal-heading">
+                            <h3 class="panel-title">Sign Up Authentication</h3>
                         </div>
                         <div class="panel-body">
                             <form id="login-app">
                                 <div class="panel-body">
                                 </div>
                         </div>
+                        <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input class="form-control" id="name" type="text" placeholder="Full Name" name="FirstName" value="Full Name">
+
+                    </div>
                     
                     <div class="form-group">
                         <label for="age">Age:</label>
@@ -96,6 +102,7 @@
                 </div>
             </div>
           </div>
+      </div>
         </div>
       </div>
 
@@ -117,7 +124,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Health Tracker</h4>
+                    <h4 class="modal-title">Health Tracker<div class="daySelected" style="color: white"></div></h4>
                 </div>
 
                 <form id="action" id="input-form">
@@ -154,7 +161,7 @@
                         
                     <div class="checkbox" id="alcohol">
                         <label>
-                            <input type="checkbox" value="" name="alcohol">Alcohol Consumption Today?</label>
+                            <input type="checkbox" value="" name="alcohol" id="alcoholCheckbox">Alcohol Consumption Today?</label>
                     </div>
                         
                     <div class="form-group" id="activities">
@@ -170,9 +177,6 @@
 
                             <input type="radio" value="" name="heavy-exercise">Heavy Exercise</label>
                      </div>
-
-                    <button type="button" class="btn btn-primary" aria-label="Left Align">
-                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228M7G&redirect_uri=https%3A%2F%2Fmjoan.github.io%2FProject-1%2Findex.html&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800"> Sync with your FitBit</a></button>
                     <div class="modal-footer">
 
                     <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button>
@@ -187,6 +191,7 @@
         </div>
     </div>
     <!-- Data Storage Management -->
+    
     <div class="data-display panel panel-default fadeIn">
         <div class="panel-heading">
             <h3 class="panel-title">Data Management <button class="btn btn-default" id="backCalendar">Go Back To Calendar</button></h3>
@@ -228,14 +233,23 @@
                         </form> 
                     </div>
                         
+            </div>
             
-             </div>
-    
 <!-- Calendar -->
+
 
  <div id="calendar">
 
     </div>
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">&copy; H1N1 2017</span>
+      </div>
+    </footer>
+
+
+   
+
 <!-- Test Button -->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -302,7 +316,7 @@
           method: "GET"
         })  
         .done(function(response) { 
-                           console.log("Max Temp " + JSON.stringify(response.history.dailysummary[0].maxtempi));
+                $("#fitBitDisplay").html("Max Temp " + JSON.stringify(response.history.dailysummary[0].maxtempi));
                console.log("Min Temp " + JSON.stringify(response.history.dailysummary[0].mintempi));
               console.log("Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));   
               console.log("Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity)); 

@@ -39,7 +39,8 @@
     // This is the default calendar template. This can be overridden.
     var clndrTemplate =
         `
-
+           
+                
             <div class="calendar">
                     <div class='clndr-controls'>
                         <div class='clndr-control-button'>
