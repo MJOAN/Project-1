@@ -1,44 +1,38 @@
-var config = {
-    apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
-    authDomain: "project-1-7c513.firebaseapp.com",
-    databaseURL: "https://project-1-7c513.firebaseio.com",
-    projectId: "project-1-7c513",
-    storageBucket: "project-1-7c513.appspot.com",
-    messagingSenderId: "173560237058"
-};
-
-firebase.initializeApp(config);
 
 var database = firebase.database().ref();
 
 $("#input-form", "button").on("click", function(event) {
     event.preventDeafault();
+    console.log("hit");
 
-    var currentUID = window.user;
-    var activities = $("#activities").val().trim();
-    var symptoms = $("#symptoms").val().trim();
-    var alcohol = $("#alcohol").val().trim();
+    var user = firebase.auth().currentUser;
+    
+    var activities = $("#activities").val();
+    var symptoms = $("#symptoms").val();
+    var alcohol = $("#alcohol").val();
     var location = $("#location").val().trim();
     var comments = $("#comments").val().trim();
 
-    var user = {
+    console.log(location, "hit");
+
+    database.ref(`users/` + user.uid + `/form`).set({
         activities: activities,
         symptoms: symptoms,
         location: location,
         alcohol: alcohol,
-        comments: comments
-    };
+        comment: comments
 
-    // .key()
-    database.ref(`users/` + currentUID + `/form`).push(user).then(function() {}).catch(function(error) {});
+    }).then(function(data) {
+        console.log(activities);
+         console.log("hit");
+    })
 
-    console.log(user.name);
-    console.log(user.activities);
+/*  console.log(user.activities);
     console.log(user.symptoms);
     console.log(user.location);
-    console.log(user.entry);
+    console.log(user.comments);
+    console.log(user.alcohol);*/
 
-    // clear form after initialize
     $("#activities").val("");
     $("#symptoms").val("");
     $("#location").val("");
@@ -46,6 +40,7 @@ $("#input-form", "button").on("click", function(event) {
     $("#comments").val("");
 });
 
+/*
 database.once("child_added", function(childSnapshot, prevChildKey) {
     // console.log("added", snap.key(), snap.val());
     console.log(childSnapshot.val());
@@ -57,20 +52,11 @@ database.once("child_added", function(childSnapshot, prevChildKey) {
     var comments = childSnapshot.val().comments;
 
     console.log(activities);
-    console.log(activities);
-    console.log(userSymptoms);
-    console.log(userLocation);
-    console.log(entryDate);
-
-    $("div").append("<tr><td>" + user + "</td><td>" + userActivities + "</td><td>" +
-        userSymptoms + "</td><td>" + userLocation + "</td><td>" + entryDate + "</td><td>"
-    );
-
-});
-
-
-$("#sign-out").on('click', function(event) {
-    event.preventDefault();
-    firebase.auth().signOut();
-});
-}
+    console.log(location);
+    console.log(symptoms);
+    console.log(alcohol);
+    console.log(comments);
+    
+        $("").append("<tr><td>" + comments + "</td><td>" + activities + "</td><td>" +
+            location + "</td><td>" + symptoms + "</td><td>" + alcohol + "</td><td>"
+        );*/ // append to certain div

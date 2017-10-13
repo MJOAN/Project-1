@@ -4,9 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Registration</title>
-    <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Bootstrap CDN-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -21,22 +19,13 @@
                         </div>
                         <div class="panel-body">
                             <form id="register-form">
-                                <!--this is the 'register-form' onclick event-->
                                 <div class="form-group">
                                     <label for="name">Name:</label>
-                                    <input class="form-control" name="name" type="text">
+                                    <input class="form-control" id="name" name="name" type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="age">Age:</label>
-                                    <input class="form-control" name="age" type="number">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email:</label>
-                                    <input class="form-control" name="email" type="text">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password:</label>
-                                    <input class="form-control" name="password" type="text">
+                                    <input class="form-control" id="age" name="age" type="number">
                                 </div>
                                 <button id="register" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Register</button>
                             </form>
@@ -46,84 +35,35 @@
             </div>
         </div>
         <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
-        <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
-        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
-        <!-- Firebase SDK -->
         <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+        <script src="assets/auth.js"></script>
         <script type="text/javascript">
-        var config = {
-            apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
-            authDomain: "project-1-7c513.firebaseapp.com",
-            databaseURL: "https://project-1-7c513.firebaseio.com",
-            projectId: "project-1-7c513",
-            storageBucket: "project-1-7c513.appspot.com",
-            messagingSenderId: "173560237058"
-        };
-
-        firebase.initializeApp(config);
-        </script>
-        <script type="text/javascript">
-
+            
         var database = firebase.database();
         var name = "";
         var age = "";
         var email = "";
         var password = "";
 
-        var authCheck = function(user) {
-            window.user = user;
-            var currentUID = null;
+        startAuthServerRegister();
 
-            firebase.auth().onAuthStateChanged(function(user) {
-
-                if (user && user.uid != currentUID) {
-                    currentUID = user.uid;
-                    console.log("Welcome UID:" + currentUID);
-                    window.location.assign("index.html")
-                } else {
-                    currentUID = null;
-                    console.log("no user signed in");
-                }
-            });
-
-        };
-        authCheck();
-        
-        $("#click-button").on("click", function() {
+        $("#register-form").submit(function(event) {
 
             event.preventDefault();
 
             name = $("#name").val().trim();
             age = $("#age").val().trim();
-            email = $("#email").val().trim();
-            password = $("#password").val().trim();
             var user = firebase.auth().currentUser;
 
-            database.ref(`users`).set({
+            database.ref(`users/` + user.uid).set({
                 name: name,
                 age: age,
-                email: email,
-                password: password
-            });
+            }).then(function(data) {
+                console.log(data);
+                window.location.assign("index.html");
+            })
 
-            console.log("Registration Completed.");
-            window.location.replace("login.html");
         });
-
-        database.ref().on("value", function(snapshot) {
-            console.log(snapshot.val());
-            // Log the value of the various properties
-            console.log(snapshot.val().name);
-            console.log(snapshot.val().age);
-            console.log(snapshot.val().email);
-            console.log(snapshot.val().password);
-
-
-        }, function(errorObject) {
-            console.log("The read failed: " + errorObject.code);
-        });
-
-        window.onload = function() {};
         </script>
     </body>
 
