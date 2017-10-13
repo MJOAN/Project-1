@@ -144,7 +144,7 @@ console.log(data);
           setTimeout( function() {
 
             d3Storage.animate({
-            
+            width: 'toggle',
             opacity: 'toggle'
         }, 400);
 
