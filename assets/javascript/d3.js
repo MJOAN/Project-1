@@ -465,7 +465,10 @@ usersRef.once('value', function(snapshot) {
          .duration(200)
          .style("opacity", 0);
        });
-      
+    
+    d3.select('.d3View')
+    .append("div")
+    .html("<br>");
  
 
 });
