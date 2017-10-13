@@ -44,15 +44,10 @@
                     <span class="glyphicon glyphicon-refresh"></span> Sync with your FitBit</a>
                     </li>
                     <li><a href="#" role="button" class="btn" data-toggle="modal" data-target="#logIn"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-
-                  <li id="sign-out"><span id="sign-out" class="glyphicon glyphicon-log-out"></span> Sign-Out</a></li> 
+                    <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="#" id="sign-out"><span class="glyphicon glyphicon-log-out"></span> Sign-Out</a>
+                    </li> 
              <script>    
-       document.querySelector('#sign-out').addEventListener('click', function(e) {
-       e.preventDefault();
-       e.stopPropagation();
-       firebase.auth().signOut();
-        });
         </script>
                 </ul>
             </div>
@@ -79,25 +74,13 @@
                         <div class="form-group">
                         <label for="name">Name:</label>
                         <input class="form-control" id="name" type="text" placeholder="Full Name" name="FirstName" value="Full Name">
-
-                    </div>
-                    
+                            </div>
                     <div class="form-group">
                         <label for="age">Age:</label>
                         <input class="form-control" id="age" type="number">
-
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input class="form-control" id="email" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input class="form-control" id="password" type="text">
-                    </div>
-
                     <!-- Submit Button -->
-                    <button id="register" style="" onclick="registerUser()" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn-primary" value="Load new document">Register</button>
+                    <button id="register" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn-primary" value="Load new document">Register</button>
                     </form>
                 </div>
             </div>
@@ -138,20 +121,17 @@
                         <label for="symptom">Health Symptom Input</label>
                         <br>
                         <label class="checkbox-inline symptom">
-                            <input type="checkbox" name="optradio" data-toggle="collapse" data-target="#respitory-collapse">Respitory</label>
+                            <input type="checkbox" name="respitory" data-toggle="collapse" data-target="#respitory-collapse">Respitory</label>
                         <label class="checkbox-inline symptom">
-                            <input type="checkbox" name="optradio" data-toggle="collapse" data-target="#digestive-collapse">Digestive</label>
+                            <input type="checkbox" name="digestive" data-toggle="collapse" data-target="#digestive-collapse">Digestive</label>
                         <label class="checkbox-inline symptom">
-                            <input type="checkbox" name="optradio" data-toggle="collapse" data-target="#neurological-collapse">Neurological</label>
+                            <input type="checkbox" name="neurological" data-toggle="collapse" data-target="#neurological-collapse">Neurological</label>
                         <label class="checkbox-inline symptom">
-                            <input type="checkbox" name="optradio" data-toggle="collapse" data-target="#malaise-collapse">Malaise</label>
+                            <input type="checkbox" name="malaise" data-toggle="collapse" data-target="#malaise-collapse">Malaise</label>
                         <div id="respitory-collapse" class="collapse">HAVE TONS OF INFO ON RESPITORY</div>
                         <div id="digestive-collapse" class="collapse">WANNA KNOW ABOUT DIGESTIVE?! I GOT YOU</div>
                         <div id="neurological-collapse" class="collapse">LOUD NOISES. BRAIN HURTS</div>
                         <div id="malaise-collapse" class="collapse">WHY THE FUCK IS MY FEVER AT 105?!</div>
-
-                    
-        
                     </div>
                     
                     <div class="form-group" id="comments">
@@ -168,14 +148,14 @@
                         <label for="activity">Daily Activity</label>
                             <br>
                         <label class="radio-inline activity">
-                            <input type="radio" value="" name="no-exercise">No Exercise</label>
+                            <input type="radio" name="no-exercise">No Exercise</label>
                         <label class="radio-inline activity">
-                            <input type="radio" value="" name="light-exercise">Light Exercise</label>
+                            <input type="radio" name="light-exercise">Light Exercise</label>
                         <label class="radio-inline activity">
-                            <input type="radio" value="" name="mod-exercise">Moderate Exercise</label>
+                            <input type="radio" name="mod-exercise">Moderate Exercise</label>
                         <label class="radio-inline activity">
 
-                            <input type="radio" value="" name="heavy-exercise">Heavy Exercise</label>
+                            <input type="radio" name="heavy-exercise">Heavy Exercise</label>
                      </div>
                     <div class="modal-footer">
 
