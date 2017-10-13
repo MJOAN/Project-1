@@ -8,6 +8,7 @@
     <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- CSS Style Pages -->
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -43,9 +44,9 @@
                     <li><a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228M7G&redirect_uri=https%3A%2F%2Fmjoan.github.io%2FProject-1%2Findex.html&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800"> 
                     <span class="glyphicon glyphicon-refresh"></span> Sync with your FitBit</a>
                     </li>
-                    <li><a href="#" role="button" class="btn" data-toggle="modal" data-target="#logIn"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><a href="#" id="sign-out"><span class="glyphicon glyphicon-log-out"></span> Sign-Out</a>
+                        <li><a href="#" role="button" class="btn" data-toggle="modal" data-target="#register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                        <li><a href="#" role="button" class="btn" data-toggle="modal" data-target="#logIn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="#" role="button" class="btn" data-toggle="modal" data-target="#logOut"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li> 
                     </li> 
              <script>    
         </script>
@@ -56,38 +57,267 @@
 
     
 
+<div class="modal fade" id="logOut">
+        <div class="container">
+            <br>
+            <button id="sign-out" onclick="signOut()" class="mdl-button mdl-js-button mdl-js-ripple-effect">Log In</button>  
+        </div>
+</div>    
     <div class="modal fade" id="logIn">
-        <div class="modal-dialog">
         <div class="container">
             <br>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="panel panel-default">
-                        <div class="modal-heading">
-                            <h3 class="panel-title">Sign Up Authentication</h3>
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Log In Authentication</h3>
                         </div>
                         <div class="panel-body">
                             <form id="login-app">
-                                <div class="panel-body">
-                                </div>
-                        </div>
-                        <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input class="form-control" id="name" type="text" placeholder="Full Name" name="FirstName" value="Full Name">
-                            </div>
-                    <div class="form-group">
-                        <label for="age">Age:</label>
-                        <input class="form-control" id="age" type="number">
+
+                                </div> <button id="sign-in" onclick="signIn()" class="mdl-button mdl-js-button mdl-js-ripple-effect"></button>  
+
+                            </form>
                     </div>
-                    <!-- Submit Button -->
-                    <button id="register" class="mdl-button mdl-js-button mdl-js-ripple-effect btn btn-primary" value="Load new document">Register</button>
-                    </form>
                 </div>
             </div>
-          </div>
-      </div>
+        </div>     
+    </div>
+
+<div class="modal fade" id="register">    
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Registration Form</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form id="register-app">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input class="form-control" id="name" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age:</label>
+                                <input class="form-control" id="age" type="number">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input class="form-control" id="email" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input class="form-control" id="password" type="text">
+                            </div>
+                            <!-- Submit Button -->
+                            <button id="click-button" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+
+ <script type="text/javascript">
+
+          // Initialize Firebase
+              var config = {
+                apiKey: "AIzaSyA-IZ3RaOqL0cyNzDi4-qMm7bVjBPZKKXQ",
+                authDomain: "testprojecttohelpm.firebaseapp.com",
+                databaseURL: "https://testprojecttohelpm.firebaseio.com",
+                projectId: "testprojecttohelpm",
+                storageBucket: "testprojecttohelpm.appspot.com",
+                messagingSenderId: "128970731317"
+              };
+
+              firebase.initializeApp(config);
+              
+
+        var database = firebase.database();
+        var usersRef = firebase.database().ref("users");        
+
+        var manualEntries;
+        var name = "";
+        var age = "";
+        var email = "";
+        var password = "";
+        var uid = "";
+
+        $("#click-button").on("click", function() {
+
+            event.preventDefault();
+
+            userName = $("#name").val().trim();
+            age = $("#age").val().trim();
+            email = $("#email").val().trim();
+            password = $("#password").val().trim();
+            uid = firebase.auth().currentUser;
+
+
+            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+              // Handle Errors here.
+              // var errorCode = error.code;
+              // var errorMessage = error.message;
+              // ...
+            });
+
+            firebase.auth().createUserWithEmailAndPassword(email, password);
+
+            console.log("this is firebase user " + firebase.User)
+
+
+
+
+            console.log("Registration Completed." + " uid is " + uid);
+
+        });
+
+        database.ref().on("value", function(snapshot) {
+
+
+        }, function(errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+
+
+        window.onload = function() {};
+
+
+ var uiConfig = { 
+
+            signInSuccessUrl: "form-JSON.html", //"index-JSON-test.html",
+            signInOptions: [
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                firebase.auth.EmailAuthProvider.PROVIDER_ID
+            ],
+        };
+
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        ui.start("#login-app", uiConfig, initApp);
+
+        var registerUser = function() {
+            window.location.replace("register.html");
+        };
+
+        var initApp = function(user) {
+            window.user = user;
+            var currentUID = null;
+
+var todaysDate= "10-10-2017";
+            firebase.auth().onAuthStateChanged(function(user) {
+
+                if (user && user.uid != currentUID) {  
+                    currentUID = user.uid;
+
+                if ($("#respitory").is(":checked")) {
+                    console.log("hi");
+                }
+
+                $(document).on("click", "#add-user-data-btn", function(event){
+
+                usersRef.child(currentUID).set({   //database.ref(`users`/ + {uid}).set({ //change .set from .push and added + {$uid}
+                    name: userName,
+                
+                });
+                console.log("im being clicked");
+
+                    var userLocation = $("#location").val().trim();   // this could tie to GOOGLE MAPS API
+                    var userComment = $("#comments").val().trim();
+                    // var usersRef = firebase.database().ref("users");   
+                    var uIDRef = usersRef.child(currentUID);
+                    var uIDRefName = uIDRef.child("name");
+
+                    // var entryDate = moment($("#entry-date").val().trim(), "DD/MM/YY").format("X");
+
+                    console.log(userLocation);
+                    console.log(userComment);
+
+                    $.ajax({
+                      url : "https://api.wunderground.com/api/f8b3b3389929c977/history_20170929/q/CA/Los_Angeles.json" ,
+                      method: "GET"
+                    })  
+
+                    .done(function(response) { 
+                        usersRef.child(currentUID).child(todaysDate).update({ 
+                            syncedEntries: { 
+                                weather : {
+                                highTemp: response.history.dailysummary[0].maxtempi,
+                                lowTemp: response.history.dailysummary[0].mintempi,
+                                }
+                            }
+
+                        })
+                    });
+
+                    // $.ajax({
+                    //   type: 'GET',
+                    //   beforeSend: function(request) {
+                    //      request.setRequestHeader("Authorization", 'Bearer ' + access_token);
+                    //   },
+                    //     url: "https://api.fitbit.com/1/user/"+userId+"/activities/heart/date/today/1w.json",
+
+                    //     success:function(data, status, xhr){
+                    //       console.log("HR****"+ JSON.stringify(data.restingHeartRate));
+                    //     }
+                    // });
+
+                    usersRef.child(currentUID).update({   //database.ref(`users`/ + {uid}).set({ //change .set from .push and added + {$uid}
+                        [todaysDate]: {
+                            manualEntries: {
+                                location: userLocation,
+                                comment: userComment,
+                            }
+
+                        }
+                    });
+
+
+
+                });
+
+                console.log("Welcome UID:" + currentUID);
+
+                
+                usersRef.child(currentUID).set({   //database.ref(`users`/ + {uid}).set({ //change .set from .push and added + {$uid}
+                    name: userName,
+                
+
+                });
+
+
+
+
+                // window.location.assign("index.html")  //not working
+            } else {  
+                currentUID = null;  
+                console.log("no user signed in");        
+            }
+            });
+            
+        };
+        initApp();
+
+        window.onload = function() {
+        };
+
+
+        firebase.auth().signOut().then(function() {
+          console.log('Signed Out');
+        }, function(error) {
+          console.error('Sign Out Error', error);
+        });
+
+        </script>
+
 
             <!-- 
 
@@ -112,9 +342,9 @@
 
                 <form id="action" id="input-form">
                     
-                    <div class="form-group" id="location">
+                    <div class="form-group">
                         <label for="location">Location</label>
-                        <input class="form-control" name="location" type="text">
+                        <input class="form-control" id="location" type="text">
                     </div>
 
                     <div class="form-group">
@@ -134,9 +364,9 @@
                         <div id="malaise-collapse" class="collapse">WHY THE FUCK IS MY FEVER AT 105?!</div>
                     </div>
                     
-                    <div class="form-group" id="comments">
+                    <div class="form-group">
                         <label for="comment">Comment (optional): </label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="color:#eaa54c" data-toggle="tooltip" title="Add additional information for your eyes only!"></span>
-                        <textarea class="form-control" name="comments" rows="5" id="comments"></textarea>
+                        <textarea class="form-control" rows="5" id="comments"></textarea>
                     </div>
                         
                     <div class="checkbox" id="alcohol">
@@ -157,12 +387,14 @@
 
                             <input type="radio" name="heavy-exercise">Heavy Exercise</label>
                      </div>
+                    </form>
+
                     <div class="modal-footer">
 
                     <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         
-                    </form>
+
                         
                         
                        
@@ -232,7 +464,7 @@
 
 <!-- Test Button -->
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
     <script src="https://code.jquery.com/jquery.js"></script>
