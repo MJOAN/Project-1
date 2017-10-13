@@ -209,10 +209,28 @@ usersRef.once('value', function(snapshot) {
               return "translate(" + 0 + "," + height + ")"
           })
           .call(xAxis);
+
+          svg.append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + margin.top + 20) + ")")
+      .style("text-anchor", "middle")
+      .style("font-family", "Open Sans")
+      .text("Date");
+
       // create the y axis
       var yAxis = d3.axisLeft(y).ticks(5);
       var yAxisGroup = svg.append("g")
           .call(yAxis);
+
+          svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", margin.right - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .style("font-family", "Open Sans")
+      .text("High Temp");  
 
       var color = d3.scaleLinear()
           .domain([0, d3.max(data, function(d) { return d.highTemp; })])
@@ -264,7 +282,7 @@ usersRef.once('value', function(snapshot) {
        div.transition()
          .duration(150)
          .style("opacity", .95);
-       div.html("August " + d.date + ":<br>" + "Notes: " + d.comment)
+       div.html(d.date + ":<br>" + "Notes: " + d.comment)
          .style("left", (d3.event.pageX) + "px")
          .style("top", (d3.event.pageY) + "px");
          };
@@ -309,7 +327,7 @@ usersRef.once('value', function(snapshot) {
        div.transition()
          .duration(150)
          .style("opacity", .95);
-       div.html("August " + d.date + ":<br>" + "Notes: " + d.comment)
+       div.html(d.date + ":<br>" + "Notes: " + d.comment)
          .style("left", (d3.event.pageX) + "px")
          .style("top", (d3.event.pageY) + "px");
          };
@@ -353,7 +371,7 @@ usersRef.once('value', function(snapshot) {
        div.transition()
          .duration(150)
          .style("opacity", .95);
-       div.html("August " + d.date + ":<br>" + "Notes: " + d.comment)
+       div.html(d.date + ":<br>" + "Notes: " + d.comment)
          .style("left", (d3.event.pageX) + "px")
          .style("top", (d3.event.pageY) + "px");
          };
@@ -397,7 +415,7 @@ usersRef.once('value', function(snapshot) {
        div.transition()
          .duration(150)
          .style("opacity", .95);
-       div.html("August " + d.date + ":<br>" + "Notes: " + d.comment)
+       div.html(d.date + ":<br>" + "Notes: " + d.comment)
          .style("left", (d3.event.pageX) + "px")
          .style("top", (d3.event.pageY) + "px");
          };
@@ -413,7 +431,41 @@ usersRef.once('value', function(snapshot) {
      }
        })
 
+     var valueline = d3.line()
+    .x(function(d) { return x(d.date) + x.bandwidth()/2; })
+    .y(function(d) { return y(d.restingHR); });
 
+
+  var heartRate =  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .style("stroke", "#fff")
+      .style("stroke-width", "2px")
+      .style("fill", "none")
+      .attr("d", valueline)
+            .on("mouseover", function(d) {      
+      d3.select(this)
+      .style("stroke", "#53a7ea")
+      .style("stroke-width", "3px")
+      div.attr() 
+       div.transition()
+         .duration(150)
+         .style("opacity", .95);
+       div.html("Resting Heart Rate Trends")
+         .style("left", (d3.event.pageX) + "px")
+         .style("top", (d3.event.pageY) + "px");
+
+       })
+     .on("mouseout", function(d) {
+            d3.select(this)
+            .style("stroke", "#fff")
+      .style("stroke-width", "2px");
+
+       div.transition()
+         .duration(200)
+         .style("opacity", 0);
+       });
+      
  
 
 });
