@@ -1,8 +1,4 @@
-
-
 'use strict';
-    // fitbit API
-    // get the url 
 
 var database = firebase.database();
 var usersRef = database.ref("users");
@@ -10,18 +6,12 @@ var uIDRef = usersRef.child(currentUID);
 var uIDRefName = uIDRef.child("name");
 var syncedEntries;
 
-// use moment library for day
+startAuthListenerMain();
+
+// use moment library for today
 
 var todaysDate = moment($("#entry-date").val().trim(), "DD/MM/YY").format("X");
-
 var currentUID = firebase.auth().currentUser;
-var displayName = "";
-var age = "";
-var email = "";
-var password = "";
-var comments = "";
-var location = "";
-
 
 
     var url = window.location.href;
@@ -91,8 +81,8 @@ var location = "";
             });
 
 
-
-    var weatherQueryURL = "https://api.wunderground.com/api/f8b3b3389929c977/history_" + todaysDate + "/geolookup/q/autoip.json";
+    var weatherQueryURL = "https://api.wunderground.com/api/f8b3b3389929c977/history_" 
+    + todaysDate + "/geolookup/q/autoip.json";
 
     $.ajax({
             url: weatherQueryURL,

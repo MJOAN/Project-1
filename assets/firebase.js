@@ -56,6 +56,7 @@ $(document).on("click", "#add-user-data-btn", function(event) {
     var heavyExercise = $("input[type=radio][name=heavy-exercise]:checked").val();
 
     console.log("Your location today was: ", location);
+    console.log(currentUID);
 
     usersRef.child(currentUID).update({
         [todaysDate]: {
@@ -69,12 +70,11 @@ $(document).on("click", "#add-user-data-btn", function(event) {
         }
     });
 
-    console.log(currentUID.todaysDate.manualEntries.activities);
-    console.log(currentUID.todaysDate.manualEntries.symptoms);
+    console.log(currentUID.todaysDate.manualEntries.activities[0]);
+    console.log(currentUID.todaysDate.manualEntries.symptoms[0]);
     console.log(currentUID.todaysDate.manualEntries.comments);
 
 
-    // fitbit sync on ajax file
 
     database.ref().on("value", function(snapshot) {
 

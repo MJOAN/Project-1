@@ -24,7 +24,7 @@
                         <div class="panel-body">
                             <form id="login-app"></form>
                             <div class="panel-body">
-                                <button id='login'>Login</button>
+                                <button id="login-button">Login</button>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
             firebase.auth().signInWithPopup(provider)
         }
 
-        $("#login").click(function() {
+        $("#login-button").click(function() {
             signIn();
         })
         </script>
