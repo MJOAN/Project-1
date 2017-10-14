@@ -1,4 +1,5 @@
   var data = [{
+
           "date": "10/06/2017",
           "highTemp": '95',
           "lowTemp": '73',
@@ -66,6 +67,7 @@
   ];
   console.log(data);
 
+
   $('#d3Button, #back').click(function() {
       var d3Storage = $("<div class='container'>");
       d3Storage.addClass("fadeIn d3View text-center");
@@ -89,9 +91,11 @@
       if (this.id === 'd3Button') {
 
           $(".data-display").animate({
+
               width: 'toggle',
               opacity: 'toggle'
           }, 400);
+
 
 
           setTimeout(function() {
@@ -123,10 +127,12 @@
 
 
 
+
       var parseTime = d3.timeParse("%m/%d/%Y");
       // d3 graphing must happen inside child snapshot to load properly
       data.forEach(function(d) {
           d.date = parseTime(d.date);
+
           d.highTemp = +d.highTemp;
           d.lowTemp = +d.lowTemp;
           d.restingHR = +d.restingHR;
@@ -134,6 +140,7 @@
       });
 
       var formatTime = d3.timeFormat("%b %d %y");
+
       // build basic graph
       var margin = { top: 20, right: 20, bottom: 50, left: 70 },
           width = 1000 - margin.left - margin.right,
@@ -165,13 +172,16 @@
           .range([height, 0]);
       // create the x axis
       var xAxis = d3.axisBottom(x)
+
           //   .ticks(5)
+
           .tickFormat(d3.timeFormat("%m %d %y"));
       svg.append("g")
           .attr("transform", function() {
               return "translate(" + 0 + "," + height + ")"
           })
           .call(xAxis);
+
 
       svg.append("text")
           .attr("transform",
@@ -181,9 +191,11 @@
           .style("font-family", "Open Sans")
           .text("Date");
 
+
       // create the y axis
       var yAxis = d3.axisLeft(y).ticks(5);
       var yAxisGroup = svg.append("g")
+
           .attr("class", "yaxis")
           .call(yAxis);
 
@@ -196,6 +208,7 @@
           .style("text-anchor", "middle")
           .style("font-family", "Open Sans")
           .text("High Temp");
+
 
       var color = d3.scaleLinear()
           .domain([0, d3.max(data, function(d) { return d.highTemp; })])
@@ -218,6 +231,7 @@
           .attr("y", function(d) { return y(d.highTemp); })
           .attr("height", function(d) { return height - y(d.highTemp); })
           .attr("fill", function(d) { return color(d.highTemp) });
+
 
 
 
@@ -960,3 +974,4 @@
 
 
   });
+
