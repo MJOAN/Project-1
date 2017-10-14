@@ -3,7 +3,7 @@
 
 <head>
     <title>Date Entry</title>
-    <!-- for google integration sign in -->
+    <!-- Google Signin -->
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -13,18 +13,16 @@
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- Bootstrap CDN-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
-    <!-- JS script -->
-    <!-- Firebase Reference -->
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
     <br>
     <br>
-    <!--Navbar for mobil display -->
+    <!--Navbar for mobile display -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class='navbar-header'>
@@ -43,16 +41,13 @@
                     <li><a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228M7G&redirect_uri=https%3A%2F%2Fmjoan.github.io%2FProject-1%2Findex.html&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800"> 
                     <span class="glyphicon glyphicon-refresh"></span> Sync with your FitBit</a>
                     </li>
-
                     <li><a href="#" id="login" role="button" class="btn" data-toggle="modal" data-target="#logIn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     <li><a href="#" id="sign-out" role="button" class="btn" data-toggle="modal" data-target="#logOut"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                     </li>
-                    <script>
-                    </script>
                 </ul>
             </div>
     </nav>
-    <div class="modal fade" id="logIn">
+    <div class="modal fade" id="login">
 
         <body>
             <div class="container">
@@ -64,22 +59,18 @@
                                 <h3 class="panel-title">Log In Authentication</h3>
                             </div>
                             <div class="panel-body">
+                                <!--this is the ID for form submit 'login app & login button-->
                                 <form id="login-app">
-                                <div class="panel-body">
-                                    <button id="login">Login</button>
-                                    </form>
+                                    <div class="panel-body">
+                                        <button id="login-button" type="submit">Login</button>
+                                </form>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
- 
-
-
-
-
-            </script>
             <div class="modal fade" id="register">
                 <div class="container">
                     <br>
@@ -91,6 +82,7 @@
                                 </div>
                                 <div class="panel-body">
                                     <form id="register-app">
+                                        <!--this is the ID for form submit 'register app & register button-->
                                         <div class="form-group">
                                             <label for="name">Name:</label>
                                             <input class="form-control" id="name" type="text">
@@ -107,20 +99,15 @@
                                             <label for="password">Password:</label>
                                             <input class="form-control" id="password" type="text">
                                         </div>
-                                        <!-- Submit Button -->
-                                        <button id="click-button" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Register</button>
+                                        <button id="register-button" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Register</button>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
- 
-            <script type="text/javascript">
-
-            </script>
-
             <div id="myModal" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -134,57 +121,50 @@
                                 <label for="location">Location</label>
                                 <input class="form-control" id="location" type="text">
                             </div>
-                            
-
                             <div class="form-group">
                                 <label for="symptom">Health Symptom Input</label>
                                 <br>
                                 <label class="checkbox-inline symptom">
-                                    <input type="checkbox" id="respitory" data-toggle="collapse" data-target="#respitory-collapse">Respitory</label>
+                                    <input type="checkbox" name="respitory" data-toggle="collapse" data-target="#respitory-collapse">Respitory</label>
                                 <label class="checkbox-inline symptom">
-                                    <input type="checkbox" id="digestive" data-toggle="collapse" data-target="#digestive-collapse">Digestive</label>
+                                    <input type="checkbox" name="digestive" data-toggle="collapse" data-target="#digestive-collapse">Digestive</label>
                                 <label class="checkbox-inline symptom">
-                                    <input type="checkbox" id="neurological" data-toggle="collapse" data-target="#neurological-collapse">Neurological</label>
+                                    <input type="checkbox" name="neurological" data-toggle="collapse" data-target="#neurological-collapse">Neurological</label>
                                 <label class="checkbox-inline symptom">
-                                    <input type="checkbox" id="malaise" data-toggle="collapse" data-target="#malaise-collapse">Malaise</label>
-                                <div id="respitory-collapse" class="collapse">HAVE TONS OF INFO ON RESPITORY</div>
-                                <div id="digestive-collapse" class="collapse">WANNA KNOW ABOUT DIGESTIVE?! I GOT YOU</div>
-                                <div id="neurological-collapse" class="collapse">LOUD NOISES. BRAIN HURTS</div>
-                                <div id="malaise-collapse" class="collapse">WHY THE FUCK IS MY FEVER AT 105?!</div>
+                                    <input type="checkbox" name="malaise" data-toggle="collapse" data-target="#malaise-collapse">Malaise</label>
+                                <div name="respitory-collapse" class="collapse">Respitory</div>
+                                <div id="digestive-collapse" class="collapse">Digestive</div>
+                                <div id="neurological-collapse" class="collapse">Neurological</div>
+                                <div id="malaise-collapse" class="collapse">Malaise</div>
+                            </div>
+                            <div class="form-group" id="comments">
+                                <label for="comment">Comment (optional): </label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="color:#eaa54c" data-toggle="tooltip" title="Add additional information for your eyes only!"></span>
+                                <textarea class="form-control" rows="5" name="comments"></textarea>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="alcohol" id="alcoholCheckbox">Alcohol Consumption Today?</label>
                             </div>
                             <div class="form-group">
-                                <label for="comment">Comment (optional): </label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="color:#eaa54c" data-toggle="tooltip" title="Add additional information for your eyes only!"></span>
-                                <textarea class="form-control" rows="5" id="comments"></textarea>
-                            </div>
-                            <div class="checkbox" id="alcohol">
-                                <label>
-                                    <input type="checkbox" value="" name="alcohol" id="alcoholCheckbox">Alcohol Consumption Today?</label>
-                            </div>
-                            <div class="form-group" id="activities">
                                 <label for="activity">Daily Activity</label>
                                 <br>
                                 <label class="radio-inline activity">
-                                    <input type="radio" id="" ="no-exercise">No Exercise</label>
+                                    <input type="radio" name="no-exercise">No Exercise</label>
                                 <label class="radio-inline activity">
-                                    <input type="radio" id="light-exercise">Light Exercise</label>
+                                    <input type="radio" name="light-exercise">Light Exercise</label>
                                 <label class="radio-inline activity">
-                                    <input type="radio" id="mod-exercise">Moderate Exercise</label>
+                                    <input type="radio" name="mod-exercise">Moderate Exercise</label>
                                 <label class="radio-inline activity">
-                                    <input type="radio" id="heavy-exercise">Heavy Exercise</label>
+                                    <input type="radio" name="heavy-exercise">Heavy Exercise</label>
                             </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </form>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
-     
-
-
-
-            <!-- Calendar -->
             <div id="calendar">
             </div>
             <footer class="footer">
@@ -192,110 +172,23 @@
                     <span class="text-muted">&copy; H1N1 2017</span>
                 </div>
             </footer>
-            <!-- Test Button -->
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-            <script src="https://code.jquery.com/jquery.js"></script>
-            <!-- Link to Moment.js should go here -->
+            <!-- Moment.js -->
             <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-                       <!-- Firebase UI Widget-->
-            <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
-            <!-- Firebase SDK -->
-            <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+            <!-- Firebase UI Widget-->
             <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
             <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
             <!-- Firebase SDK -->
             <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
-    
+            <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+            <!-- D3 - Firebase - AJAX -->
             <script src="https://d3js.org/d3.v4.min.js"></script>
             <script src="vendor/clndr.js"></script>
             <script src="assets/javascript/logic.js"></script>
             <script src="assets/javascript/d3.js"></script>
             <script src="assets/firebase.js"></script>
             <script src="assets/auth.js"></script>
-            <!-- Script -->
-            <script>
-            'use strict';
-            // fitbit API
-            // get the url 
-            var url = window.location.href;
-            console.log(url);
-            //access token from url
-            var access_token = url.split("#")[1].split("=")[1].split("&")[0];
-            // get userid
-            var userId = url.split("#")[1].split("=")[2].split("&")[0];
-            $.ajax({
-                type: 'GET',
-                beforeSend: function(request) {
-                    request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-                },
-                url: "https://api.fitbit.com/1/user/" + userId + "/activities/steps/date/today/1w.json",
-                success: function(data, status, xhr) {
-                    console.log(JSON.stringify(data));
-                }
-            });
-            $.ajax({
-                type: 'GET',
-                beforeSend: function(request) {
-                    request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-                },
-                url: "https://api.fitbit.com/1/user/" + userId + "/activities/heart/date/today/1w.json",
-                success: function(data, status, xhr) {
-                    console.log(JSON.stringify(data));
-                }
-            });
-            $.ajax({
-                type: 'GET',
-                beforeSend: function(request) {
-                    request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-                },
-                url: "https://api.fitbit.com/1/user/" + userId + "/sleep/date/2017-04-02.json",
-                success: function(data, status, xhr) {
-                    console.log(JSON.stringify(data.summary.totalMinutesAsleep));
-                    console.log(JSON.stringify(data.summary.totalTimeInBed));
-                }
-            });
-            // weather API one - grabbing info by user input
-            $.ajax({
-                    url: "https://api.wunderground.com/api/f8b3b3389929c977/history_20170929/q/CA/Los_Angeles.json",
-                    method: "GET"
-                })
-                .done(function(response) {
-                    $("#fitBitDisplay").html("Max Temp " + JSON.stringify(response.history.dailysummary[0].maxtempi));
-                    console.log("Min Temp " + JSON.stringify(response.history.dailysummary[0].mintempi));
-                    console.log("Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));
-                    console.log("Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity));
-                    console.log("Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));
-                    console.log("Rainfall " + JSON.stringify(response.history.observations[0].rain));
-                });
-            // weather API two - grabbing info by user's IP address
-            // working link - http://api.wunderground.com/api/f8b3b3389929c977/history_20170929/geolookup/q/autoip.json
-            var date = "20170929";
-            var weatherQueryURL = "https://api.wunderground.com/api/f8b3b3389929c977/history_" + date + "/geolookup/q/autoip.json";
-            $.ajax({
-                    url: weatherQueryURL,
-                    method: "GET"
-                })
-                .done(function(response) {
-                    console.log("Geo Max Temp " + JSON.stringify(response.history.dailysummary[0].maxtempi));
-                    console.log("Geo Min Temp " + JSON.stringify(response.history.dailysummary[0].mintempi));
-                    console.log("Geo Max Hum " + JSON.stringify(response.history.dailysummary[0].maxhumidity));
-                    console.log("Geo Min Hum " + JSON.stringify(response.history.dailysummary[0].minhumidity));
-                    console.log("Geo Mean Wind Speed " + JSON.stringify(response.history.dailysummary[0].meanwindspdi));
-                    console.log("Geo Rainfall " + JSON.stringify(response.history.observations[0].rain));
-                });
-            // AQI
-            $.ajax({
-                    url: "https://api.waqi.info/feed/here/?token=593a9ac142943ace1b66178b02174bd1671dd07f",
-                    method: "GET"
-                })
-                // the url above grabs the user's ip's address to determine its location
-                // basic url - "http://api.waqi.info/search/?token=593a9ac142943ace1b66178b02174bd1671dd07f&keyword=losangeles"
-                .done(function(response) {
-                    console.log("AQI " + JSON.stringify(response.data.aqi));
-                    // basic - console.log("AQI " + response.data[0].aqi);  
-                });
-            </script>
+            <script src="assets/ajax.js"></script>
         </body>
 
 </html>

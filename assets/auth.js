@@ -9,12 +9,6 @@ var config = {
 
 firebase.initializeApp(config);
 
-
-startAuthListenerLogIn();
-startAuthServerRegister();
-signOut();
-
-
 var provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope('profile');
 provider.addScope('email');
@@ -24,38 +18,27 @@ function signInGoogle() {
     firebase.auth().signInWithPopup(provider)
     console.log("this is firebase user " + displayName)
     console.log("Registration Completed." + " uid is " + currentUID);
-    .catch(function(error) {});
-}
+},
+function(error) {
+    console.error("Signing in error", error);
+};
+
 
 $("#login").submit(function(event) {
     signInGoogle();
 });
 
-
-
 function signOut() {
     firebase.auth().signOut().then(function() {
         console.log('Signed Out');
     }, function(error) {
-        console.error('Sign Out Error', error);
+        console.error('Sign out error', error);
     });
 }
 
 $("#sign-out").submit(function(event) {
-        signOut();
-    };
-
-
-var uiConfig = {
-        signInOptions: [
-            firebase.auth.EmailAuthProvider.PROVIDER_ID
-        };
-    ],
+    signOut();
 };
-
-var ui = new firebaseui.auth.AuthUI(firebase.auth());
-ui.start("#login-app", uiConfig);
-
 
 var startAuthServerRegister = function() { // check state of user auth; otherwise send to log in.
     firebase.auth().onAuthStateChanged(function(user) {
