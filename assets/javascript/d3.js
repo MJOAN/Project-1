@@ -63,6 +63,32 @@
           "restingHR": "61",
           "highTemp": "89",
           "lowTemp": "64"
+      },
+            {
+          "date": "10/11/2017",
+          "alcohol": false,
+          "comment": "stomach ache",
+          "dailyAct": "heavy",
+          "respiratory": false,
+          "neurological": false,
+          "malaise": false,
+          "digestive": true,
+          "restingHR": "61",
+          "highTemp": "80",
+          "lowTemp": "64"
+      },
+            {
+          "date": "10/12/2017",
+          "alcohol": true,
+          "comment": "Very tired, headache",
+          "dailyAct": "light",
+          "respiratory": false,
+          "neurological": true,
+          "malaise": false,
+          "digestive": false,
+          "restingHR": "61",
+          "highTemp": "75",
+          "lowTemp": "59"
       }
   ];
   console.log(data);
@@ -244,6 +270,7 @@
           .attr("x", function(d) { return x(d.date) + 4; })
           .attr("y", function(d) { return y(d.highTemp) + 25; })
           .text("breathing")
+          .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000")
           .style("fill", "#fff")
           .style("font-family", 'Open Sans')
           .style("font-size", "24px")
@@ -271,7 +298,7 @@
           .on("mouseout", function(d) {
               if (d.respiratory === true) {
                   d3.select(this)
-                      .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+                      .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000");
 
                   div.transition()
                       .duration(200)
@@ -289,6 +316,7 @@
           .attr("x", function(d) { return x(d.date) + 4; })
           .attr("y", function(d) { return y(d.highTemp) + 55; })
           .text("digestion")
+          .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000")
           .style("fill", "#fff")
           .style("font-family", 'Open Sans')
           .style("font-size", "24px")
@@ -316,7 +344,7 @@
           .on("mouseout", function(d) {
               if (d.digestive === true) {
                   d3.select(this)
-                      .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+                     .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000");
 
                   div.transition()
                       .duration(200)
@@ -333,6 +361,7 @@
           .attr("x", function(d) { return x(d.date) + 4; })
           .attr("y", function(d) { return y(d.highTemp) + 85; })
           .text("unwell")
+          .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000")
           .style("fill", "#fff")
           .style("font-family", 'Open Sans')
           .style("font-size", "24px")
@@ -360,7 +389,7 @@
           .on("mouseout", function(d) {
               if (d.malaise === true) {
                   d3.select(this)
-                      .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+                      .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000");
 
                   div.transition()
                       .duration(200)
@@ -377,6 +406,7 @@
           .attr("x", function(d) { return x(d.date) + 4; })
           .attr("y", function(d) { return y(d.highTemp) + 85; })
           .text("neurology")
+          .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000")
           .style("fill", "#fff")
           .style("font-family", 'Open Sans')
           .style("font-size", "24px")
@@ -404,7 +434,7 @@
           .on("mouseout", function(d) {
               if (d.neurological === true) {
                   d3.select(this)
-                      .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+                      .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000");
 
                   div.transition()
                       .duration(200)
@@ -420,8 +450,9 @@
       var heartRate = svg.append("path")
           .data([data])
           .attr("class", "line")
-          .style("stroke", "#fff")
+          .style("stroke", "#f5f5f5")
           .style("stroke-width", "4px")
+          .style("box-shadow", "0 1px 2px 0 rgba(0,0,0,0.2)")
           .style("fill", "none")
           .attr("d", valueline)
           .on("mouseover", function(d) {
@@ -506,6 +537,7 @@
               .attr("x", function(d) { return x(d.date) + 4; })
               .attr("y", function(d) { return y(d.lowTemp) + 25; })
               .text("breathing")
+              .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000")
               .style("fill", "#fff")
               .style("font-family", 'Open Sans')
               .style("font-size", "24px")
@@ -533,7 +565,7 @@
               .on("mouseout", function(d) {
                   if (d.respiratory === true) {
                       d3.select(this)
-                          .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+                          .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000");
 
                       div.transition()
                           .duration(200)
@@ -551,6 +583,7 @@
               .attr("x", function(d) { return x(d.date) + 4; })
               .attr("y", function(d) { return y(d.lowTemp) + 55; })
               .text("digestion")
+              .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000")
               .style("fill", "#fff")
               .style("font-family", 'Open Sans')
               .style("font-size", "24px")
@@ -578,7 +611,7 @@
               .on("mouseout", function(d) {
                   if (d.digestive === true) {
                       d3.select(this)
-                          .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+                          .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000");
 
                       div.transition()
                           .duration(200)
@@ -595,6 +628,7 @@
               .attr("x", function(d) { return x(d.date) + 4; })
               .attr("y", function(d) { return y(d.lowTemp) + 85; })
               .text("unwell")
+              .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000")
               .style("fill", "#fff")
               .style("font-family", 'Open Sans')
               .style("font-size", "24px")
@@ -622,7 +656,7 @@
               .on("mouseout", function(d) {
                   if (d.malaise === true) {
                       d3.select(this)
-                          .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+                          .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000");
 
                       div.transition()
                           .duration(200)
@@ -639,6 +673,7 @@
               .attr("x", function(d) { return x(d.date) + 4; })
               .attr("y", function(d) { return y(d.lowTemp) + 85; })
               .text("neurology")
+              .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000")
               .style("fill", "#fff")
               .style("font-family", 'Open Sans')
               .style("font-size", "24px")
@@ -666,7 +701,7 @@
               .on("mouseout", function(d) {
                   if (d.neurological === true) {
                       d3.select(this)
-                          .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+                          .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000");
 
                       div.transition()
                           .duration(200)
@@ -677,12 +712,13 @@
               .x(function(d) { return x(d.date) + x.bandwidth() / 2; })
               .y(function(d) { return y(d.restingHR); });
 
-
+             d3.selectAll("path").remove();
           var heartRate = svg.append("path")
               .data([data])
               .attr("class", "line")
-              .style("stroke", "#fff")
+              .style("stroke", "#f5f5f5")
               .style("stroke-width", "4px")
+              .style("box-shadow", "0 1px 2px 0 rgba(0,0,0,0.2)")
               .style("fill", "none")
               .attr("d", valueline)
               .on("mouseover", function(d) {
@@ -700,7 +736,7 @@
               })
               .on("mouseout", function(d) {
                   d3.select(this)
-                      .style("stroke", "#fff")
+                      .style("stroke", "#f5f5f5")
                       .style("stroke-width", "4px");
 
                   div.transition()
@@ -767,6 +803,7 @@
               .attr("x", function(d) { return x(d.date) + 4; })
               .attr("y", function(d) { return y(d.highTemp) + 25; })
               .text("breathing")
+              .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000")
               .style("fill", "#fff")
               .style("font-family", 'Open Sans')
               .style("font-size", "24px")
@@ -794,7 +831,7 @@
               .on("mouseout", function(d) {
                   if (d.respiratory === true) {
                       d3.select(this)
-                          .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+                          .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000");
 
                       div.transition()
                           .duration(200)
@@ -812,6 +849,7 @@
               .attr("x", function(d) { return x(d.date) + 4; })
               .attr("y", function(d) { return y(d.highTemp) + 55; })
               .text("digestion")
+              .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000")
               .style("fill", "#fff")
               .style("font-family", 'Open Sans')
               .style("font-size", "24px")
@@ -839,7 +877,7 @@
               .on("mouseout", function(d) {
                   if (d.digestive === true) {
                       d3.select(this)
-                          .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+                          .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000");
 
                       div.transition()
                           .duration(200)
@@ -857,6 +895,7 @@
               .attr("y", function(d) { return y(d.highTemp) + 85; })
               .text("unwell")
               .style("fill", "#fff")
+              .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000")
               .style("font-family", 'Open Sans')
               .style("font-size", "24px")
               .style("cursor", "pointer")
@@ -883,7 +922,7 @@
               .on("mouseout", function(d) {
                   if (d.malaise === true) {
                       d3.select(this)
-                          .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+                          .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000");
 
                       div.transition()
                           .duration(200)
@@ -900,6 +939,7 @@
               .attr("x", function(d) { return x(d.date) + 4; })
               .attr("y", function(d) { return y(d.highTemp) + 85; })
               .text("neurology")
+              .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000")
               .style("fill", "#fff")
               .style("font-family", 'Open Sans')
               .style("font-size", "24px")
@@ -927,7 +967,7 @@
               .on("mouseout", function(d) {
                   if (d.neurological === true) {
                       d3.select(this)
-                          .style("text-shadow", "0px 0, 0px 0, 0px 0, 0px 0");
+                          .style("text-shadow", "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000");
 
                       div.transition()
                           .duration(200)
@@ -939,12 +979,13 @@
               .x(function(d) { return x(d.date) + x.bandwidth() / 2; })
               .y(function(d) { return y(d.restingHR); });
 
-
+              d3.selectAll("path").remove();
           var heartRate = svg.append("path")
               .data([data])
               .attr("class", "line")
-              .style("stroke", "#fff")
+              .style("stroke", "#f5f5f5")
               .style("stroke-width", "4px")
+              .style("box-shadow", "0 1px 2px 0 rgba(0,0,0,0.2)")
               .style("fill", "none")
               .attr("d", valueline)
               .on("mouseover", function(d) {
@@ -962,7 +1003,7 @@
               })
               .on("mouseout", function(d) {
                   d3.select(this)
-                      .style("stroke", "#fff")
+                      .style("stroke", "#f5f5f5")
                       .style("stroke-width", "4px");
 
                   div.transition()
