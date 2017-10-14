@@ -129,6 +129,7 @@
 
  <script type="text/javascript">
 
+
           // Initialize Firebase
               var config = {
                 apiKey: "AIzaSyA-IZ3RaOqL0cyNzDi4-qMm7bVjBPZKKXQ",
@@ -213,22 +214,73 @@
             var currentUID = null;
 
 var todaysDate= "10-10-2017";
+
+
             firebase.auth().onAuthStateChanged(function(user) {
 
                 if (user && user.uid != currentUID) {  
                     currentUID = user.uid;
 
-                if ($("#respitory").is(":checked")) {
-                    console.log("hi");
-                }
 
                 $(document).on("click", "#add-user-data-btn", function(event){
 
-                usersRef.child(currentUID).set({   //database.ref(`users`/ + {uid}).set({ //change .set from .push and added + {$uid}
-                    name: userName,
-                
-                });
-                console.log("im being clicked");
+
+                    var datesInArray=[];
+                    var symptomsInArray=[];
+                    var weatherInArray=[];
+                    var hrInArray=[];
+                    var UIDRef = usersRef.child(currentUID);
+                    
+                    UIDRef.orderByKey().on("child_added", function(snapshot){
+
+                    // for (var values in snapshot.val()) {
+                    // }
+                        datesInArray.push(snapshot.key);
+                        symptomsInArray.push(JSON.stringify(snapshot.val()));
+                        // symptomsInArray.push(JSON.stringify(snapshot.val().manualEntries.symptoms));
+                        weatherInArray.push(JSON.stringify(snapshot.val().syncedEntries.weather.highTemp));
+                        hrInArray.push(JSON.stringify(snapshot.val().syncedEntries.fitbit.restingHR));
+                            // console.log("sleepInArray one " + sleepInArray); 
+
+                }); 
+
+                    UIDRef.on("value", function(snapshot){
+
+                    // console.log("datesInArray " + datesInArray);
+                    // console.log("symptomsInArray " + symptomsInArray);
+                    // console.log("weatherInArray " + weatherInArray);
+                    // console.log("hrInArray " + hrInArray);            
+
+
+                        var experiencedBefore=[];
+                        var historicalHighTemp=[];
+                        var highHR=[];
+                        console.log("number of children " + snapshot.numChildren());
+                            if (symptomsInArray.length===snapshot.numChildren()){
+                                for (var i=0; i<symptomsInArray.length;i++){
+                                    if (symptomsInArray[symptomsInArray.length-1]===symptomsInArray[i]){
+                                        experiencedBefore.push(datesInArray[i]);
+                                        historicalHighTemp.push(historicalHighTemp[i]);
+
+                                        if (highHR[i]>65) {
+                                            highHR.push(hrInArray[i]);
+                                        }
+
+                                    }
+                                }
+                                
+                                console.log("You have experienced this symptom on " + experiencedBefore + " and the high temp was " + historicalHighTemp);
+                                console.log("On " + highHR.length + " of those days, your resting HR was higher than  65" );   
+                            }
+
+                    })
+
+
+                    usersRef.child(currentUID).set({   //database.ref(`users`/ + {uid}).set({ //change .set from .push and added + {$uid}
+                        name: userName,
+                    
+                    });
+                    console.log("im being clicked");
 
                     var userLocation = $("#location").val().trim();   // this could tie to GOOGLE MAPS API
                     var userComment = $("#comments").val().trim();
@@ -250,8 +302,11 @@ var todaysDate= "10-10-2017";
                         usersRef.child(currentUID).child(todaysDate).update({ 
                             syncedEntries: { 
                                 weather : {
-                                highTemp: response.history.dailysummary[0].maxtempi,
-                                lowTemp: response.history.dailysummary[0].mintempi,
+                                    highTemp: response.history.dailysummary[0].maxtempi,
+                                    lowTemp: response.history.dailysummary[0].mintempi,
+                                },
+                                fitBit : {
+                                    restingHeartRate: "59",
                                 }
                             }
 
@@ -270,15 +325,50 @@ var todaysDate= "10-10-2017";
                     //     }
                     // });
 
+
+                if ($("input[name='respitory']:checked")) {
+                    console.log("respitory checked!")
+                    usersRef.child(currentUID).update({   //database.ref(`users`/ + {uid}).set({ //change .set from .push and added + {$uid}
+                        [todaysDate]: {
+                            manualEntries: {
+                                symptoms: "respitory",
+                                location: userLocation,
+                                comment: userComment,
+                            }
+                        }
+                    });
+                } else if ($("input[name='digestive']:checked")){
+                    usersRef.child(currentUID).update({   //database.ref(`users`/ + {uid}).set({ //change .set from .push and added + {$uid}
+                        [todaysDate]: {
+                            manualEntries: {
+                                symptoms: "digestive",
+                                location: userLocation,
+                                comment: userComment,
+                            }
+                        }
+                    });
+                } else if ($("input[name='neurological']:checked")) {
+                    usersRef.child(currentUID).update({   //database.ref(`users`/ + {uid}).set({ //change .set from .push and added + {$uid}
+                        [todaysDate]: {
+                            manualEntries: {
+                                symptoms: "neurological",
+                                location: userLocation,
+                                comment: userComment,
+                            }
+                        }
+                    });
+                } else {
                     usersRef.child(currentUID).update({   //database.ref(`users`/ + {uid}).set({ //change .set from .push and added + {$uid}
                         [todaysDate]: {
                             manualEntries: {
                                 location: userLocation,
                                 comment: userComment,
                             }
-
                         }
                     });
+                }
+
+
 
 
 
@@ -351,11 +441,11 @@ var todaysDate= "10-10-2017";
                         <label for="symptom">Health Symptom Input</label>
                         <br>
                         <label class="checkbox-inline symptom">
-                            <input type="checkbox" name="respitory" data-toggle="collapse" data-target="#respitory-collapse">Respitory</label>
+                            <input type="checkbox" name="respitory" data-toggle="collapse" data-target="#respitory-collapse" id="respitoryID">Respitory</label>
                         <label class="checkbox-inline symptom">
-                            <input type="checkbox" name="digestive" data-toggle="collapse" data-target="#digestive-collapse">Digestive</label>
+                            <input type="checkbox" name="digestive" data-toggle="collapse" data-target="#digestive-collapse" id="disgestiveID">Digestive</label>
                         <label class="checkbox-inline symptom">
-                            <input type="checkbox" name="neurological" data-toggle="collapse" data-target="#neurological-collapse">Neurological</label>
+                            <input type="checkbox" name="neurological" data-toggle="collapse" data-target="#neurological-collapse" id="neurologicalID">Neurological</label>
                         <label class="checkbox-inline symptom">
                             <input type="checkbox" name="malaise" data-toggle="collapse" data-target="#malaise-collapse">Malaise</label>
                         <div id="respitory-collapse" class="collapse">HAVE TONS OF INFO ON RESPITORY</div>
@@ -369,12 +459,12 @@ var todaysDate= "10-10-2017";
                         <textarea class="form-control" rows="5" id="comments"></textarea>
                     </div>
                         
-                    <div class="checkbox" id="alcohol">
+<!--                     <div class="checkbox" id="alcohol">
                         <label>
                             <input type="checkbox" value="" name="alcohol" id="alcoholCheckbox">Alcohol Consumption Today?</label>
-                    </div>
+                    </div> -->
                         
-                    <div class="form-group" id="activities">
+<!--                     <div class="form-group" id="activities">
                         <label for="activity">Daily Activity</label>
                             <br>
                         <label class="radio-inline activity">
@@ -386,7 +476,7 @@ var todaysDate= "10-10-2017";
                         <label class="radio-inline activity">
 
                             <input type="radio" name="heavy-exercise">Heavy Exercise</label>
-                     </div>
+                     </div> -->
                     </form>
 
                     <div class="modal-footer">
@@ -484,13 +574,7 @@ var todaysDate= "10-10-2017";
     <script>
       'use strict';
     // fitbit API
-        // get the url 
-        var url = window.location.href;
-        console.log(url);
-        //access token from url
-        var access_token = url.split("#")[1].split("=")[1].split("&")[0];
-        // get userid
-        var userId = url.split("#")[1].split("=")[2].split("&")[0];
+
         $.ajax({
           type: 'GET',
           beforeSend: function(request) {
@@ -501,16 +585,7 @@ var todaysDate= "10-10-2017";
               console.log(JSON.stringify(data));
             }
         });
-        $.ajax({
-          type: 'GET',
-          beforeSend: function(request) {
-             request.setRequestHeader("Authorization", 'Bearer ' + access_token);
-          },
-            url: "https://api.fitbit.com/1/user/"+userId+"/activities/heart/date/today/1w.json",
-            success:function(data, status, xhr){
-              console.log(JSON.stringify(data));
-            }
-        });
+
          $.ajax({
           type: 'GET',
           beforeSend: function(request) {
