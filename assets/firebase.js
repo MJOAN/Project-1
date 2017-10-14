@@ -1,63 +1,34 @@
+var database = firebase.database();
+var usersRef = database.ref("users");
 
-var database = firebase.database().ref();
+var manualEntries;
+var syncedEntries;
 
-$("#input-form").submit(function(event) {
-    event.preventDeafault();
-    console.log("hit");
+var currentUID = firebase.auth().currentUser;
+var displayName = "";
+var age = "";
+var email = "";
+var password = "";
 
-    var user = firebase.auth().currentUser;
-    
-    var activities = $("#activities").val();
-    var symptoms = $("#symptoms").val();
-    var alcohol = $("#alcohol").val();
-    var location = $("#location").val().trim();
-    var comments = $("#comments").val().trim();
-
-    console.log(location, "hit");
+var todaysDate = "10-13-17";
 
 
-    database.ref(`users/` + user.uid + `/form`).set({
-        activities: activities,
-        symptoms: symptoms,
-        location: location,
-        alcohol: alcohol,
-        comment: comments
+$("#click-button").on("click", function(event) {
+            event.preventDefault();
 
-    }).then(function(data) {
-        console.log(activities);
-         console.log("hit");
-    })
+            displayName = $("#name").val().trim();
+            age = $("#age").val().trim();
+            email = $("#email").val().trim();
+            password = $("#password").val().trim();
 
-/*  console.log(user.activities);
-    console.log(user.symptoms);
-    console.log(user.location);
-    console.log(user.comments);
-    console.log(user.alcohol);*/
+            usersRef.child(currentUID).set({
+                name: displayName,
+                age: age
+            }).then(function(data) {
+                console.log(data);
+                window.location.assign("index.html");
+            })
 
-    $("#activities").val("");
-    $("#symptoms").val("");
-    $("#location").val("");
-    $("#alcohol").val("");
-    $("#comments").val("");
-});
+            });
 
 
-database.once("child_added", function(childSnapshot, prevChildKey) {
-    console.log(childSnapshot.val());
-
-    var activities = childSnapshot.val().activities;
-    var symptoms = childSnapshot.val().symptoms;
-    var location = childSnapshot.val().location;
-    var alcohol = childSnapshot.val().alcohol;
-    var comments = childSnapshot.val().comments;
-
-    console.log(activities);
-    console.log(location);
-    console.log(symptoms);
-    console.log(alcohol);
-    console.log(comments);
-    
-        $("results").append("<tr><td>" + comments + "</td><td>" + activities + "</td><td>" +
-            location + "</td><td>" + symptoms + "</td><td>" + alcohol + "</td><td>"
-        );
-    });

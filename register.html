@@ -41,6 +41,7 @@
             
         var database = firebase.database();
         var name = "";
+        var currentUID = firebase.auth().currentUser;
         var age = "";
         var email = "";
         var password = "";
@@ -55,7 +56,7 @@
             age = $("#age").val().trim();
             var user = firebase.auth().currentUser;
 
-            database.ref(`users/` + user.uid).set({
+            database.ref(`users/` + currentUID).set({
                 name: name,
                 age: age,
             }).then(function(data) {
