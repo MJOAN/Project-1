@@ -3,7 +3,7 @@
 var database = firebase.database();
 var usersRef = database.ref("users");
 var currentUID = firebase.auth().currentUser;
-/*var uIDRef = usersRef.child(currentUID);
+/*var uIDRef = usersRef.child(currentUID);  // this called an error! not sure why! 
 var uIDRefName = uIDRef.child("Name");*/
 var syncedEntries;
 

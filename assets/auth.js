@@ -1,20 +1,43 @@
 var config = {
-    apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
-    authDomain: "project-1-7c513.firebaseapp.com",
-    databaseURL: "https://project-1-7c513.firebaseio.com",
-    projectId: "project-1-7c513",
-    storageBucket: "project-1-7c513.appspot.com",
-    messagingSenderId: "173560237058"
+apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
+authDomain: "project-1-7c513.firebaseapp.com",
+databaseURL: "https://project-1-7c513.firebaseio.com",
+projectId: "project-1-7c513",
+storageBucket: "project-1-7c513.appspot.com",
+messagingSenderId: "173560237058"
 };
+
 firebase.initializeApp(config);
 
+
+var database = firebase.database();
+var usersRef = database.ref("users");
+var currentUID = firebase.auth().currentUser;
 var auth = firebase.auth();
+var displayName, manualEntries;
+
 var register = $("#register-app");
 var logIn = $("#log-in");
 var logOut = $("#log-out");
 var displayName; 
-var currentUID = firebase.auth().currentUser;
 
+
+auth.onAuthStateChanged(function(user) {
+    user = window.user;
+    var name, email, photoUrl, currentUID;
+
+    if (user) {
+        name = user.displayName;
+        email = user.email;
+        photoUrl = user.photoUrl;
+        currentUID = user.uid; 
+        console.log("Welcome! " + name, "and UID:" + currentUID);
+    } else {
+        currentUID != user;
+        console.log("No user signed in.")
+        window.location.assign("index.html")
+        }
+    });
 
 var uiConfig = {
 
@@ -35,18 +58,16 @@ var uiConfig = {
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.TwitterAuthProvider.PROVIDER_ID
-        {
-            provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-            requireDisplayName: true
-        },
+        firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
 };
+
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 ui.start("#login-app", uiConfig);
 
 
-// register user & set fire
+// register, log or logout & set fire
 
 register.on("click", function(event) {
     event.preventDefault();
@@ -68,8 +89,9 @@ logIn.on("click", function(event) {
         $("#logIn").modal("hide");
         console.log("Hi, " + user.displayName)
         console.log("Registration Completed." + "UID is: " + user.uid);
-    }).catch(function(error) {
+    // do i want to push to firebase here?  - logging in a new day?! 
 
+    }).catch(function(error) {
         console.log(error);
     })
 
@@ -78,27 +100,13 @@ logOut.on("click", function(event) {
     auth.signOut().then(function() {
         console.log('Signed Out');
         $("#logOut").modal("hide");
+        window.location.replace("index.html");
     }, function(error) {
         console.error('Sign Out Error', error);
     });
 });
-
-
-
-auth.onAuthStateChanged(function(user) {
-    user = window.user;
-    var name, email, photoUrl, currentUID;
-
-    if (user) {
-        name = user.displayName;
-        email = user.email;
-        photoUrl = user.photoUrl;
-        currentUID = user.uid; //authenticate with User.getToken()
-        console.log("Welcome! " + name, "and UID:" + currentUIDname);
-    } else {
-        currentUID != user;
-        console.log("No user signed in. Please log in.")
-        window.location.assign("login.html")
-        }
-    };
 });
+
+
+
+
