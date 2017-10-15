@@ -1,9 +1,18 @@
+var config = {
+    apiKey: "AIzaSyAA1EgZPbbAMpIzWeVVtodHCqSjHy-G14c",
+    authDomain: "project-1-7c513.firebaseapp.com",
+    databaseURL: "https://project-1-7c513.firebaseio.com",
+    projectId: "project-1-7c513",
+    storageBucket: "project-1-7c513.appspot.com",
+    messagingSenderId: "173560237058"
+};
+firebase.initializeApp(config);
+
 var database = firebase.database();
 var usersRef = database.ref("users");
 var currentUID = firebase.auth().currentUser;
-
-
-var manualEntries;
+var auth = firebase.auth();
+var displayName, manualEntries;
 
 var comments = "";
 var location = "";

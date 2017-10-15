@@ -23,7 +23,7 @@ var uiConfig = {
             if (user) {
             console.log(user);
             } else {
-             console.log("Please register by clicking sign in.")
+             console.log("Please register by clicking sign up.")
             }
         },
     },
@@ -35,7 +35,7 @@ var uiConfig = {
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        firebase.auth.TwitterAuthProvider.PROVIDER_ID
         {
             provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
             requireDisplayName: true
@@ -44,6 +44,7 @@ var uiConfig = {
 };
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 ui.start("#login-app", uiConfig);
+
 
 // register user & set fire
 
@@ -82,28 +83,22 @@ logOut.on("click", function(event) {
     });
 });
 
-    auth.onAuthStateChanged(function(user) {
-        window.user = user;
-        var name, email, photoUrl, uid;
 
-        if (user != null) {
-            name = user.displayName;
-            email = user.email;
-            currentUID = user.uid; //authenticate with User.getToken()
+
+auth.onAuthStateChanged(function(user) {
+    user = window.user;
+    var name, email, photoUrl, currentUID;
+
+    if (user) {
+        name = user.displayName;
+        email = user.email;
+        photoUrl = user.photoUrl;
+        currentUID = user.uid; //authenticate with User.getToken()
+        console.log("Welcome! " + name, "and UID:" + currentUIDname);
+    } else {
+        currentUID != user;
+        console.log("No user signed in. Please log in.")
+        window.location.assign("login.html")
         }
-
-        if (user) {
-            console.log(currentUID);
-            if (user && user.uid != currentUID) {
-                console.log("Welcome! User UID:" + currentUID);
-            } else {
-                currentUID = null;
-                console.log("No user signed in.")
-                window.location.assign("login.html")
-            }
-        };
-    });
+    };
 });
-
-
-
