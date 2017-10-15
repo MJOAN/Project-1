@@ -4,7 +4,7 @@ var usersRef = database.ref("users");
 var todaysDate = [];
 var manualEntries;
 
-var currentUID = firebase.auth().currentUser;
+var currentUID = firebase.auth().currentUser.uid;
 var displayName = "";
 var age = "";
 var email = "";
@@ -41,6 +41,14 @@ $(document).on("click", "register-button", function(event) {
 
 $(document).on("click", "#add-user-data-btn", function(event) {
 
+    var datesInArray = [];
+    var activitiesInArray = [];
+    var symptomsInArray = [];
+    var weatherInArray = [];
+    var hrInArray = [];
+    var UIDRef = usersRef.child(currentUID);
+
+
     var location = $("#location").val().trim();
     var comments = $("#comments").val().trim();
 
@@ -61,8 +69,8 @@ $(document).on("click", "#add-user-data-btn", function(event) {
     usersRef.child(currentUID).update({
         [todaysDate]: {
             manualEntries: {
-                activities: [noExercise, lightExercise, modExercise, heavyExercise],
-                symptoms: [respitory, digestive, neurological, malaise],
+                activitiesInArray: [noExercise, lightExercise, modExercise, heavyExercise],
+                symptomsInArray: [respitory, digestive, neurological, malaise],
                 location: location,
                 alcohol: alcohol,
                 comment: comments
@@ -70,24 +78,50 @@ $(document).on("click", "#add-user-data-btn", function(event) {
         }
     });
 
-    console.log(currentUID.todaysDate.manualEntries.activities[0]);
-    console.log(currentUID.todaysDate.manualEntries.symptoms[0]);
-    console.log(currentUID.todaysDate.manualEntries.comments);
 
-
-
-    database.ref().on("value", function(snapshot) {
-
-        console.log(snapshot.val().displayName);
-        console.log(snapshot.val().activities);
-        console.log(snapshot.val().location);
-        console.log(snapshot.val().comments);
-
-        // Handle the errors
-    }, function(errorObject) {
-        console.log("Errors handled: " + errorObject.code);
+    UIDRef.orderByKey().on("child_added", function(snapshot) {
+        // for (var values in snapshot.val()) {
+        // }
+        datesInArray.push(snapshot.key);
+        symptomsInArray.push(JSON.stringify(snapshot.val()));
+        // symptomsInArray.push(JSON.stringify(snapshot.val().manualEntries.symptoms));
+        weatherInArray.push(JSON.stringify(snapshot.val().syncedEntries.weather.highTemp));
+        hrInArray.push(JSON.stringify(snapshot.val().syncedEntries.fitbit.restingHR));
+        // console.log("sleepInArray one " + sleepInArray); 
     });
 
+    UIDRef.on("value", function(snapshot) {
+        // console.log("datesInArray " + datesInArray);
+        // console.log("symptomsInArray " + symptomsInArray);
+        // console.log("weatherInArray " + weatherInArray);
+        // console.log("hrInArray " + hrInArray);            
+        var experiencedBefore = [];
+        var historicalHighTemp = [];
+        var highHR = [];
+        console.log("number of children " + snapshot.numChildren());
+
+
+        if (symptomsInArray.length === snapshot.numChildren()) {
+            for (var i = 0; i < symptomsInArray.length; i++) {
+                if (symptomsInArray[symptomsInArray.length - 1] === symptomsInArray[i]) {
+                    experiencedBefore.push(datesInArray[i]);
+                    historicalHighTemp.push(historicalHighTemp[i]);
+                    if (highHR[i] > 65) {
+                        highHR.push(hrInArray[i]);
+                    }
+                }
+            }
+
+            console.log("You have experienced this symptom on " + experiencedBefore + " and the high temp was " + historicalHighTemp);
+            console.log("On " + highHR.length + " of those days, your resting HR was higher than  65");
+        
+    };
 });
 
 
+    // Handle the errors
+    }, function(errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+    };
+
+});

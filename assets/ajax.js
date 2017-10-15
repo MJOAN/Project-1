@@ -2,16 +2,14 @@
 
 var database = firebase.database();
 var usersRef = database.ref("users");
+var currentUID = firebase.auth().currentUser.uid;
 var uIDRef = usersRef.child(currentUID);
 var uIDRefName = uIDRef.child("name");
-var syncedEntries;
-
-startAuthListenerMain();
+var syncedEntries, fitBit;
 
 // use moment library for today
 
 var todaysDate = moment($("#entry-date").val().trim(), "DD/MM/YY").format("X");
-var currentUID = firebase.auth().currentUser;
 
 
     var url = window.location.href;
@@ -80,6 +78,9 @@ var currentUID = firebase.auth().currentUser;
                 }
             });
 
+            console.log(userRef.syncedEntries.weather.highTemp);
+            console.log(userRef.syncedEntries.weather.lowTemp);
+
 
     var weatherQueryURL = "https://api.wunderground.com/api/f8b3b3389929c977/history_" 
     + todaysDate + "/geolookup/q/autoip.json";
@@ -104,8 +105,13 @@ var currentUID = firebase.auth().currentUser;
                         lowTemp: response.history.dailysummary[0].mintempi
                 }
             }
-        });
-
+   
+                fitBit: {
+                    restingHeartRate: "59",
+            };
+                                
+                                
+                                                
 
     // AQI
     $.ajax({
@@ -127,7 +133,6 @@ var currentUID = firebase.auth().currentUser;
             }
         }
     });
-
 
 
 

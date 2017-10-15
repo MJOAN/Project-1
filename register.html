@@ -46,17 +46,13 @@
         var age = "";
         var email = "";
         var password = "";
-
+        
         startAuthServerRegister();
-
         $("#register-form").submit(function(event) {
-
             event.preventDefault();
-
             name = $("#name").val().trim();
             age = $("#age").val().trim();
             var user = firebase.auth().currentUser;
-
             userRef.child(currentUID).set({
                 name: name,
                 age: age,
@@ -64,7 +60,6 @@
                 console.log(data);
                 window.location.assign("index.html");
             })
-
         });
         </script>
     </body>

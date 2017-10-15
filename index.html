@@ -3,7 +3,7 @@
 
 <head>
     <title>Date Entry</title>
-    <!-- Google Signin -->
+    <!-- for google integration sign in -->
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- Bootstrap CDN-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
@@ -22,7 +21,7 @@
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
     <br>
     <br>
-    <!--Navbar for mobile display -->
+    <!--Navbar for mobil display -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class='navbar-header'>
@@ -41,193 +40,203 @@
                     <li><a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=228M7G&redirect_uri=https%3A%2F%2Fmjoan.github.io%2FProject-1%2Findex.html&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800"> 
                     <span class="glyphicon glyphicon-refresh"></span> Sync with your FitBit</a>
                     </li>
-                    <li><a href="#" id="login" role="button" class="btn" data-toggle="modal" data-target="#logIn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><a href="#" id="sign-out" role="button" class="btn" data-toggle="modal" data-target="#logOut"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                    <li><a href="#" role="button" class="btn" data-toggle="modal" data-target="#logIn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="#" role="button" class="btn" data-toggle="modal" data-target="#logOut"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                     </li>
                 </ul>
             </div>
     </nav>
-    <div class="modal fade" id="login">
-
-        <body>
-            <div class="container">
-                <br>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Log In Authentication</h3>
-                            </div>
-                            <div class="panel-body">
-                                <!--this is the ID for form submit 'login app & login button-->
-                                <form id="login-app">
-                                    <div class="panel-body">
-                                        <button id="login-button" type="submit">Login</button>
-                                </form>
-                                </div>
-                            </div>
+    <div class="modal fade" id="logOut">
+        <div class="container">
+            <br>
+            <button id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect">Log In</button>
+        </div>
+    </div>
+    <div class="modal fade" id="logIn">
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Log In Authentication</h3>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="register">
-                <div class="container">
-                    <br>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Registration Form</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <form id="register-app">
-                                        <!--this is the ID for form submit 'register app & register button-->
-                                        <div class="form-group">
-                                            <label for="name">Name:</label>
-                                            <input class="form-control" id="name" type="text">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="age">Age:</label>
-                                            <input class="form-control" id="age" type="number">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">Email:</label>
-                                            <input class="form-control" id="email" type="text">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password">Password:</label>
-                                            <input class="form-control" id="password" type="text">
-                                        </div>
-                                        <button id="register-button" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Register</button>
-                                    </form>
-                                </div>
-                            </div>
+                        <div class="panel-body">
+                            <form id="login-app">
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div id="myModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Health Tracker<div class="daySelected" style="color: white"></div></h4>
-                        </div>
-                        <form id="action" id="input-form">
-                            <div class="form-group">
-                                <label for="location">Location</label>
-                                <input class="form-control" id="location" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label for="symptom">Health Symptom Input</label>
-                                <br>
-                                <label class="checkbox-inline symptom">
-                                    <input type="checkbox" name="respitory" data-toggle="collapse" data-target="#respitory-collapse">Respitory</label>
-                                <label class="checkbox-inline symptom">
-                                    <input type="checkbox" name="digestive" data-toggle="collapse" data-target="#digestive-collapse">Digestive</label>
-                                <label class="checkbox-inline symptom">
-                                    <input type="checkbox" name="neurological" data-toggle="collapse" data-target="#neurological-collapse">Neurological</label>
-                                <label class="checkbox-inline symptom">
-                                    <input type="checkbox" name="malaise" data-toggle="collapse" data-target="#malaise-collapse">Malaise</label>
-                                <div name="respitory-collapse" class="collapse">Respitory</div>
-                                <div id="digestive-collapse" class="collapse">Digestive</div>
-                                <div id="neurological-collapse" class="collapse">Neurological</div>
-                                <div id="malaise-collapse" class="collapse">Malaise</div>
-                            </div>
-                            <div class="form-group" id="comments">
-                                <label for="comment">Comment (optional): </label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="color:#eaa54c" data-toggle="tooltip" title="Add additional information for your eyes only!"></span>
-                                <textarea class="form-control" rows="5" name="comments"></textarea>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="false" name="alcohol" id="alcoholCheckbox">Alcohol Consumption Today?</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="activity">Daily Activity</label>
-                                <br>
-                                <label class="radio-inline activity">
-                                    <input type="radio" name="no-exercise">No Exercise</label>
-                                <label class="radio-inline activity">
-                                    <input type="radio" name="light-exercise">Light Exercise</label>
-                                <label class="radio-inline activity">
-                                    <input type="radio" name="mod-exercise">Moderate Exercise</label>
-                                <label class="radio-inline activity">
-                                    <input type="radio" name="heavy-exercise">Heavy Exercise</label>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect"></button>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="register">
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Registration Form</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="register-app">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input class="form-control" id="name" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Age:</label>
+                                    <input class="form-control" id="age" type="number">
+                                </div>
+                                <!-- Submit Button -->
+                                <button id="click-button" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Register</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Data Storage Management -->
-            <div class="data-display panel panel-default fadeIn">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Data Management <button class="btn btn-default" id="backCalendar">Go Back To Calendar</button></h3>
-                    <h3 class='daySelected' value=""></h3>
+        </div>
+    </div>
+
+    <!-- 
+            88b           d88   ,ad8888ba,   88888888ba,        db        88           
+            888b         d888  d8"'    `"8b  88      `"8b      d88b       88           
+            88`8b       d8'88 d8'        `8b 88        `8b    d8'`8b      88           
+            88 `8b     d8' 88 88          88 88         88   d8'  `8b     88           
+            88  `8b   d8'  88 88          88 88         88  d8YaaaaY8b    88           
+            88   `8b d8'   88 Y8,        ,8P 88         8P d8""""""""8b   88           
+            88    `888'    88  Y8a.    .a8P  88      .a8P d8'        `8b  88           
+            88     `8'     88   `"Y8888Y"'   88888888Y"' d8'          `8b 88888888888  
+     -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Health Tracker<div class="daySelected" style="color: white"></div></h4>
                 </div>
-                <div class="panel-body">
-                    <form>
-                        <div class="form-group location-div">
-                            <label for="location">Location of Entry</label>
-                            <h1>THE ANGELS</h1>
-                        </div>
-                        <div class="form-group">
-                            <label for="symptom">Health Symptom Input</label>
-                            <h1>coughing, cold sweats</h1>
-                        </div>
-                        <div class="form-group">
-                            <label for="comment">Comment:</label>
-                            <p> Ian! Your comments were amazing!! </p>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="false" name="alcohol">Alcohol Consumption Today?</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="activity">Daily Activity</label>
+                <form id="action" id="input-form">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input class="form-control" id="location" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="symptom">Health Symptom Input</label>
+                        <br>
+                        <label class="checkbox-inline symptom">
+                            <input type="checkbox" name="respitory" data-toggle="collapse" data-target="#respitory-collapse" id="respitoryID">Respitory</label>
+                        <label class="checkbox-inline symptom">
+                            <input type="checkbox" name="digestive" data-toggle="collapse" data-target="#digestive-collapse" id="disgestiveID">Digestive</label>
+                        <label class="checkbox-inline symptom">
+                            <input type="checkbox" name="neurological" data-toggle="collapse" data-target="#neurological-collapse" id="neurologicalID">Neurological</label>
+                        <label class="checkbox-inline symptom">
+                            <input type="checkbox" name="malaise" data-toggle="collapse" data-target="#malaise-collapse">Malaise</label>
+                        <div id="respitory-collapse" class="collapse">HAVE TONS OF INFO ON RESPITORY</div>
+                        <div id="digestive-collapse" class="collapse">WANNA KNOW ABOUT DIGESTIVE?! I GOT YOU</div>
+                        <div id="neurological-collapse" class="collapse">LOUD NOISES. BRAIN HURTS</div>
+                        <div id="malaise-collapse" class="collapse">WHY THE FUCK IS MY FEVER AT 105?!</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Comment (optional): </label><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="color:#eaa54c" data-toggle="tooltip" title="Add additional information for your eyes only!"></span>
+                        <textarea class="form-control" rows="5" id="comments"></textarea>
+                    </div>
+                    <!--                     <div class="checkbox" id="alcohol">
+                        <label>
+                            <input type="checkbox" value="" name="alcohol" id="alcoholCheckbox">Alcohol Consumption Today?</label>
+                    </div> -->
+                    <!--                     <div class="form-group" id="activities">
+                        <label for="activity">Daily Activity</label>
                             <br>
-                            <label class="radio-inline activity">
-                                <input type="radio" name="no-exercise">No Exercise</label>
-                            <label class="radio-inline activity">
-                                <input type="radio" name="light-exercise">Light Exercise</label>
-                            <label class="radio-inline activity">
-                                <input type="radio" name="mod-exercise">Moderate Exercise</label>
-                            <label class="radio-inline activity">
-                                <input type="radio" name="heavy-exercise">Heavy Exercise</label>
-                        </div>
+                        <label class="radio-inline activity">
+                            <input type="radio" name="no-exercise">No Exercise</label>
+                        <label class="radio-inline activity">
+                            <input type="radio" name="light-exercise">Light Exercise</label>
+                        <label class="radio-inline activity">
+                            <input type="radio" name="mod-exercise">Moderate Exercise</label>
+                        <label class="radio-inline activity">
+                            <input type="radio" name="heavy-exercise">Heavy Exercise</label>
+                     </div> -->
+                    <div class="modal-footer">
                         <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button>
-                        <button class="btn btn-info" id="d3Button" type="button">Additional Info</button>
-                    </form>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
                 </div>
             </div>
-            <!-- Calendar -->
-            <div id="calendar"></div>
-            <footer class="footer">
-                <div class="container">
-                    <span class="text-muted">&copy; H1N1 2017</span>
+        </div>
+    </div>
+    <!-- Data Storage Management -->
+    <div class="data-display panel panel-default fadeIn">
+        <div class="panel-heading">
+            <h3 class="panel-title">Data Management <button class="btn btn-default" id="backCalendar">Go Back To Calendar</button></h3>
+            <h3 class='daySelected' value=""></h3>
+        </div>
+        <div class="panel-body">
+            <form>
+                <div class="form-group location-div">
+                    <label for="location">Location of Entry</label>
+                    <h1>THE ANGELS</h1>
                 </div>
-            </footer>
-            <!-- Moment.js -->
-            <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-            <!-- Firebase UI Widget-->
-            <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
-            <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
-            <!-- Firebase SDK -->
-            <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-            <!-- D3 - Firebase - AJAX -->
-            <script src="https://d3js.org/d3.v4.min.js"></script>
-            <script src="vendor/clndr.js"></script>
-            <script src="assets/javascript/logic.js"></script>
-            <script src="assets/javascript/d3.js"></script>
-            <script src="assets/firebase.js"></script>
-            <script src="assets/auth.js"></script>
-            <script src="assets/ajax.js"></script>
-        </body>
+                <div class="form-group">
+                    <label for="symptom">Health Symptom Input</label>
+                    <h1>coughing, cold sweats</h1>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Comment:</label>
+                    <p> Ian! Your comments were amazing!! </p>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="false" name="alcohol">Alcohol Consumption Today?</label>
+                </div>
+                <div class="form-group">
+                    <label for="activity">Daily Activity</label>
+                    <br>
+                    <label class="radio-inline activity">
+                        <input type="radio" name="no-exercise">No Exercise</label>
+                    <label class="radio-inline activity">
+                        <input type="radio" name="light-exercise">Light Exercise</label>
+                    <label class="radio-inline activity">
+                        <input type="radio" name="mod-exercise">Moderate Exercise</label>
+                    <label class="radio-inline activity">
+                        <input type="radio" name="heavy-exercise">Heavy Exercise</label>
+                </div>
+                <button class="btn btn-primary" id="add-user-data-btn" type="submit">Submit</button>
+                <button class="btn btn-info" id="d3Button" type="button">Additional Info</button>
+            </form>
+        </div>
+    </div>
+    <!-- Calendar -->
+    <div id="results"></div>
+    <div class="container">
+        <div id="calendar">
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">&copy; H1N1 2017</span>
+        </div>
+    </footer>
+    <!-- Test Button -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Link to Moment.js should go here -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="vendor/clndr.js"></script>
+    <script src="assets/javascript/logic.js"></script>
+    <script src="assets/javascript/d3.js"></script>
+    <script src="assets/auth.js"></script>
+    <script src="assets/ajax.js"></script>
+    <script src="assets/firebase.js"></script>
+</body>
 
 </html>
