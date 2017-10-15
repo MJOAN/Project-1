@@ -2,14 +2,14 @@
 
 var database = firebase.database();
 var usersRef = database.ref("users");
-var currentUID = firebase.auth().currentUser.uid;
-var uIDRef = usersRef.child(currentUID);
-var uIDRefName = uIDRef.child("name");
-var syncedEntries, fitBit;
+var currentUID = firebase.auth().currentUser;
+/*var uIDRef = usersRef.child(currentUID);
+var uIDRefName = uIDRef.child("Name");*/
+var syncedEntries;
 
 // use moment library for today
 
-var todaysDate = moment($("#entry-date").val().trim(), "DD/MM/YY").format("X");
+var todaysDate = moment($("#entry-date").val(), "DD/MM/YY").format("X");
 
 
     var url = window.location.href;
@@ -75,6 +75,7 @@ var todaysDate = moment($("#entry-date").val().trim(), "DD/MM/YY").format("X");
                         highTemp: response.history.dailysummary[0].maxtempi,
                         lowTemp: response.history.dailysummary[0].mintempi
                     }
+                    /*fitBitDisplay: restingHeartRate: "59",*/
                 }
             });
 
@@ -105,17 +106,13 @@ var todaysDate = moment($("#entry-date").val().trim(), "DD/MM/YY").format("X");
                         lowTemp: response.history.dailysummary[0].mintempi
                 }
             }
-   
-                fitBit: {
-                    restingHeartRate: "59",
-            };
-                                
-                                
-                                                
+            });
+
+    var aqiURL = "https://api.waqi.info/feed/here/?token=593a9ac142943ace1b66178b02174bd1671dd07f";
 
     // AQI
     $.ajax({
-            url: "https://api.waqi.info/feed/here/?token=593a9ac142943ace1b66178b02174bd1671dd07f",
+            url: aqiURL,
             method: "GET"
         })
         // the url above grabs the user's ip's address to determine its location
@@ -129,7 +126,7 @@ var todaysDate = moment($("#entry-date").val().trim(), "DD/MM/YY").format("X");
                 syncedEntries: {
                     weather: {
                         highTemp: response.history.dailysummary[0].maxtempi,
-                        lowTemp: response.history.dailysummary[0].mintempi,
+                        lowTemp: response.history.dailysummary[0].mintempi
             }
         }
     });

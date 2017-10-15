@@ -1,45 +1,23 @@
 var database = firebase.database();
 var usersRef = database.ref("users");
+var currentUID = firebase.auth().currentUser;
 
-var todaysDate = [];
+
 var manualEntries;
 
-var currentUID = firebase.auth().currentUser.uid;
-var displayName = "";
-var age = "";
-var email = "";
-var password = "";
 var comments = "";
 var location = "";
-
 var inputForm = $("#input-form");
-var registerForm = $("#register-app");
-var loginForm = $("#login-app");
 
 var respitory, digestive, neurological,
     malaise, comments, alcohol, noExercise,
     lightExercise, modExercise, heavyExercise;
 
 
-// register user
-
-$(document).on("click", "register-button", function(event) {
-    event.preventDefault();
-
-    displayName = $("#name").val().trim();
-    age = $("#age").val().trim();
-    email = $("#email").val().trim();
-    password = $("#password").val().trim();
-
-    usersRef.child(currentUID).set({
-        name: displayName,
-        age: age
-    });
-});
-
 // input form
 
-$(document).on("click", "#add-user-data-btn", function(event) {
+inputForm.on("click", "#add-user-data-btn", function(event) {
+    console.log("solo");
 
     var datesInArray = [];
     var activitiesInArray = [];
@@ -47,7 +25,6 @@ $(document).on("click", "#add-user-data-btn", function(event) {
     var weatherInArray = [];
     var hrInArray = [];
     var UIDRef = usersRef.child(currentUID);
-
 
     var location = $("#location").val().trim();
     var comments = $("#comments").val().trim();
@@ -78,8 +55,15 @@ $(document).on("click", "#add-user-data-btn", function(event) {
         }
     });
 
+    console.log(todaysDate.manualEntries.activitiesInArray[0]);
+    console.log(location);
+    console.log(comment);
+});
 
-    UIDRef.orderByKey().on("child_added", function(snapshot) {
+
+    // nicole's logic for symptoms/days/activities
+
+/*    UIDRef.orderByKey().on("child_added", function(snapshot) {
         // for (var values in snapshot.val()) {
         // }
         datesInArray.push(snapshot.key);
@@ -118,10 +102,9 @@ $(document).on("click", "#add-user-data-btn", function(event) {
     };
 });
 
-
-    // Handle the errors
+*/
+/*    // Handle the errors
     }, function(errorObject) {
     console.log("Errors handled: " + errorObject.code);
-    };
-
-});
+    });
+*/
