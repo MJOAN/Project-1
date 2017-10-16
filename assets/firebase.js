@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+    console.log( "ready!" );
+    initApp();
+
+
 
 var database = firebase.database();
 var usersRef = database.ref("users");
@@ -12,6 +17,28 @@ var inputForm = $("#input-form");
 var respitory, digestive, neurological,
     malaise, comments, alcohol, noExercise,
     lightExercise, modExercise, heavyExercise;
+
+
+var currentUID = null;
+var initApp = function() {
+    auth.onAuthStateChanged(function(user) {
+        user = window.user;
+        var name, email, photoUrl, currentUID;
+
+        if (user) {
+            name = user.displayName;
+            email = user.email;
+            photoUrl = user.photoUrl;
+            currentUID = user.uid; 
+        if (user && user.uid != currentUID) {
+            console.log("Welcome UID:" + currentUID);
+        } else {
+            currentUID = null;
+            console.log("No user signed in.")
+            window.location.assign("login.html")
+
+            }
+        };
 
 
 // input form
@@ -60,10 +87,15 @@ inputForm.on("click", "#add-user-data-btn", function(event) {
     console.log(comment);
 });
 
+ // Handle the errors
+    }, function(errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+    });
+};
+});
 
     // nicole's logic for symptoms/days/activities
-
-/*    UIDRef.orderByKey().on("child_added", function(snapshot) {
+    /*UIDRef.orderByKey().on("child_added", function(snapshot) {
         // for (var values in snapshot.val()) {
         // }
         datesInArray.push(snapshot.key);
@@ -100,11 +132,4 @@ inputForm.on("click", "#add-user-data-btn", function(event) {
             console.log("On " + highHR.length + " of those days, your resting HR was higher than  65");
         
     };
-});
-
-*/
-/*    // Handle the errors
-    }, function(errorObject) {
-    console.log("Errors handled: " + errorObject.code);
-    });
-*/
+}); */

@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+    console.log( "ready!" );
+
+
+
 'use strict';
 
 var database = firebase.database();
@@ -138,4 +143,4 @@ var todaysDate = moment($("#entry-date").val(), "DD/MM/YY").format("X");
 
 
 
-
+});

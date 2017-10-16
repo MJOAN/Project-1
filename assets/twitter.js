@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+    console.log( "ready!" );
+
+
 /*
 Copyright Github: https://github.com/BoyCook/TwitterJSClient/blob/master/lib/Twitter.js
 S T A T E Twitter Credentials: 
@@ -234,3 +238,5 @@ Twitter.prototype.buildQS = function (params) {
 if (!(typeof exports === 'undefined')) {
     exports.Twitter = Twitter;
 }
+
+});

@@ -1,3 +1,6 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+console.log("ready!");
+
 /*
 S T A T E Facebook Credentials: 
 // API Key: 180500585843587
@@ -8,8 +11,7 @@ var auth = firebase.auth();
 var displayName;
 var currentUID = firebase.auth().currentUser;
 
-
-// facebook dev code
+// facebook developer code
 
 function statusChangeCallback(response) {
     console.log('statusChangeCallback');
@@ -20,7 +22,7 @@ function statusChangeCallback(response) {
         testAPI();
     } else {
         console.log("Error signing in with Facebook.")
-        window.location.assign("login.html")   
+        window.location.assign("login.html")
     }
 }
 
@@ -43,22 +45,22 @@ FB.Event.subscribe('auth.authResponseChange', checkLoginState);
 FB.getLoginStatus(checkLoginStatus);
 
 function authUser() {
-    FB.login(checkLoginStatus, { scope: 'email' });
-}
+FB.login(checkLoginStatus, { scope: 'email' });
+};
 
 // Load the SDK asynchronously
 (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
 
-// Here we run a very simple test of the Graph API after login is
-// successful.  See statusChangeCallback() for when this call is made.
+    // simple test of the Graph API after login is successful
+    // view  statusChangeCallback() for docs
 
 function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
@@ -69,39 +71,64 @@ function testAPI() {
     });
 }
 
-function checkLoginState(event) {
-    if (event.authResponse) {
-    var unsubscribe = auth.onAuthStateChanged(function(currentUID) {
-    unsubscribe();
-    if (!isUserEqual(event.authResponse, currentUID)) {
+    // this code checks for re-authentication
 
-        var credential = firebase.auth.FacebookAuthProvider.credential(
-            event.authResponse.accessToken);
+FB.login(function(response) {}, { auth_type: 'reauthenticate' })
 
-    auth.signInWithCredential(credential).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-    if (errorCode === 'auth/account-exists-with-different-credential') {
-        alert('You have already signed up with a different provider for that email.');
-    } else {
-        console.error(error);
-        auth.signOut();
-    }
+
+function checkNonce(access_token) {
+    $.post('checkNonce.php', { access_token: access_token }, function(data) {
+        if (data == 1) {
+            console.log('The user has been successfully re-authenticated.');
+            FB.api('/me', function(response) {
+                console.log('Good to see you, ' + response.name + '.');
+            });
+        } else {
+            console.log('The nonce has been used before. Re-authentication failed.');
+        }
+    });
 }
 
+// this code checks log in state with token
+
+function checkLoginState(event) {
+    if (event.authResponse) {
+        var unsubscribe = auth.onAuthStateChanged(function(currentUID) {
+            unsubscribe();
+            if (!isUserEqual(event.authResponse, currentUID)) {
+
+                var credential = firebase.auth.FacebookAuthProvider.credential(
+                    event.authResponse.accessToken);
+
+                auth.signInWithCredential(credential).catch(function(error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    var email = error.email;
+                    var credential = error.credential;
+                    if (errorCode === 'auth/account-exists-with-different-credential') {
+                        alert('You have already signed up with a different provider for that email.');
+                    } else {
+                        console.error(error);
+                        auth.signOut();
+                    }
+                });
+            }
+        })
+    }
+}
 
 function authUser(user) {
     user = window.user
     if (user) {
         var providerData = user.providerData;
-    for (var i = 0; i < providerData.length; i++) {
-        if (providerData[i].providerId === firebase.auth.FacebookAuthProvider.PROVIDER_ID &&
-            providerData[i].uid === facebookAuthResponse.userID) {
-            return true;
+        for (var i = 0; i < providerData.length; i++) {
+            if (providerData[i].providerId === firebase.auth.FacebookAuthProvider.PROVIDER_ID &&
+                providerData[i].uid === facebookAuthResponse.userID) {
+                return true;
+            }
         }
     }
-}
     return false;
 }
+
+});

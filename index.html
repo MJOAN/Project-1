@@ -3,23 +3,20 @@
 
 <head>
     <title>Date Entry</title>
-    <!-- for google integration sign in -->
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <!--Facebook SDK
-    <script src="//connect.facebook.net/en_US/sdk.js"></script>-->
     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- CSS Style Pages -->
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- Bootstrap CDN-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
+    <!-- JS script -->
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -51,10 +48,11 @@
                 </ul>
             </div>
     </nav>
+
     <div class="modal fade" id="logOut">
         <div class="container">
             <br>
-            <button id="log-out" class="mdl-button mdl-js-button mdl-js-ripple-effect">Log In</button>
+            <button id="logout-btn" class="mdl-button mdl-js-button mdl-js-ripple-effect">Log Out</button>
         </div>
     </div>
 
@@ -69,10 +67,11 @@
                             <h3 class="panel-title">Log In Authentication</h3>
                         </div>
                         <div class="panel-body">
-                            <form id="login-app">
+                            <form id="login-app"> </form>
                         </div>
-                        <button id="log-in" class="mdl-button mdl-js-button mdl-js-ripple-effect"></button>
-                        </form>
+                        <button id="login-btn" class="mdl-button mdl-js-button mdl-js-ripple-effect"></button>
+
+                       
                     </div>
                 </div>
             </div>
@@ -230,24 +229,27 @@
             <span class="text-muted">&copy; H1N1 2017</span>
         </div>
     </footer>
-    <!-- Moment.js  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
+    <!-- JQuery Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Moment Calendar Underscore JQuery Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>  
-
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="vendor/clndr.js"></script> 
     <!-- Firebase -->
     <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
-    <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
-    <script src="assets/auth.js"></script>
-    <script src="assets/firebase.js"></script> 
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="vendor/clndr.js"></script>
-    <script src="assets/javascript/logic.js"></script>
-    <script src="assets/javascript/d3.js"></script>
-    <!--<script src="assets/twitter.js"></script>
-    <script src="assets/ajax.js"></script>  
-    <script src="assets/facebook.js"></script> -->
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" async defer/>
+    <script type="text/javascript" src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
+    <script type="text/javascript" src="assets/auth.js"></script>
+    <script type="text/javascript" src="assets/firebase.js"></script> 
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript" src="assets/javascript/logic.js"></script>
+    <script type="text/javascript" src="assets/javascript/d3.js"></script> 
+    <!--<script src="assets/twitter.js"></script>-->
+    <script src="assets/ajax.js"></script>
+    <script src="assets/facebook.js"></script>
     
 </body>
 
